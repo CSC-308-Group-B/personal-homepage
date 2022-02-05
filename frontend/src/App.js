@@ -1,5 +1,7 @@
 import logo from './logo.svg';
-import './App.css';
+import Card from 'react-bootstrap/Card';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styling/App.scss';
 
 function App() {
   return (
@@ -8,7 +10,16 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
-        </p>
+         </p>
+         <Card style={{ width: '18rem', color: 'black' }}>
+            <Card.Body>
+                <Card.Title>Card Title</Card.Title>
+                <Card.Text>
+                    Some quick example text to build on the card title and make up the bulk of
+                    the card's content.
+                </Card.Text>
+            </Card.Body>
+        </Card>
         <a
           className="App-link"
           href="https://reactjs.org"

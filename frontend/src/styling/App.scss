@@ -1,5 +1,8 @@
+@import 'variables.scss';
+
 .App {
   text-align: center;
+  font-family: $font-stack;
 }
 
 .App-logo {
@@ -14,7 +17,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: $black;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -26,6 +29,10 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.Card{
+    background-color: $black;
 }
 
 @keyframes App-logo-spin {
