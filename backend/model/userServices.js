@@ -1,5 +1,4 @@
 require('dotenv').config();
-console.log(process.env);
 const mongoose = require('mongoose');
 const UserSchema = require("./userSchema");
 
