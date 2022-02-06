@@ -35,7 +35,7 @@ app.post('/u', async (req, res) => {
     if (newUser) {
         res.status(201).send(newUser);
     } else {
-        res.status(500).end();
+        res.status(500).send(`Untable to add new user.`);
     }
 })
 
@@ -43,6 +43,24 @@ app.delete('/u/:id', async (req, res) => {
     const result = await userServices.deleteUserById(req.params.id);
     if (result) {
         res.status(204).send();
+    } else {
+        res.status(404).send();
+    }
+});
+
+app.post('/u/:id/tiles', async (req, res) => {
+    const result = await userServices.addTileToUserById(req.params.id, req.body);
+    if (result) {
+        res.status(201).send(result);
+    } else {
+        res.status(500).send(`Unable to add tile to user.`);
+    }
+});
+
+app.delete('/u/:id/tiles', async (req, res) => {
+    const result = await userServices.removeTileFromUserByIds(req.params.id, req.body._id);
+    if (result) {
+        res.status(204).send(result);
     } else {
         res.status(404).send();
     }

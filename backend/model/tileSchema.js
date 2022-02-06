@@ -11,9 +11,6 @@ const TileSchema = new mongoose.Schema(
             type: Number,
             required: true,
         }
-    },
-    {
-        collection : 'users'
     }
 );
 

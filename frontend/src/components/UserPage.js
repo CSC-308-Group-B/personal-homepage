@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+// import React, {useState} from 'react';
 import {Container, Row, Col} from 'react-bootstrap'
 import Tile from './tiles/Tile'
 
@@ -11,7 +11,7 @@ function UserPage(props) {
             <Row className="g-3">
                 {tiles.map((tile, index) => { 
                     return (
-                        <Col className={`tile-index-${index}`} xs={12} sm={tile.width * 6} md={tile.width * 4} lg={tile.width * 3}>{ Tile(tile) }</Col>
+                        <Col className={`tile-index-${index}`} key={index} xs={12} sm={tile.width * 6} md={tile.width * 4} lg={tile.width * 3}>{ Tile(tile) }</Col>
                     );
                 })}
             </Row>
