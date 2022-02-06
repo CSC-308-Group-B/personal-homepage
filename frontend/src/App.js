@@ -19,6 +19,53 @@ function App() {
   }, [] );
 
   async function getUser() {
+    //to save database usage, here is a sample user object. comment it out if you'd like to truly interact w/ the db
+    return {
+      name: "Test User",
+      tiles: [
+        {
+          tileType: "anything",
+          width: 2
+        },
+        {
+          tileType: "not",
+          width: 1
+        },
+        {
+          tileType: "defined",
+          width: 1
+        },
+        {
+          tileType: "will",
+          width: 2
+        },
+        {
+          tileType: "render",
+          width: 2
+        },
+        {
+          tileType: "as",
+          width: 3
+        },
+        {
+          tileType: "the",
+          width: 4
+        },
+        {
+          tileType: "default",
+          width: 1
+        },
+        {
+          tileType: "tile",
+          width: 2
+        },
+        {
+          tileType: "delete me",
+          width: 7
+        }
+      ]
+    }
+
     try {
       //right now we'll just be using our "Test User" (until we get user auth up and running)
       const response = await axios.get('http://localhost:5000/u/620058e9e8467fb0832830c5');
