@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 // import Card from 'react-bootstrap/Card';
-import Tile from './Tile'
+import UserPage from './components/UserPage'
+import SignIn from './components/SignIn'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styling/App.scss';
 
@@ -11,65 +12,52 @@ function App() {
     id: "123abc",
     tiles: [
       {
-        tileType: "blank",
+        tileType: "anything",
         width: 2,
-        height: 4,
       },
       {
-        tileType: "blank",
+        tileType: "not",
         width: 1,
-        height: 2,
       },
       {
-        tileType: "blank",
+        tileType: "defined",
         width: 1,
-        height: 2,
       },
       {
-        tileType: "blank",
+        tileType: "will",
         width: 2,
-        height: 3,
       },
       {
-        tileType: "blank",
+        tileType: "render",
         width: 2,
-        height: 1,
       },
       {
-        tileType: "blank",
+        tileType: "as",
         width: 3,
-        height: 1,
+      },
+      {
+        tileType: "the",
+        width: 4,
+      },
+      {
+        tileType: "default",
+        width: 1,
+      },
+      {
+        tileType: "tile",
+        width: 2,
       },
     ]
   };
-
-  //if the user and their tile list is defined, render each tile
-  let content = "";
-  if (user && user.tiles) {
-    content = user.tiles.map(function(tile){
-      return Tile(tile);
-    });
-  }
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <div style={{"display": "grid", "grid-template-columns": "1fr 1fr 1fr 1fr"}}>
-          { content }
-        </div>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
+      <div>
+        { user ? UserPage(user) : SignIn() }
+      </div>
     </div>
   );
 }
