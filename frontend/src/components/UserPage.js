@@ -11,7 +11,9 @@ function UserPage(props) {
             <Row className="g-3">
                 {tiles.map((tile, index) => { 
                     return (
-                        <Col className={`tile-index-${index}`} key={index} xs={12} sm={tile.width * 6} md={tile.width * 4} lg={tile.width * 3}>{ Tile(tile) }</Col>
+                        <Col className={`tile-index-${index}`} key={index} xs={12} sm={tile.width * 6} md={tile.width * 4} lg={tile.width * 3}>
+                            <Tile {...tile}/>
+                        </Col>
                     );
                 })}
             </Row>
