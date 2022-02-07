@@ -1,5 +1,5 @@
 require('dotenv').config();
-console.log(process.env);
+const { Router } = require('express');
 const mongoose = require('mongoose');
 const UserSchema = require("./userSchema");
 
@@ -58,7 +58,37 @@ async function addUser(user){
     }   
 }
 
+async function addTileToUserById(id, tile) {
+    const userModel = getDbConnection().model("User", UserSchema);
+    try {
+        return await userModel.findByIdAndUpdate(
+            id,
+            {$push: {"tiles": tile}},
+            {new:true, safe: true, upsert: true}
+        );
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
+}
+
+async function removeTileFromUserByIds(id, tileId) {
+    const userModel = getDbConnection().model("User", UserSchema);
+    try {
+        return await userModel.findByIdAndUpdate(
+            id,
+            {$pull: {"tiles": {"_id": tileId}}},
+            {new:true, safe: true}
+        );
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
+}
+
 exports.getUserById = getUserById;
 exports.getUsers = getUsers;
 exports.deleteUserById = deleteUserById;
 exports.addUser = addUser;
+exports.addTileToUserById = addTileToUserById;
+exports.removeTileFromUserByIds = removeTileFromUserByIds;
