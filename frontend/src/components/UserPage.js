@@ -7,7 +7,7 @@ function UserPage(props) {
     const tiles = props.tiles;
 
     return (
-        <Container fluid="true" className="p-3">
+        <Container fluid="xl" className="p-3">
             <Row className="g-3">
                 {tiles.map((tile, index) => { 
                     return (
