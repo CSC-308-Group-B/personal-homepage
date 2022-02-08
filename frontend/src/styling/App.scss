@@ -1,4 +1,5 @@
 @import 'variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 /* APP */
 .App {
@@ -37,6 +38,27 @@
     background-color: $black;
     border: 1px solid red;
 }
+// .TileEditOverlay {
+//   user-select: none;
+//   opacity: 0;
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   width: 100%;
+//   height: 100%;
+//   &:hover {
+//     opacity: 1;
+//     background-color: #0004;
+//     backdrop-filter: blur(4px);
+//   }
+// }
+.CloseButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.5rem;
+}
+
 
 /* ANIMATIONS */
 @keyframes App-logo-spin {

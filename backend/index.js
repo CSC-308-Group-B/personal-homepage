@@ -57,8 +57,8 @@ app.post('/u/:id/tiles', async (req, res) => {
     }
 });
 
-app.delete('/u/:id/tiles', async (req, res) => {
-    const result = await userServices.removeTileFromUserByIds(req.params.id, req.body._id);
+app.delete('/u/:id/:tileid', async (req, res) => {
+    const result = await userServices.removeTileFromUserByIds(req.params.id, req.params.tileid);
     if (result) {
         res.status(204).send(result);
     } else {
