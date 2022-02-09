@@ -3,14 +3,12 @@ import Card from 'react-bootstrap/Card';
 import GoogleLogin from 'react-google-login';
 
 function SignIn(props) {
-    const setUser = props.setUser;
-
     async function handleLogin(googleData) {
         const response = await axios.post('http://localhost:5000/auth', {
             token: googleData.tokenId
         });
         console.log(response.data.user);
-        setUser(response.data.user);
+        props.setUser(response.data.user);
     }
 
     return (
