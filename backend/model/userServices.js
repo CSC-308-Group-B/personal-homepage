@@ -36,6 +36,16 @@ async function getUserById(id){
     }
 }
 
+async function getUserByEmail(email){
+    const userModel = getDbConnection().model("User", UserSchema);    
+    try {
+        return await userModel.findOne({ email:email });
+    } catch(error) {
+        console.log(error);
+        return undefined;
+    }
+}
+
 async function deleteUserById(id) {
     const userModel = getDbConnection().model("User", UserSchema);
     try {
@@ -92,3 +102,4 @@ exports.deleteUserById = deleteUserById;
 exports.addUser = addUser;
 exports.addTileToUserById = addTileToUserById;
 exports.removeTileFromUserByIds = removeTileFromUserByIds;
+exports.getUserByEmail = getUserByEmail;

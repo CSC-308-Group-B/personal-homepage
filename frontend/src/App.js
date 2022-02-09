@@ -12,7 +12,6 @@ function App() {
   useEffect(() => {
     getUser().then( result => {
         if (result) {
-          console.log(result);
           setUser(result);
         }
       });
@@ -24,12 +23,19 @@ function App() {
     try {
       //right now we'll just be using our "Test User" (until we get user auth up and running)
       const response = await axios.get('http://localhost:5000/u/620058e9e8467fb0832830c5');
-      return response.data;
+      return null//response.data;
     }
     catch (error){
       console.log(error); 
       return false;         
     }
+  }
+
+  let content;
+  if (user && user.tiles) {
+    content = <UserPage {...user} />;
+  } else {
+    content = <SignIn setUser={setUser} />;
   }
 
   return (
@@ -38,7 +44,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
       </header>
       <div>
-        { user && user.tiles ? UserPage(user) : SignIn() }
+        { content }
       </div>
     </div>
   );

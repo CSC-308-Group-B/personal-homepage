@@ -1,14 +1,30 @@
+import axios from 'axios';
 import Card from 'react-bootstrap/Card';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import '../../styling/App.scss';
+import GoogleLogin from 'react-google-login';
 
-function SignIn() {
+function SignIn(props) {
+    const setUser = props.setUser;
+
+    async function handleLogin(googleData) {
+        const response = await axios.post('http://localhost:5000/auth', {
+            token: googleData.tokenId
+        });
+        console.log(response.data.user);
+        setUser(response.data.user);
+    }
+
     return (
-        <Card>
+        <Card className={ "mx-auto" } style={{ "width":"18rem" }}>
             <Card.Body>
-                <Card.Title>Sign in page</Card.Title>
+                <Card.Title>Sign In</Card.Title>
                 <Card.Text>
-                    Please sign in :)
+                    <GoogleLogin
+                        clientId={"8692478207-lqdu5ojcvnco4h0773bgjnmc3emoadud.apps.googleusercontent.com"}
+                        buttonText="Log in with Google"
+                        onSuccess={handleLogin}
+                        onFailure={handleLogin}
+                        cookiePolicy={'single_host_origin'}
+                    />
                 </Card.Text>
             </Card.Body>
         </Card>
