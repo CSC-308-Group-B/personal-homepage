@@ -1,12 +1,19 @@
+//requirements
 const express = require('express');
+const session = require('express-session');
 const cors = require('cors');
 const userServices = require('./model/userServices');
+//create app
 const app = express();
+//misc config
 const port = 5000;
-
 app.use(cors());
 app.use(express.json());
+//auth config
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.CLIENT_ID);
 
+//endpoints
 app.get('/', (req, res) => {
     res.send("Hello, world!");
 });
@@ -35,9 +42,9 @@ app.post('/u', async (req, res) => {
     if (newUser) {
         res.status(201).send(newUser);
     } else {
-        res.status(500).send(`Untable to add new user.`);
+        res.status(500).send(`Unable to add new user.`);
     }
-})
+});
 
 app.delete('/u/:id', async (req, res) => {
     const result = await userServices.deleteUserById(req.params.id);
@@ -66,6 +73,36 @@ app.delete('/u/:id/:tileid', async (req, res) => {
     }
 });
 
+//auth endpoints
+app.post('/auth', async (req, res) => {
+    try {
+        const { token } = req.body;
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: process.env.CLIENT_ID
+        });
+        const payload = ticket.getPayload();
+        const user = await userServices.getUserByEmail(payload.email)
+        if (user) {
+            res.status(201).send({ user: user });
+        } else {
+            const newUser = await userServices.addUser({
+                name: payload.name,
+                email: payload.email,
+                tiles: []
+            });
+            if (newUser) {
+                res.status(201).send({ user: newUser });
+            } else {
+                res.status(500).send(`Unable to add new user.`);
+            }
+        }
+    } catch {
+        res.status(404).send(`Authentication failed.`);
+    }
+});
+
+//Begin listening
 app.listen(port, () => {
     console.log(`Now listening at http://localhost:${port}`);
 });
