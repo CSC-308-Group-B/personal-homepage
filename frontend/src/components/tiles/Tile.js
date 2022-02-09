@@ -1,23 +1,34 @@
 import Card from 'react-bootstrap/Card';
 import TileDefault from './TileDefault';
-import TileEditOverlay from './TileEditOverlay';
+import CloseButton from 'react-bootstrap/CloseButton';
 import axios from 'axios';
+import React from 'react';
 
-function Tile(props) {
-    return (
-        <Card>
-            <TileEditOverlay {...props} deleteFunction={deleteTile} />
-            { getTileType(props.tileType)(props) }
-        </Card>
-    );
+class Tile extends React.Component {
 
-    async function deleteTile() {
-        const response = await axios.delete(`http://localhost:5000/u/620058e9e8467fb0832830c5/${this._id}`);
+    constructor(props) {
+        super(props);
+    }
+
+
+    remove = async () => {
+        const response = await axios.delete(`http://localhost:5000/u/620058e9e8467fb0832830c5/${this.props._id}`);
         console.log(response);
         if (response) {
-            props.deleteTileFromFrontend(this._id);
+            this.props.deleteTile(this.props._id);
         }
     }
+
+    render() {
+        return (
+            <Card>
+                <CloseButton className="CloseButton" onClick={() => this.remove()} />
+                {getTileType(this.props.tileType)(this.props)}
+            </Card>
+        );
+    }
+
+
 }
 
 function getTileType(tileType) {
