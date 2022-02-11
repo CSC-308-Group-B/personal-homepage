@@ -1,0 +1,45 @@
+{
+    "name": "Test User",
+    "tiles": [
+        {
+        "tileType": "anything",
+        "width": 2
+        },
+        {
+        "tileType": "not",
+        "width": 1
+        },
+        {
+        "tileType": "defined",
+        "width": 1
+        },
+        {
+        "tileType": "will",
+        "width": 2
+        },
+        {
+        "tileType": "render",
+        "width": 2
+        },
+        {
+        "tileType": "as",
+        "width": 3
+        },
+        {
+        "tileType": "the",
+        "width": 4
+        },
+        {
+        "tileType": "default",
+        "width": 1
+        },
+        {
+        "tileType": "tile",
+        "width": 2
+        },
+        {
+        "tileType": "delete me",
+        "width": 7
+        }
+    ]
+}

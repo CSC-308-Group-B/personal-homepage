@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const TileSchema = require("./tileSchema")
 
 const UserSchema = new mongoose.Schema(
     {
@@ -7,9 +8,12 @@ const UserSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
-        tiles: {
-            type: Array
-        }
+        email: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        tiles: [TileSchema]
     },
     {
         collection : 'users'
