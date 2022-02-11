@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap'
 import Tile from './tiles/Tile'
 import Button from 'react-bootstrap/Button'
-import CloseButton from 'react-bootstrap/CloseButton';
 import SignIn from './SignIn';
 import axios from 'axios';
 
