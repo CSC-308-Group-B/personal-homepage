@@ -10,8 +10,6 @@ class UserPage extends React.Component {
 
     constructor(props) {
         super(props);
-        // const tiles = useState(props.tiles);
-        //this.removeTile.bind(this, this.user);
     }
 
     removeTile = async (tileId) => {
