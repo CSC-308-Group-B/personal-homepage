@@ -8,7 +8,7 @@ function SignIn(props) {
             token: googleData.tokenId
         });
         console.log(response.data.user);
-        props.setUser(response.data.user);
+        props.updateUser(response.data.user);
     }
 
     return (
