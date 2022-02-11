@@ -3,6 +3,7 @@ import {Container, Row, Col} from 'react-bootstrap'
 import Tile from './tiles/Tile'
 
 import CloseButton from 'react-bootstrap/CloseButton';
+import SignIn from './SignIn';
 
 class UserPage extends React.Component {
 
@@ -11,9 +12,6 @@ class UserPage extends React.Component {
         // const tiles = useState(props.tiles);
         //this.removeTile.bind(this, this.user);
     }
-
-
-
 
     removeTile = (tileId) => {
         this.props.user.tiles = this.props.user.tiles.filter((tile) => {
@@ -25,8 +23,8 @@ class UserPage extends React.Component {
 
     }
 
-
     render() {
+        if (!this.props.user || !this.props.user.tiles) return (<SignIn />);
         return(
             <Container fluid="xl" className="p-3">
                 <Row className="g-3">

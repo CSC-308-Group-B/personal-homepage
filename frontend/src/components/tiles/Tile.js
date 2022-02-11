@@ -10,7 +10,6 @@ class Tile extends React.Component {
         super(props);
     }
 
-
     remove = async () => {
         const response = await axios.delete(`http://localhost:5000/u/620058e9e8467fb0832830c5/${this.props._id}`);
         console.log(response);
@@ -27,8 +26,6 @@ class Tile extends React.Component {
             </Card>
         );
     }
-
-
 }
 
 function getTileType(tileType) {
