@@ -25,5 +25,3 @@ yarn-debug.log*
 yarn-error.log*
 backend/model/credentials.js
 backend/.env
-backend/package-lock.json
-frontend/package-lock.json
