@@ -14,16 +14,22 @@ app.use(cors({
     credentials: true
 }));
 app.use(express.json());
-//Sessions / auth config
+
+/*
+
+    SESSIONS / USER AUTHENTICATION
+
+*/
 app.use(
     session({
-        secret: "secretkeystringorwhatever",
+        secret: "secretkeystringorwhateverweshouldchangethiseventually",
         resave: true,
         saveUninitialized: true,
     })
 )
 app.use(passport.initialize());
 app.use(passport.session());
+//I'll have to do more research to fully understand the serialization here
 passport.serializeUser((user, done) => {
     return done(null, user._id);
 });
@@ -31,6 +37,7 @@ passport.deserializeUser(async (id, done) => {
     const user = await userServices.getUserById(id);
     return done(null, user);
 });
+//Configure passport to use google's oauth2
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -57,21 +64,24 @@ async function(accessToken, refreshToken, profile, callback) {
         }
     }
 }));
-//1) Make a get request
+//1) User makes a get request to sign in, so we try to authenticate via passport (See above for step "2")
 app.get("/api/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
-//3) on success/error, run the callback
+//3) on success/error, return to our homepage. Now that the session is initialized, the user will be signed in immediately
 app.get("/api/auth/google/callback", passport.authenticate("google", { failureRedirect: "/" }), (req, res) => {
     res.redirect('http://localhost:3000');
 })
+//If the get request on the frontend sends the session cookie, passport will automatically add a "user" field to "req", via the serialization methods (above)
 app.get('/getUser', async (req, res) => {
     res.send(req.user);
 });
 
+/*
 
-// const { OAuth2Client } = require('google-auth-library');
-// const client = new OAuth2Client(process.env.CLIENT_ID);
+    OTHER ENDPOINTS
 
-//endpoints
+*/
+//We'll eventually update these to require credentials
+
 app.get('/', (req, res) => {
     res.send("Hello, world!");
 });
@@ -130,35 +140,6 @@ app.delete('/u/:id/:tileid', async (req, res) => {
         res.status(404).send();
     }
 });
-
-//auth endpoints
-// app.post('/api/auth/google', async (req, res) => {
-//     try {
-//         const { token } = req.body;
-//         const ticket = await client.verifyIdToken({
-//             idToken: token,
-//             audience: process.env.CLIENT_ID
-//         });
-//         const payload = ticket.getPayload();
-//         const user = await userServices.getUserByEmail(payload.email)
-//         if (user) {
-//             res.status(201).send({ user: user });
-//         } else {
-//             const newUser = await userServices.addUser({
-//                 name: payload.name,
-//                 email: payload.email,
-//                 tiles: []
-//             });
-//             if (newUser) {
-//                 res.status(201).send({ user: newUser });
-//             } else {
-//                 res.status(500).send(`Unable to add new user.`);
-//             }
-//         }
-//     } catch {
-//         res.status(404).send(`Authentication failed.`);
-//     }
-// });
 
 //Begin listening
 app.listen(port, () => {
