@@ -25,19 +25,8 @@ class App extends React.Component {
     }
     //returns a user object
     getUser = async () => {
-        //Now that a basic user auth is up and running, we will sign in every time
-        //We will work on a "remember me" function here, later
-        return null;
-
-        // try {
-        //     //right now we'll just be using our "Test User" (until we get user auth up and running)
-        //     const response = await axios.get('http://localhost:5000/u/620058e9e8467fb0832830c5');
-        //     return null//response.data;
-        // }
-        // catch (error) {
-        //     console.log(error);
-        //     return false;
-        // }
+        const result = await axios.get('http://localhost:5000/getUser', { withCredentials: true });
+        return result.data;
     }
     //updates the user object; re-renders the page
     updateUser = (updatedUser) => {

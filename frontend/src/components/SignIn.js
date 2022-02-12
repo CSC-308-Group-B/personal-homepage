@@ -1,14 +1,11 @@
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import GoogleLogin from 'react-google-login';
+import Button from 'react-bootstrap/Button';
 
 function SignIn(props) {
-    async function handleLogin(googleData) {
-        const response = await axios.post('http://localhost:5000/auth', {
-            token: googleData.tokenId
-        });
-        console.log(response.data.user);
-        props.updateUser(response.data.user);
+    const googleLogin = () => {
+        window.open("http://localhost:5000/api/auth/google", "_self");
     }
 
     return (
@@ -16,13 +13,7 @@ function SignIn(props) {
             <Card.Body>
                 <Card.Title>Sign In</Card.Title>
                 <Card.Text>
-                    <GoogleLogin
-                        clientId={"8692478207-lqdu5ojcvnco4h0773bgjnmc3emoadud.apps.googleusercontent.com"}
-                        buttonText="Log in with Google"
-                        onSuccess={handleLogin}
-                        onFailure={handleLogin}
-                        cookiePolicy={'single_host_origin'}
-                    />
+                    <Button onClick={googleLogin}>Sign in to Google</Button>
                 </Card.Text>
             </Card.Body>
         </Card>
