@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap'
 import Tile from './tiles/Tile'
@@ -23,23 +24,14 @@ class UserPage extends React.Component {
     }
 
     render() {
-        if (!this.props.user || !this.props.user.tiles) return (<SignIn updateUser={this.props.updateUser} />);
-        return(
-            <>
-                <Button onClick={() => this.props.addTile()}>Add Tile</Button>
-                <Container fluid="xl" className="p-3">
-                    <Row className="g-3">
-                        {this.props.user.tiles.map((tile, index) => { 
-                            return (
-                                <Col className={`tile-index-${index}`} key={index} xs={12} sm={tile.width * 6} md={tile.width * 4} lg={tile.width * 3}>
-                                    <Tile {...tile} removeTile={this.removeTile} />
-                                </Col>
-                            );
-                        })}
-                    </Row>
-                </Container>
-            </>
-            
+        return (
+            this.props.user.tiles.map((tile, index) => {
+                return (
+                    //<Col className={`tile-index-${index}`} key={index} xs={12} sm={tile.width * 6} md={tile.width * 4} lg={tile.width * 3}>
+                    <Tile key={index} {...tile} deleteTile={this.removeTile} />
+                    //</Col>
+                );
+            })
         );
     }
 }
