@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap'
+
+import React from 'react';
+import {Container, Row, Col} from 'react-bootstrap'
 import Tile from './tiles/Tile'
 import Button from 'react-bootstrap/Button'
-import CloseButton from 'react-bootstrap/CloseButton';
 import SignIn from './SignIn';
 import axios from 'axios';
 
@@ -10,8 +10,6 @@ class UserPage extends React.Component {
 
     constructor(props) {
         super(props);
-        // const tiles = useState(props.tiles);
-        //this.removeTile.bind(this, this.user);
     }
 
     removeTile = async (tileId) => {
