@@ -28,7 +28,7 @@ class App extends React.Component {
     //Upon successful authentication, the backend will return a user, and the frontend will re-render
     //This "withCredentials: true" will need to be added to any REST api calls that need authentication (so most if not all of them)
     getUser = async () => {
-        const result = await axios.get('http://localhost:5000/getUser', { withCredentials: true });
+        const result = await axios.get('http://localhost:5001/getUser', { withCredentials: true });
         return result.data;
     }
     //updates the user object; re-renders the page
@@ -43,7 +43,7 @@ class App extends React.Component {
             posx: 0,
             posy: 0
         }
-        const response = await axios.post(`http://localhost:5000/u/${this.state.user._id}/tiles`, newTile);
+        const response = await axios.post(`http://localhost:5001/u/${this.state.user._id}/tiles`, newTile);
         if (response) {
             if (this.state.user.tiles) {
                 newTile._id = response.data.tiles[response.data.tiles.length - 1]._id;

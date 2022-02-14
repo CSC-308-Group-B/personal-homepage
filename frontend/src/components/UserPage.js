@@ -10,7 +10,7 @@ class UserPage extends React.Component {
     // }
 
     removeTile = async (tileId) => {
-        const response = await axios.delete(`http://localhost:5000/u/${this.props.user._id}/${tileId}`);
+        const response = await axios.delete(`http://localhost:5001/u/${this.props.user._id}/${tileId}`);
         if (response) {
             this.props.user.tiles = this.props.user.tiles.filter((tile) => {
                 return tile._id !== tileId;
