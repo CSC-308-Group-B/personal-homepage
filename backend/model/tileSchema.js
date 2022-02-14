@@ -10,6 +10,14 @@ const TileSchema = new mongoose.Schema(
         width: {
             type: Number,
             required: true,
+        },
+        posx: {
+            type: Number,
+            require: true
+        },
+        posy: {
+            type: Number,
+            required: true
         }
     }
 );
