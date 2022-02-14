@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import {Container, Row, Col} from 'react-bootstrap'
+import React from 'react';
 import Tile from './tiles/Tile'
 import Button from 'react-bootstrap/Button'
-import CloseButton from 'react-bootstrap/CloseButton';
 import SignIn from './SignIn';
 import axios from 'axios';
 
 class UserPage extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     removeTile = async (tileId) => {
         const response = await axios.delete(`http://localhost:5000/u/${this.props.user._id}/${tileId}`);
@@ -25,20 +22,17 @@ class UserPage extends React.Component {
 
     render() {
         if (!this.props.user || !this.props.user.tiles) return (<SignIn updateUser={this.props.updateUser} />);
+
+        document.title = `${this.props.user.name}'s Personal Homepage`;
+
         return(
             <>
                 <Button className = "Button" onClick={() => this.props.addTile()}>Add Tile</Button>
-                <Container fluid="xl" className="p-3">
-                    <Row className="g-3">
-                        {this.props.user.tiles.map((tile, index) => { 
-                            return (
-                                <Col className={`tile-index-${index}`} key={index} xs={12} sm={tile.width * 6} md={tile.width * 4} lg={tile.width * 3}>
-                                    <Tile {...tile} removeTile={this.removeTile} />
-                                </Col>
-                            );
-                        })}
-                    </Row>
-                </Container>
+                {this.props.user.tiles.map((tile, index) => { 
+                    return (
+                        <Tile key={index} {...tile} deleteTile={this.removeTile} />
+                    );
+                })}
             </>
             
         );

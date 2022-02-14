@@ -1,19 +1,88 @@
 //requirements
+require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 const userServices = require('./model/userServices');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 //create app
 const app = express();
 //misc config
 const port = 5000;
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    credentials: true
+}));
 app.use(express.json());
-//auth config
-const { OAuth2Client } = require('google-auth-library');
-const client = new OAuth2Client(process.env.CLIENT_ID);
 
-//endpoints
+/*
+
+    SESSIONS / USER AUTHENTICATION
+
+*/
+app.use(
+    session({
+        secret: process.env.LOGIN_SESSION_SECRET,
+        resave: true,
+        saveUninitialized: true,
+    })
+)
+app.use(passport.initialize());
+app.use(passport.session());
+//I'll have to do more research to fully understand the serialization here
+passport.serializeUser((user, done) => {
+    return done(null, user._id);
+});
+passport.deserializeUser(async (id, done) => {
+    const user = await userServices.getUserById(id);
+    return done(null, user);
+});
+//Configure passport to use google's oauth2
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "/api/auth/google/callback",
+},
+async function(accessToken, refreshToken, profile, callback) {
+    //2) on successful auth, try and find user...
+    const user = await userServices.getUserByEmail(profile._json.email);
+    if (user) {
+        //If they exist, return them
+        callback(null, user);
+    } else {
+        //Otherwise, create a new user and return them
+        const newUser = await userServices.addUser({
+            name: profile.displayName,
+            email: profile._json.email,
+            tiles: []
+        });
+        if (newUser) {
+            callback(null, newUser);
+        } else {
+            //And if for some reason the creation fails, return null
+            callback(null, null);
+        }
+    }
+}));
+//1) User makes a get request to sign in, so we try to authenticate via passport (See above for step "2")
+app.get("/api/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+//3) on success/error, return to our homepage. Now that the session is initialized, the user will be signed in immediately
+app.get("/api/auth/google/callback", passport.authenticate("google", { failureRedirect: "/" }), (req, res) => {
+    res.redirect('http://localhost:3000');
+})
+//If the get request on the frontend sends the session cookie, passport will automatically add a "user" field to "req", via the serialization methods (above)
+app.get('/getUser', async (req, res) => {
+    res.send(req.user);
+});
+
+/*
+
+    OTHER ENDPOINTS
+
+*/
+//We'll eventually update these to require credentials
+
 app.get('/', (req, res) => {
     res.send("Hello, world!");
 });
@@ -70,35 +139,6 @@ app.delete('/u/:id/:tileid', async (req, res) => {
         res.status(204).send(result);
     } else {
         res.status(404).send();
-    }
-});
-
-//auth endpoints
-app.post('/auth', async (req, res) => {
-    try {
-        const { token } = req.body;
-        const ticket = await client.verifyIdToken({
-            idToken: token,
-            audience: process.env.CLIENT_ID
-        });
-        const payload = ticket.getPayload();
-        const user = await userServices.getUserByEmail(payload.email)
-        if (user) {
-            res.status(201).send({ user: user });
-        } else {
-            const newUser = await userServices.addUser({
-                name: payload.name,
-                email: payload.email,
-                tiles: []
-            });
-            if (newUser) {
-                res.status(201).send({ user: newUser });
-            } else {
-                res.status(500).send(`Unable to add new user.`);
-            }
-        }
-    } catch {
-        res.status(404).send(`Authentication failed.`);
     }
 });
 

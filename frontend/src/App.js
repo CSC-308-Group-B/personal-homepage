@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import UserPage from './components/UserPage'
-import SignIn from './components/SignIn'
-import Button from 'react-bootstrap/Button'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styling/App.scss';
 import axios from 'axios';
+import './draggable.js'
 
 class App extends React.Component {
     constructor(props) {
@@ -24,20 +23,13 @@ class App extends React.Component {
         });
     }
     //returns a user object
+    //The "withCredentials" field set to true tells axios to send cookies along with the get request
+    //This sends the session id cookie, and the backend will parse that to authenticate the user, if everything checks out
+    //Upon successful authentication, the backend will return a user, and the frontend will re-render
+    //This "withCredentials: true" will need to be added to any REST api calls that need authentication (so most if not all of them)
     getUser = async () => {
-        //Now that a basic user auth is up and running, we will sign in every time
-        //We will work on a "remember me" function here, later
-        return null;
-
-        // try {
-        //     //right now we'll just be using our "Test User" (until we get user auth up and running)
-        //     const response = await axios.get('http://localhost:5000/u/620058e9e8467fb0832830c5');
-        //     return null//response.data;
-        // }
-        // catch (error) {
-        //     console.log(error);
-        //     return false;
-        // }
+        const result = await axios.get('http://localhost:5000/getUser', { withCredentials: true });
+        return result.data;
     }
     //updates the user object; re-renders the page
     updateUser = (updatedUser) => {
@@ -46,8 +38,10 @@ class App extends React.Component {
 
     addTile = async () => {
         const newTile = {
-            tileType: "TileTypeGoesHere",
-            width: 2
+            tileType: "BRUHHHHH",
+            width: 2,
+            posx: 0,
+            posy: 0
         }
         const response = await axios.post(`http://localhost:5000/u/${this.state.user._id}/tiles`, newTile);
         if (response) {
@@ -63,15 +57,12 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="App">
-                <div className='Background'/>
-
-                {/* <header className="App-header">
-                    {<img src={logo} className="App-logo" alt="logo" /> }
-                </header> */}
-                <div>
-                    <UserPage user={this.state.user} updateUser={this.updateUser} addTile={this.addTile} />
-                </div>
+            <div className="App" style={{ height: "100vh", width: "auto"}}>
+            <div className='Background'/>
+                <header className="App-header">
+                    <img src={logo} className="App-logo" alt="logo" />
+                </header>
+                <UserPage user={this.state.user} updateUser={this.updateUser} addTile={this.addTile} />
             </div>
         );
     }
