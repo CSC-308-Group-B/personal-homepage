@@ -11,7 +11,7 @@ class Tile extends React.Component {
 
     render() {
         return (
-            <Card>
+            <Card className = "Card">
                 <CloseButton className="CloseButton" onClick={() => this.props.removeTile(this.props._id)} />
                 {getTileType(this.props.tileType)(this.props)}
             </Card>

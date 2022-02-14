@@ -2,6 +2,7 @@ import Card from 'react-bootstrap/Card';
 
 function TileDefault(props) {
     return (
+        
         <Card.Body>
             <Card.Title>{ props.tileType }</Card.Title>
             <Card.Text>

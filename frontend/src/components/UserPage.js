@@ -27,7 +27,7 @@ class UserPage extends React.Component {
         if (!this.props.user || !this.props.user.tiles) return (<SignIn updateUser={this.props.updateUser} />);
         return(
             <>
-                <Button onClick={() => this.props.addTile()}>Add Tile</Button>
+                <Button className = "Button" onClick={() => this.props.addTile()}>Add Tile</Button>
                 <Container fluid="xl" className="p-3">
                     <Row className="g-3">
                         {this.props.user.tiles.map((tile, index) => { 

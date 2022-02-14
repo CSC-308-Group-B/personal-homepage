@@ -64,9 +64,11 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                </header>
+                <div className='Background'/>
+
+                {/* <header className="App-header">
+                    {<img src={logo} className="App-logo" alt="logo" /> }
+                </header> */}
                 <div>
                     <UserPage user={this.state.user} updateUser={this.updateUser} addTile={this.addTile} />
                 </div>
