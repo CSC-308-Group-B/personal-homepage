@@ -29,17 +29,11 @@ class UserPage extends React.Component {
         return(
             <>
                 <Button onClick={() => this.props.addTile()}>Add Tile</Button>
-                <Container fluid="xl" className="p-3">
-                    <Row className="g-3">
-                        {this.props.user.tiles.map((tile, index) => { 
-                            return (
-                                <Col className={`tile-index-${index}`} key={index} xs={12} sm={tile.width * 6} md={tile.width * 4} lg={tile.width * 3}>
-                                    <Tile {...tile} removeTile={this.removeTile} />
-                                </Col>
-                            );
-                        })}
-                    </Row>
-                </Container>
+                {this.props.user.tiles.map((tile, index) => { 
+                    return (
+                        <Tile key={index} {...tile} deleteTile={this.removeTile} />
+                    );
+                })}
             </>
             
         );

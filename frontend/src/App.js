@@ -4,6 +4,7 @@ import UserPage from './components/UserPage'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styling/App.scss';
 import axios from 'axios';
+import './draggable.js'
 
 class App extends React.Component {
     constructor(props) {
@@ -37,8 +38,10 @@ class App extends React.Component {
 
     addTile = async () => {
         const newTile = {
-            tileType: "TileTypeGoesHere",
-            width: 2
+            tileType: "BRUHHHHH",
+            width: 2,
+            posx: 0,
+            posy: 0
         }
         const response = await axios.post(`http://localhost:5000/u/${this.state.user._id}/tiles`, newTile);
         if (response) {
@@ -54,13 +57,11 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="App">
+            <div className="App" style={{ height: "100vh", width: "auto"}}>
                 <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
                 </header>
-                <div>
-                    <UserPage user={this.state.user} updateUser={this.updateUser} addTile={this.addTile} />
-                </div>
+                <UserPage user={this.state.user} updateUser={this.updateUser} addTile={this.addTile} />
             </div>
         );
     }
