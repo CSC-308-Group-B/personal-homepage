@@ -1,5 +1,4 @@
 import React from 'react';
-import {Container, Row, Col} from 'react-bootstrap'
 import Tile from './tiles/Tile'
 import Button from 'react-bootstrap/Button'
 import SignIn from './SignIn';

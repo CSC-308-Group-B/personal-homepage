@@ -1,4 +1,5 @@
 //requirements
+require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
@@ -22,7 +23,7 @@ app.use(express.json());
 */
 app.use(
     session({
-        secret: "secretkeystringorwhateverweshouldchangethiseventually",
+        secret: process.env.LOGIN_SESSION_SECRET,
         resave: true,
         saveUninitialized: true,
     })
