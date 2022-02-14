@@ -1,29 +1,20 @@
-import axios from 'axios';
 import Card from 'react-bootstrap/Card';
-import GoogleLogin from 'react-google-login';
+import Button from 'react-bootstrap/Button';
 
 function SignIn(props) {
-    async function handleLogin(googleData) {
-        const response = await axios.post('http://localhost:5000/auth', {
-            token: googleData.tokenId
-        });
-        console.log(response.data.user);
-        props.updateUser(response.data.user);
+    //To login via google, we redirect the user to our sign in endpoint, which redirects to google's login, which eventually brings the user back to our homepage.
+    //if the login was successful, the user will have a session cookie (see App.js for how that's handled)
+    const googleLogin = () => {
+        window.open("http://localhost:5000/api/auth/google", "_self");
     }
+
+    document.title = "Sign In - Personal Homepage";
 
     return (
         <Card className={ "mx-auto" } style={{ "width":"18rem" }}>
             <Card.Body>
                 <Card.Title>Sign In</Card.Title>
-                <Card.Text>
-                    <GoogleLogin
-                        clientId={"8692478207-lqdu5ojcvnco4h0773bgjnmc3emoadud.apps.googleusercontent.com"}
-                        buttonText="Log in with Google"
-                        onSuccess={handleLogin}
-                        onFailure={handleLogin}
-                        cookiePolicy={'single_host_origin'}
-                    />
-                </Card.Text>
+                <Button onClick={googleLogin}>Sign in to Google</Button>
             </Card.Body>
         </Card>
     );

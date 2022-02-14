@@ -1,5 +1,4 @@
 import React from 'react';
-import {Container, Row, Col} from 'react-bootstrap'
 import Tile from './tiles/Tile'
 import Button from 'react-bootstrap/Button'
 import SignIn from './SignIn';
@@ -23,6 +22,9 @@ class UserPage extends React.Component {
 
     render() {
         if (!this.props.user || !this.props.user.tiles) return (<SignIn updateUser={this.props.updateUser} />);
+
+        document.title = `${this.props.user.name}'s Personal Homepage`;
+
         return(
             <>
                 <Button onClick={() => this.props.addTile()}>Add Tile</Button>
