@@ -6,10 +6,9 @@ import SignIn from './SignIn';
 import axios from 'axios';
 
 class UserPage extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     removeTile = async (tileId) => {
         const response = await axios.delete(`http://localhost:5000/u/${this.props.user._id}/${tileId}`);
