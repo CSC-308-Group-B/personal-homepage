@@ -9,7 +9,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 //create app
 const app = express();
 //misc config
-const port = 5000;
+const port = 5001;
 app.use(cors({
     origin: ["http://localhost:3000"],
     credentials: true
