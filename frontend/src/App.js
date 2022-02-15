@@ -57,7 +57,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="App" style={{ height: "100vh", width: "auto"}}>
+            <div className="App" style={{ minHeight: "100vh", width: "auto"}}>
                 <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
                 </header>

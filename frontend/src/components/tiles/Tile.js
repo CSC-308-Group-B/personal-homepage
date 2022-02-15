@@ -15,7 +15,12 @@ class Tile extends React.Component {
             width: "25%"
         };
 
-        console.log("Tile: ", this.props);
+        // if (this.props.posx != this.props["data-x"] || this.props.posy != this.props["data-y"]) {
+        //     console.log("I moved!");
+        // } else {
+        //     console.log(this.props["data-x"])
+        // }
+        // this.props.moveTile(this.props._id);
 
         return (
             //These data parameters are so interact.js knows the initial position of the tiles.

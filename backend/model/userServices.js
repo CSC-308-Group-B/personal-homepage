@@ -98,11 +98,11 @@ async function removeTileFromUserByIds(id, tileId) {
 async function updateTileFields(userId, tileId, updatedFields) {
     const userModel = getDbConnection().model("User", UserSchema);
     let newFields = {};
-    for (key of updatedFields.keys()) {
+    for (key of Object.keys(updatedFields)) {
         newFields[`tiles.$.${key}`] = updatedFields[key];
     }
     try {
-        return await userModel.findAndUpdate(
+        return await userModel.findOneAndUpdate(
             {
                 _id: userId,
                 "tiles._id": tileId

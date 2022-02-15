@@ -9,6 +9,17 @@ class UserPage extends React.Component {
     //     super(props);
     // }
 
+    moveTile = async (tileId) => {
+        //the x: 10 and y: 10 need to access the data-x and data-y attributes on the html element
+        const response = await axios.post("http://localhost:5001/u/moveTile", {
+            userId: this.props.user._id,
+            tileId: tileId,
+            x: 10,
+            y: 10
+        });
+        console.log(response);
+    }
+
     removeTile = async (tileId) => {
         const response = await axios.delete(`http://localhost:5001/u/${this.props.user._id}/${tileId}`);
         if (response) {
@@ -30,7 +41,7 @@ class UserPage extends React.Component {
                 <Button onClick={() => this.props.addTile()}>Add Tile</Button>
                 {this.props.user.tiles.map((tile, index) => { 
                     return (
-                        <Tile key={index} {...tile} deleteTile={this.removeTile} />
+                        <Tile key={index} {...tile} deleteTile={this.removeTile} moveTile={this.moveTile} />
                     );
                 })}
             </>
