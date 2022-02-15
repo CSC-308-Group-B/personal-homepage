@@ -95,7 +95,7 @@ async function removeTileFromUserByIds(id, tileId) {
     }
 }
 
-async function updateTileField(userId, tileId, updatedFields) {
+async function updateTileFields(userId, tileId, updatedFields) {
     const userModel = getDbConnection().model("User", UserSchema);
     let newFields = {};
     for (key of updatedFields.keys()) {
@@ -129,3 +129,4 @@ exports.addUser = addUser;
 exports.addTileToUserById = addTileToUserById;
 exports.removeTileFromUserByIds = removeTileFromUserByIds;
 exports.getUserByEmail = getUserByEmail;
+exports.updateTileFields = updateTileFields;
