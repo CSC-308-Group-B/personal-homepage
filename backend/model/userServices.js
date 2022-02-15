@@ -95,6 +95,33 @@ async function removeTileFromUserByIds(id, tileId) {
     }
 }
 
+async function updateTileField(userId, tileId, updatedFields) {
+    const userModel = getDbConnection().model("User", UserSchema);
+    let newFields = {};
+    for (key of updatedFields.keys()) {
+        newFields[`tiles.$.${key}`] = updatedFields[key];
+    }
+    try {
+        return await userModel.findAndUpdate(
+            {
+                _id: userId,
+                "tiles._id": tileId
+            },
+            {
+                $set: newFields
+            },
+            {
+                upsert: true,
+                new:true,
+                safe: true
+            }
+        );
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
+}
+
 exports.getUserById = getUserById;
 exports.getUsers = getUsers;
 exports.deleteUserById = deleteUserById;
