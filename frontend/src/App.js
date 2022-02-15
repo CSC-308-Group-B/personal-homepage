@@ -40,8 +40,8 @@ class App extends React.Component {
         const newTile = {
             tileType: "BRUHHHHH",
             width: 2,
-            posx: 0,
-            posy: 0
+            x: 0,
+            y: 0
         }
         const response = await axios.post(`http://localhost:5001/u/${this.state.user._id}/tiles`, newTile);
         if (response) {

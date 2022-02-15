@@ -143,7 +143,7 @@ app.delete('/u/:id/:tileid', async (req, res) => {
 });
 
 app.post('/u/moveTile', async (req, res) => {
-    const result = await userServices.updateTileFields(req.body.userId, req.body.tileId, {posx:req.body.x, posy:req.body.y});
+    const result = await userServices.updateTileFields(req.body.userId, req.body.tileId, {x:req.body.x, y:req.body.y});
     if (result) {
         res.status(200).send('Moved tile.');
     } else {

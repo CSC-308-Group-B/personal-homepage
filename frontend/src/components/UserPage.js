@@ -9,15 +9,13 @@ class UserPage extends React.Component {
     //     super(props);
     // }
 
-    moveTile = async (tileId) => {
-        //the x: 10 and y: 10 need to access the data-x and data-y attributes on the html element
-        const response = await axios.post("http://localhost:5001/u/moveTile", {
+    moveTile = async (tileId, x, y) => {
+        await axios.post("http://localhost:5001/u/moveTile", {
             userId: this.props.user._id,
             tileId: tileId,
-            x: 10,
-            y: 10
+            x: x,
+            y: y
         });
-        console.log(response);
     }
 
     removeTile = async (tileId) => {
