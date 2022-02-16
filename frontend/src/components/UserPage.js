@@ -24,9 +24,11 @@ class UserPage extends React.Component {
             this.props.user.tiles = this.props.user.tiles.filter((tile) => {
                 return tile._id !== tileId;
             });
+            // let elem = document.getElementById(tileId);
+            // console.log(elem);
+            // elem.remove();
             this.props.updateUser(this.props.user);
-            this.forceUpdate();
-        }   
+        }
     }
 
     render() {
@@ -43,7 +45,6 @@ class UserPage extends React.Component {
                     );
                 })}
             </>
-            
         );
     }
 }
