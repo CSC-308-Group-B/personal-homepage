@@ -7,14 +7,14 @@ assignees: ''
 
 ---
 
-**Goal of the Feature**
+## Goal of the Feature
 A clear and concise description of what you want to happen.
 
-**Description of the Feature**
+## Description of the Feature
 A clear and concise description of any alternative solutions or features you've considered.
 
-**Possible Solutions**
+## Possible Solutions
 Add any other context or screenshots about the feature request here.
 
-**Tips**
+## Tips
 Put tips here
