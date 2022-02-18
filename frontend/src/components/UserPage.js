@@ -9,15 +9,26 @@ class UserPage extends React.Component {
     //     super(props);
     // }
 
+    moveTile = async (tileId, x, y) => {
+        await axios.post("http://localhost:5001/u/moveTile", {
+            userId: this.props.user._id,
+            tileId: tileId,
+            x: x,
+            y: y
+        });
+    }
+
     removeTile = async (tileId) => {
         const response = await axios.delete(`http://localhost:5001/u/${this.props.user._id}/${tileId}`);
         if (response) {
             this.props.user.tiles = this.props.user.tiles.filter((tile) => {
                 return tile._id !== tileId;
             });
+            // let elem = document.getElementById(tileId);
+            // console.log(elem);
+            // elem.remove();
             this.props.updateUser(this.props.user);
-            this.forceUpdate();
-        }   
+        }
     }
 
     render() {
@@ -28,13 +39,12 @@ class UserPage extends React.Component {
         return(
             <>
                 <Button onClick={() => this.props.addTile()}>Add Tile</Button>
-                {this.props.user.tiles.map((tile, index) => { 
+                {this.props.user.tiles.map((tile) => { 
                     return (
-                        <Tile key={index} {...tile} deleteTile={this.removeTile} />
+                        <Tile key={tile._id} {...tile} deleteTile={this.removeTile} moveTile={this.moveTile} />
                     );
                 })}
             </>
-            
         );
     }
 }

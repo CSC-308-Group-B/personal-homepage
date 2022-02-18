@@ -40,8 +40,8 @@ class App extends React.Component {
         const newTile = {
             tileType: "BRUHHHHH",
             width: 2,
-            posx: 0,
-            posy: 0
+            x: 0,
+            y: 0
         }
         const response = await axios.post(`http://localhost:5001/u/${this.state.user._id}/tiles`, newTile);
         if (response) {
@@ -57,7 +57,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="App" style={{ height: "100vh", width: "auto"}}>
+            <div className="App" style={{ minHeight: "100vh", width: "auto"}}>
                 <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
                 </header>
