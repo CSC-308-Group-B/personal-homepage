@@ -38,7 +38,7 @@ class App extends React.Component {
 
     addTile = async () => {
         const newTile = {
-            tileType: "BRUHHHHH",
+            tileType: "ToDoListTile",
             width: 2,
             x: 0,
             y: 0

@@ -1,5 +1,5 @@
 import React from 'react';
-import Tile from './tiles/Tile'
+import Tile from './tiles/TileContainer'
 import Button from 'react-bootstrap/Button'
 import SignIn from './SignIn';
 import axios from 'axios';
