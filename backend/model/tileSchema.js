@@ -18,6 +18,10 @@ const TileSchema = new mongoose.Schema(
         y: {
             type: Number,
             required: true
+        },
+        data: {
+            type: Object,
+            required: false
         }
     }
 );
