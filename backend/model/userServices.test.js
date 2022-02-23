@@ -214,3 +214,60 @@ test("Delete user by id - newly added", async () => {
     expect(deletedUser.email).toBe(foundUser.email);
     expect(deletedUser.tiles.length).toBe(foundUser.tiles.length);
 });
+
+//addTileToUserById()
+test("Add tile to user by id", async () => {
+    const dummyUser = {
+        name: "Fblthp",
+        email: "fblthp@gmail.com",
+        tiles: []
+    }
+    const result = new userModel(dummyUser);
+    const addedUser = await result.save();
+    expect(addedUser.tiles.length).toBe(0);
+    const updatedUser = await userServices.addTileToUserById(addedUser.id, {
+        tileType: "noTileType",
+        width: 2,
+        x: 0,
+        y: 200,
+    });
+    expect(updatedUser).toBeDefined();
+    expect(updatedUser.name).toBe(addedUser.name);
+    expect(updatedUser.email).toBe(addedUser.email);
+    expect(updatedUser.tiles.length).toBe(addedUser.tiles.length + 1);
+});
+
+//removeTileFromUserByIds()
+test("Remove tile to user by ids", async () => {
+    const dummyUser = {
+        name: "Fblthp",
+        email: "fblthp@gmail.com",
+        tiles: [{
+            tileType: "noTileType",
+            width: 2,
+            x: 0,
+            y: 200,
+        }]
+    }
+    const result = new userModel(dummyUser);
+    const addedUser = await result.save();
+    expect(addedUser.tiles.length).toBe(1);
+    const updatedUser = await userServices.removeTileFromUserByIds(addedUser.id, addedUser.tiles[0]._id);
+    expect(updatedUser).toBeDefined();
+    expect(updatedUser.name).toBe(addedUser.name);
+    expect(updatedUser.email).toBe(addedUser.email);
+    expect(updatedUser.tiles.length).toBe(addedUser.tiles.length - 1);
+});
+
+//updateTileFields()
+test("Update tile fields", async () => {
+    const foundUser = await userServices.getUserByEmail("monke@gmail.com");
+    const newFields = {x: 1, width: 42}
+    const updatedUser = await userServices.updateTileFields(foundUser._id, foundUser.tiles[1]._id, newFields);
+    expect(updatedUser).toBeDefined();
+    expect(updatedUser.tiles.length).toBe(foundUser.tiles.length);
+    for (key of Object.keys(newFields)) {
+        expect(key).toBeDefined();
+        expect(updatedUser.tiles[1][key]).toBe(newFields[key]);
+    }
+});
