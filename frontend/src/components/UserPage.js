@@ -4,10 +4,8 @@ import Button from 'react-bootstrap/Button'
 import SignIn from './SignIn';
 import axios from 'axios';
 
+
 class UserPage extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    // }
 
     removeTile = async (tileId) => {
         const response = await axios.delete(`http://localhost:5000/u/${this.props.user._id}/${tileId}`);
@@ -19,14 +17,15 @@ class UserPage extends React.Component {
             this.forceUpdate();
         }   
     }
+    
 
     render() {
         if (!this.props.user || !this.props.user.tiles) return (<SignIn updateUser={this.props.updateUser} />);
 
         document.title = `${this.props.user.name}'s Personal Homepage`;
-
+          
         return(
-            <>
+            <>                
                 <Button className = "Button" onClick={() => this.props.addTile()}>Add Tile</Button>
                 {this.props.user.tiles.map((tile, index) => { 
                     return (

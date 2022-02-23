@@ -23,7 +23,18 @@
   height: 100%;
 }
 
+.color{
+  opacity: 0;
+  .color:hover{
+    opacity: 1;
+  }
+}
 
+.value {
+  border-left: 24px solid #000;
+  padding-left: 10px;
+  margin-top: 20px;
+}
 
 .App-logo {
   height: 40vmin;
@@ -69,6 +80,7 @@
     opacity: 1;
   }
 }
+
 
 .Button{
   color: #000000;
