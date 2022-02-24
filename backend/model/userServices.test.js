@@ -271,3 +271,30 @@ test("Update tile fields", async () => {
         expect(updatedUser.tiles[1][key]).toBe(newFields[key]);
     }
 });
+
+//updateTileListItem()
+test("Update tile list item", async () => {
+    const dummyUser = {
+        name: "Fblthp",
+        email: "fblthp@gmail.com",
+        tiles: [{
+            tileType: "toDoList",
+            width: 2,
+            x: 0,
+            y: 200,
+            data: {
+                list: [
+                    {text: "Text1", status: 0},
+                    {text: "Text2", status: 1},
+                    {text: "Text3", status: 0}
+                ]
+            }
+        }]
+    }
+    const result = new userModel(dummyUser);
+    const addedUser = await result.save();
+    const newFields = {text: "I've been updated", status: 2};
+    const updatedUser = await userServices.updateTileListItem(addedUser._id, addedUser.tiles[0]._id, 2, newFields);
+    expect(updatedUser.tiles[0].data.list[2].text).toBe("I've been updated");
+    expect(updatedUser.tiles[0].data.list[2].status).toBe(2);
+});
