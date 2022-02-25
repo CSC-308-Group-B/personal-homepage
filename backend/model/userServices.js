@@ -33,7 +33,7 @@ async function getUsers(){
 async function getUserById(id){
     const userModel = getDbConnection().model("User", UserSchema);    
     try {
-        return await userModel.findById(id);
+        return await userModel.findById(id) || undefined;
     } catch(error) {
         console.log(error);
         return undefined;

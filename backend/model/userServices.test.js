@@ -8,6 +8,8 @@ let mongoServer;
 let conn;
 let userModel;
 
+let userBolas, userJace, userRagavan;
+
 beforeAll(async () => {
     mongoServer = await MongoMemoryServer.create();
     const uri = mongoServer.getUri();
@@ -52,8 +54,8 @@ beforeEach(async () => {
             },
         ]
     }
-    let result = new userModel(dummyUser);
-    await result.save();
+    userBolas = new userModel(dummyUser);
+    await userBolas.save();
     //second dummyUser
     dummyUser = {
         name: "Jace, the Mind Sculptor",
@@ -79,8 +81,8 @@ beforeEach(async () => {
             },
         ]
     }
-    result = new userModel(dummyUser);
-    await result.save();
+    userJace = new userModel(dummyUser);
+    await userJace.save();
     //third dummyUser
     dummyUser = {
         name: "Ragavan",
@@ -106,8 +108,8 @@ beforeEach(async () => {
             },
         ]
     }
-    result = new userModel(dummyUser);
-    await result.save();
+    userRagavan = new userModel(dummyUser);
+    await userRagavan.save();
 });
 
 afterEach(async () => {
@@ -131,26 +133,12 @@ test("Fetching user by id - doesn't exist", async () => {
     const foundUser = await userServices.getUserById("notAnId");
     expect(foundUser).toBeUndefined();
 });
-test("Fetching user by id - newly added", async () => {
-    const dummyUser = {
-        name: "Fblthp",
-        email: "fblthp@gmail.com",
-        tiles: [
-            {
-                tileType: "noTileType",
-                width: 2,
-                x: 0,
-                y: 200,
-            },
-        ]
-    }
-    const result = new userModel(dummyUser);
-    const addedUser = await result.save();
-    const foundUser = await userServices.getUserById(addedUser.id);
+test("Fetching user by id", async () => {
+    const foundUser = await userServices.getUserById(userBolas._id);
     expect(foundUser).toBeDefined();
-    expect(foundUser.name).toBe(addedUser.name);
-    expect(foundUser.email).toBe(addedUser.email);
-    expect(foundUser.tiles.length).toBe(addedUser.tiles.length);
+    expect(foundUser.name).toBe(userBolas.name);
+    expect(foundUser.email).toBe(userBolas.email);
+    expect(foundUser.tiles.length).toBe(userBolas.tiles.length);
 });
 
 //getUserByEmail()
@@ -159,14 +147,14 @@ test("Fetch user by email - doesn't exist", async () => {
     expect(foundUser).toBeUndefined();
 });
 test("Fetch user by email - exists", async () => {
-    const foundUser = await userServices.getUserByEmail("monke@gmail.com");
+    const foundUser = await userServices.getUserByEmail(userRagavan.email);
     expect(foundUser).toBeDefined();
-    expect(foundUser.name).toBe("Ragavan");
+    expect(foundUser.name).toBe(userRagavan.name);
 });
 
 //addUser()
 test("add user - invalid", async () => {
-    const dummyUser = {
+    const userFblthp = {
         namasdfasdfe: "Fblthp",
         emasdfasdfasdail: "fblthp@gmail.com",
         tifasdfasdfasdfasdfasdfles: [
@@ -178,11 +166,11 @@ test("add user - invalid", async () => {
             },
         ]
     }
-    const addedUser = await userServices.addUser(dummyUser);
+    const addedUser = await userServices.addUser(userFblthp);
     expect(addedUser).toBe(false);
 });
 test("add user", async () => {
-    const dummyUser = {
+    const userFblthp = {
         name: "Fblthp",
         email: "fblthp@gmail.com",
         tiles: [
@@ -194,11 +182,11 @@ test("add user", async () => {
             },
         ]
     }
-    const addedUser = await userServices.addUser(dummyUser);
+    const addedUser = await userServices.addUser(userFblthp);
     expect(addedUser).toBeDefined();
-    expect(addedUser.name).toBe("Fblthp");
-    expect(addedUser.email).toBe("fblthp@gmail.com");
-    expect(addedUser.tiles.length).toBe(1);
+    expect(addedUser.name).toBe(userFblthp.name);
+    expect(addedUser.email).toBe(userFblthp.email);
+    expect(addedUser.tiles.length).toBe(userFblthp.tiles.length);
 });
 
 //deleteUserById()
@@ -206,35 +194,28 @@ test("Delete user by id - doesn't exist", async () => {
     const deletedUser = await userServices.deleteUserById("61fdb8eca419f17fb12d92c4");
     expect(deletedUser).toBeNull();
 });
-test("Delete user by id - newly added", async () => {
-    const foundUser = await userServices.getUserByEmail("monke@gmail.com");
-    const deletedUser = await userServices.deleteUserById(foundUser._id);
+test("Delete user by id", async () => {
+    const deletedUser = await userServices.deleteUserById(userRagavan._id);
     expect(deletedUser).toBeDefined();
-    expect(deletedUser.name).toBe(foundUser.name);
-    expect(deletedUser.email).toBe(foundUser.email);
-    expect(deletedUser.tiles.length).toBe(foundUser.tiles.length);
+    expect(deletedUser.name).toBe(userRagavan.name);
+    expect(deletedUser.email).toBe(userRagavan.email);
+    expect(deletedUser.tiles.length).toBe(userRagavan.tiles.length);
+    const noLongerExistingUser = await userServices.getUserById(deletedUser._id);
+    expect(noLongerExistingUser).toBeUndefined();
 });
 
 //addTileToUserById()
 test("Add tile to user by id", async () => {
-    const dummyUser = {
-        name: "Fblthp",
-        email: "fblthp@gmail.com",
-        tiles: []
-    }
-    const result = new userModel(dummyUser);
-    const addedUser = await result.save();
-    expect(addedUser.tiles.length).toBe(0);
-    const updatedUser = await userServices.addTileToUserById(addedUser.id, {
+    const updatedUser = await userServices.addTileToUserById(userBolas._id, {
         tileType: "noTileType",
         width: 2,
         x: 0,
         y: 200,
     });
     expect(updatedUser).toBeDefined();
-    expect(updatedUser.name).toBe(addedUser.name);
-    expect(updatedUser.email).toBe(addedUser.email);
-    expect(updatedUser.tiles.length).toBe(addedUser.tiles.length + 1);
+    expect(updatedUser.name).toBe(userBolas.name);
+    expect(updatedUser.email).toBe(userBolas.email);
+    expect(updatedUser.tiles.length).toBe(userBolas.tiles.length + 1);
 });
 
 //removeTileFromUserByIds()
