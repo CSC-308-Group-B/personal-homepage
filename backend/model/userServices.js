@@ -127,13 +127,61 @@ async function updateTileFields(userId, tileId, updatedFields) {
     }
 }
 
+async function addTileListItem(userId, tileId, newItem) {
+    const userModel = getDbConnection().model("User", UserSchema);
+    try {
+        return await userModel.findOneAndUpdate(
+            {
+                _id: userId,
+                "tiles._id": tileId
+            },
+            {
+                $push: {"tiles.$.data.list": newItem}
+            },
+            {
+                upsert: true,
+                new:true,
+                safe: true
+            }
+        )
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
+}
+
+async function deleteTileListItem(userId, tileId, itemIndex) {
+    const userModel = getDbConnection().model("User", UserSchema);
+    //mongoose doesn't make it easy to remove items from arrays by index.
+    //So, we first add a "delete" field with the value of 1, and remove all items with delete: 1
+    updateTileListItem(userId, tileId, itemIndex, {delete: 1});
+    try {
+        return await userModel.findOneAndUpdate(
+            {
+                _id: userId,
+                "tiles._id": tileId
+            },
+            {
+                $pull: {"tiles.$.data.list": {"delete": 1}}
+            },
+            {
+                upsert: true,
+                new:true,
+                safe: true
+            }
+        )
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
+}
+
 async function updateTileListItem(userId, tileId, itemIndex, updatedFields) {
     const userModel = getDbConnection().model("User", UserSchema);
     let newFields = {};
     for (key of Object.keys(updatedFields)) {
         newFields[`tiles.$.data.list.${itemIndex}.${key}`] = updatedFields[key];
     }
-    console.log(newFields);
     try {
         return await userModel.findOneAndUpdate(
             {
@@ -155,13 +203,15 @@ async function updateTileListItem(userId, tileId, itemIndex, updatedFields) {
     }
 }
 
-exports.setDbConnection = setDbConnection; //tested
-exports.getUserById = getUserById; //tested
-exports.getUsers = getUsers; //tested
-exports.deleteUserById = deleteUserById; //tested
-exports.addUser = addUser; //tested
-exports.addTileToUserById = addTileToUserById; //tested
-exports.removeTileFromUserByIds = removeTileFromUserByIds; //tested
-exports.getUserByEmail = getUserByEmail; //tested
-exports.updateTileFields = updateTileFields; //tested
-exports.updateTileListItem = updateTileListItem; //
+exports.setDbConnection = setDbConnection;
+exports.getUserById = getUserById;
+exports.getUsers = getUsers;
+exports.deleteUserById = deleteUserById;
+exports.addUser = addUser;
+exports.addTileToUserById = addTileToUserById;
+exports.removeTileFromUserByIds = removeTileFromUserByIds;
+exports.getUserByEmail = getUserByEmail;
+exports.updateTileFields = updateTileFields;
+exports.updateTileListItem = updateTileListItem;
+exports.addTileListItem = addTileListItem;
+exports.deleteTileListItem = deleteTileListItem;

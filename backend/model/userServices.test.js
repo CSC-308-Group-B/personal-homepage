@@ -66,19 +66,7 @@ beforeEach(async () => {
                 width: 2,
                 x: 0,
                 y: 200,
-            },
-            {
-                tileType: "noTileType",
-                width: 2,
-                x: 25,
-                y: 400,
-            },
-            {
-                tileType: "noTileType",
-                width: 2,
-                x: 75,
-                y: 600,
-            },
+            }
         ]
     }
     userJace = new userModel(dummyUser);
@@ -93,19 +81,14 @@ beforeEach(async () => {
                 width: 2,
                 x: 0,
                 y: 200,
-            },
-            {
-                tileType: "noTileType",
-                width: 2,
-                x: 25,
-                y: 400,
-            },
-            {
-                tileType: "noTileType",
-                width: 2,
-                x: 75,
-                y: 600,
-            },
+                data: {
+                    list: [
+                        {text: "Text1", status: 0},
+                        {text: "Text2", status: 1},
+                        {text: "Text3", status: 0}
+                    ]
+                }
+            }
         ]
     }
     userRagavan = new userModel(dummyUser);
@@ -219,63 +202,45 @@ test("Add tile to user by id", async () => {
 });
 
 //removeTileFromUserByIds()
-test("Remove tile to user by ids", async () => {
-    const dummyUser = {
-        name: "Fblthp",
-        email: "fblthp@gmail.com",
-        tiles: [{
-            tileType: "noTileType",
-            width: 2,
-            x: 0,
-            y: 200,
-        }]
-    }
-    const result = new userModel(dummyUser);
-    const addedUser = await result.save();
-    expect(addedUser.tiles.length).toBe(1);
-    const updatedUser = await userServices.removeTileFromUserByIds(addedUser.id, addedUser.tiles[0]._id);
+test("Remove tile from user by ids", async () => {
+    const updatedUser = await userServices.removeTileFromUserByIds(userBolas.id, userBolas.tiles[0]._id);
     expect(updatedUser).toBeDefined();
-    expect(updatedUser.name).toBe(addedUser.name);
-    expect(updatedUser.email).toBe(addedUser.email);
-    expect(updatedUser.tiles.length).toBe(addedUser.tiles.length - 1);
+    expect(updatedUser.name).toBe(userBolas.name);
+    expect(updatedUser.email).toBe(userBolas.email);
+    expect(updatedUser.tiles.length).toBe(userBolas.tiles.length - 1);
 });
 
 //updateTileFields()
 test("Update tile fields", async () => {
-    const foundUser = await userServices.getUserByEmail("monke@gmail.com");
     const newFields = {x: 1, width: 42}
-    const updatedUser = await userServices.updateTileFields(foundUser._id, foundUser.tiles[1]._id, newFields);
+    const updatedUser = await userServices.updateTileFields(userBolas._id, userBolas.tiles[1]._id, newFields);
     expect(updatedUser).toBeDefined();
-    expect(updatedUser.tiles.length).toBe(foundUser.tiles.length);
+    expect(updatedUser.tiles.length).toBe(userBolas.tiles.length);
     for (key of Object.keys(newFields)) {
-        expect(key).toBeDefined();
         expect(updatedUser.tiles[1][key]).toBe(newFields[key]);
     }
 });
 
+//addTileListItem()
+test("Add tile list item", async () => {
+    const newItem = {text: "I'm a new item!", status: 200};
+    const updatedUser = await userServices.addTileListItem(userRagavan._id, userRagavan.tiles[0]._id, newItem);
+    const newIndex = userRagavan.tiles[0].data.list.length;
+    for (key of Object.keys(newItem)) {
+        expect(updatedUser.tiles[0].data.list[newIndex][key]).toBe(newItem[key]);
+    }
+});
+
+//deleteTileListItem()
+test("Delete tile list item", async () => {
+    const updatedUser = await userServices.deleteTileListItem(userRagavan._id, userRagavan.tiles[0]._id, 1);
+    expect(updatedUser.tiles[0].data.list.length).toBe(userRagavan.tiles[0].data.list.length - 1);
+});
+
 //updateTileListItem()
 test("Update tile list item", async () => {
-    const dummyUser = {
-        name: "Fblthp",
-        email: "fblthp@gmail.com",
-        tiles: [{
-            tileType: "toDoList",
-            width: 2,
-            x: 0,
-            y: 200,
-            data: {
-                list: [
-                    {text: "Text1", status: 0},
-                    {text: "Text2", status: 1},
-                    {text: "Text3", status: 0}
-                ]
-            }
-        }]
-    }
-    const result = new userModel(dummyUser);
-    const addedUser = await result.save();
     const newFields = {text: "I've been updated", status: 2};
-    const updatedUser = await userServices.updateTileListItem(addedUser._id, addedUser.tiles[0]._id, 2, newFields);
-    expect(updatedUser.tiles[0].data.list[2].text).toBe("I've been updated");
-    expect(updatedUser.tiles[0].data.list[2].status).toBe(2);
+    const updatedUser = await userServices.updateTileListItem(userRagavan._id, userRagavan.tiles[0]._id, 2, newFields);
+    expect(updatedUser.tiles[0].data.list[2].text).toBe(newFields.text);
+    expect(updatedUser.tiles[0].data.list[2].status).toBe(newFields.status);
 });
