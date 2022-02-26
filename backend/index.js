@@ -151,6 +151,15 @@ app.post('/u/moveTile', async (req, res) => {
     }
 });
 
+app.post('/u/updateToDoItem/:id/:tileid/:itemindex', async (req, res) => {
+    const result = await userServices.updateTileListItem(req.params.id, req.params.tileid, req.body.itemindex);
+    if (result) {
+        res.status(200).send('Updated tile.');
+    } else {
+        res.status(500).send();
+    }
+});
+
 //Begin listening
 app.listen(port, () => {
     console.log(`Now listening at http://localhost:${port}`);
