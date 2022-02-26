@@ -40,6 +40,7 @@ function dragMoveListener(event) {
     const y = (parseFloat(event.target.getAttribute('data-y')) || 0) + event.dy;
     //move to new x and y
     moveTile(event.target, x, y);
+    snapTile(event.target, true);
 }
 
 function moveTile(target, x, y) {
@@ -50,14 +51,21 @@ function moveTile(target, x, y) {
     target.setAttribute('data-y', y);
 }
 
-function snapTile(target) {
+function snapTile(target, preview = false) {
     const snapGridSizeX = 25;
     const snapGridSizeY = 200;
     //snap x and y to grid size
-    const x = Math.round((parseFloat(target.getAttribute('data-x')) || 0) / snapGridSizeX) * snapGridSizeX;
-    const y = Math.round((parseFloat(target.getAttribute('data-y')) || 0) / snapGridSizeY) * snapGridSizeY;
+    const oldX = parseFloat(target.getAttribute('data-x')) || 0;
+    const oldY = parseFloat(target.getAttribute('data-y')) || 0;
+    const x = Math.round(oldX / snapGridSizeX) * snapGridSizeX;
+    const y = Math.round(oldY / snapGridSizeY) * snapGridSizeY;
     //move tile to snapped pos
-    moveTile(target, x, y);
+    if (preview) {
+        target.style.boxShadow = `${x - oldX}vw ${y - oldY}px 2px 2px rgba(200, 200, 200, 0.5)`;
+    } else {
+        target.style.boxShadow = ``;
+        moveTile(target, x, y);
+    }
     //return new x and y
     return {x: x, y: y};
 }
