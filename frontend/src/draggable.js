@@ -60,10 +60,20 @@ function snapTile(target, preview = false) {
     const x = Math.round(oldX / snapGridSizeX) * snapGridSizeX;
     const y = Math.round(oldY / snapGridSizeY) * snapGridSizeY;
     //move tile to snapped pos
+    let shadow = document.querySelector('.tileSnapShadow');
     if (preview) {
-        target.style.boxShadow = `${x - oldX}vw ${y - oldY}px 2px 2px rgba(200, 200, 200, 0.5)`;
+        if (!shadow) {
+            shadow = document.createElement("div");
+            shadow.classList.add("tileSnapShadow");
+            target.appendChild(shadow);
+            console.log(shadow);
+        }
+        shadow.style.left = `${x - oldX}vw`;
+        shadow.style.top = `${y - oldY}px`;
     } else {
-        target.style.boxShadow = ``;
+        if (shadow) shadow.remove();
+        // pseudo.style.opacity = 0;
+        // target.style.boxShadow = ``;
         moveTile(target, x, y);
     }
     //return new x and y

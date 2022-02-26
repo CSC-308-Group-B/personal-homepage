@@ -26,7 +26,7 @@ class Tile extends React.Component {
         return (
             //These data parameters are so interact.js knows the initial position of the tiles.
             <div
-                className={`tileContainerPosition ${this.props.canEdit ? "draggable" : ""}`}
+                className={`TileContainer ${this.props.canEdit ? "draggable" : ""}`}
                 id={this.props._id}
                 style={transform}
                 data-x={this.props.x}
