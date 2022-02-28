@@ -54,6 +54,12 @@
   top: 0;
   right: 0;
   padding: 1rem;
+  background-color: $white;
+}
+
+.CloseButton:hover{
+    opacity: 1; 
+    background-color: #ff0000;
 }
 
 .addTask{
@@ -93,10 +99,10 @@
   z-index: 1;
 }
 
-.draggable {
-  position: fixed;
-  top: 0;
-  left: 0;
+.tileContainerPosition {
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 

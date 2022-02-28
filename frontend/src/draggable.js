@@ -3,7 +3,7 @@ const interact = require('interactjs');
 interact('.draggable')
     .draggable({
         inertia: {
-            resistance: 20,
+            resistance: 10,
         },
         // keep the element within the area of it's parent
         modifiers: [
