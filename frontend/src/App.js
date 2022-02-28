@@ -5,8 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styling/App.scss';
 import axios from 'axios';
 import './draggable.js'
-import { HexColorPicker, RgbaColorPicker} from "react-colorful";
-import Button from 'react-bootstrap/Button'
+
 
 
 class App extends React.Component {
@@ -14,12 +13,6 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: 0,
-      r: 255,
-      g: 255,
-      b: 255,
-      a: 1,
-      color: "#ffffff",
-      showColor: false,
     };
   }
 
@@ -64,10 +57,6 @@ class App extends React.Component {
     }
   }
 
-  updateColor = (updatedColor) => {
-    this.setState({r: updatedColor.r, g: updatedColor.g, b: updatedColor.b, a: updatedColor.a});
-  }
-
 
   render() {
 
@@ -76,18 +65,6 @@ class App extends React.Component {
     return (
       <div className="App" style={{ height: "100vh", width: "auto" }}>
         {/* //<div className='Background' /> */}
-
-        {
-          (this.state.showColor ? <RgbaColorPicker  style = {{position: 'absolute', top: 0, left: 0}}className = "ColorPicker" color = {{r: this.state.r, g:this.state.g, b:this.state.b, a: this.state.a}} onChange={this.updateColor} /> : null)
-        }
-        
-        <Button onClick={() => this.setState({showColor: !this.state.showColor})}>Color Picker</Button>
-
-
-        <div className="value" style={{borderLeftColor: this.state.color }}>
-        Current color is { this.state.r}, {this.state.g}, {this.state.b}, {this.state.a}
-        </div> 
-
         <UserPage user={this.state.user} updateUser={this.updateUser} addTile={this.addTile} />
       </div>
     );
