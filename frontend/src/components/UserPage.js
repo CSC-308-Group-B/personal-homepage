@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button'
 import SignIn from './SignIn';
 import axios from 'axios';
 
+//bro thats crazy
+
 class UserPage extends React.Component {
 
      constructor(props) {
@@ -46,12 +48,8 @@ class UserPage extends React.Component {
 
         return(
             <>
-<<<<<<< HEAD
-                <Button onClick={() => this.props.addTile()}>Add Tile yo brUH</Button>
-=======
                 <Button onClick={() => this.toggleEdit()}>EDIT</Button>
                 <Button onClick={() => this.props.addTile()}>Add Tile</Button>
->>>>>>> 2b196839c58861f63678a0d429bbacb1554f0c0c
                 {this.props.user.tiles.map((tile) => { 
                     return (
                         <Tile key={tile._id} {...tile} deleteTile={this.removeTile} moveTile={this.moveTile} canEdit={this.state.editMode} />
