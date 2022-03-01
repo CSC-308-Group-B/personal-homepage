@@ -17,8 +17,30 @@ interact('.draggable')
             move: dragMoveListener,
             //this runs when the user lets go of the object:
             end(event) {
-                //Snap to grid
-                const newPos = snapTile(event.target);
+
+                var newPos;
+                const snapToGrid = event.target.getAttribute('data-snaptogrid');
+                const x = parseFloat(event.target.getAttribute('data-x')) || 0;
+                const y = parseFloat(event.target.getAttribute('data-y')) || 0;
+
+
+                if (snapToGrid === "true") {
+
+                    //Snap to grid
+                    newPos = snapTile(x, y);
+
+                } else {
+
+                    newPos = {
+                        x: x,
+                        y: y
+                    }
+
+                }
+
+                moveTile(event.target, newPos.x, newPos.y);
+
+
                 //create a custom event to tell the component it moved, and also send the new data-x and data-y values
                 const onTileMoveEvent = new CustomEvent("onTileMove", {
                     detail: {
@@ -50,16 +72,20 @@ function moveTile(target, x, y) {
     target.setAttribute('data-y', y);
 }
 
-function snapTile(target) {
+function snapTile(x, y) {
+
     const snapGridSizeX = 25;
     const snapGridSizeY = 200;
+
     //snap x and y to grid size
-    const x = Math.round((parseFloat(target.getAttribute('data-x')) || 0) / snapGridSizeX) * snapGridSizeX;
-    const y = Math.round((parseFloat(target.getAttribute('data-y')) || 0) / snapGridSizeY) * snapGridSizeY;
-    //move tile to snapped pos
-    moveTile(target, x, y);
+    const roundedX = Math.round( x / snapGridSizeX) * snapGridSizeX;
+    const roundedY = Math.round( y / snapGridSizeY) * snapGridSizeY;
+    
     //return new x and y
-    return {x: x, y: y};
+    return {
+        x: roundedX,
+        y: roundedY
+    };
 }
 
 // this function is used later in the resizing and gesture demos
