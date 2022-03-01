@@ -136,11 +136,11 @@ async function addTileListItem(userId, tileId, newItem) {
                 "tiles._id": tileId
             },
             {
-                $push: {"tiles.$.data.list": newItem}
+                $push: {"tiles.$.list": newItem}
             },
             {
                 upsert: true,
-                new:true,
+                new: true,
                 safe: true
             }
         )
@@ -150,11 +150,8 @@ async function addTileListItem(userId, tileId, newItem) {
     }
 }
 
-async function deleteTileListItem(userId, tileId, itemIndex) {
+async function deleteTileListItem(userId, tileId, itemId) {
     const userModel = getDbConnection().model("User", UserSchema);
-    //mongoose doesn't make it easy to remove items from arrays by index.
-    //So, we first add a "delete" field with the value of 1, and remove all items with delete: 1
-    updateTileListItem(userId, tileId, itemIndex, {delete: 1});
     try {
         return await userModel.findOneAndUpdate(
             {
@@ -162,7 +159,7 @@ async function deleteTileListItem(userId, tileId, itemIndex) {
                 "tiles._id": tileId
             },
             {
-                $pull: {"tiles.$.data.list": {"delete": 1}}
+                $pull: {"tiles.$.list": {"_id": itemId}}
             },
             {
                 upsert: true,
@@ -176,18 +173,30 @@ async function deleteTileListItem(userId, tileId, itemIndex) {
     }
 }
 
-async function updateTileListItem(userId, tileId, itemIndex, updatedFields) {
+async function updateTileListItem(userId, tileId, itemId, updatedFields) {
     const userModel = getDbConnection().model("User", UserSchema);
+    //multiple positional ($) operators are not allowed, so we must find the index manually
+    const oldUser = await getUserById(userId);
+    let tileIndex = -1;
+    for (tile of oldUser.tiles) {
+        tileIndex ++;
+        if (tile._id == tileId) break;
+    }
+    if (tileIndex < 0) return undefined;
+    //now, create the new fields object
     let newFields = {};
     for (key of Object.keys(updatedFields)) {
-        newFields[`tiles.$.data.list.${itemIndex}.${key}`] = updatedFields[key];
+        newFields[`tiles.${tileIndex}.list.$.${key}`] = updatedFields[key];
     }
+    //and create the query object
+    let queryObject = {
+        _id: userId
+    };
+    queryObject[`tiles.${tileIndex}.list._id`] = itemId;
+    //mongoose query
     try {
         return await userModel.findOneAndUpdate(
-            {
-                _id: userId,
-                "tiles._id": tileId
-            },
+            queryObject,
             {
                 $set: newFields
             },

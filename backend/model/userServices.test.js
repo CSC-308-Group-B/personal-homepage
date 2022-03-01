@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const UserSchema = require("./userSchema");
 const userServices = require("./userServices");
 const { MongoMemoryServer } = require("mongodb-memory-server");
-const { add } = require("./tileSchema");
 
 let mongoServer;
 let conn;
@@ -77,17 +76,16 @@ beforeEach(async () => {
         email: "monke@gmail.com",
         tiles: [
             {
-                tileType: "noTileType",
+                tileType: "toDoListTile",
                 width: 2,
                 x: 0,
                 y: 200,
-                data: {
-                    list: [
-                        {text: "Text1", status: 0},
-                        {text: "Text2", status: 1},
-                        {text: "Text3", status: 0}
-                    ]
-                }
+                data: { },
+                list: [
+                    {text: "Text1", status: 0},
+                    {text: "Text2", status: 1},
+                    {text: "Text3", status: 0}
+                ]
             }
         ]
     }
@@ -225,22 +223,25 @@ test("Update tile fields", async () => {
 test("Add tile list item", async () => {
     const newItem = {text: "I'm a new item!", status: 200};
     const updatedUser = await userServices.addTileListItem(userRagavan._id, userRagavan.tiles[0]._id, newItem);
-    const newIndex = userRagavan.tiles[0].data.list.length;
+    const newIndex = userRagavan.tiles[0].list.length;
     for (key of Object.keys(newItem)) {
-        expect(updatedUser.tiles[0].data.list[newIndex][key]).toBe(newItem[key]);
+        expect(updatedUser.tiles[0].list[newIndex][key]).toBe(newItem[key]);
     }
 });
 
 //deleteTileListItem()
 test("Delete tile list item", async () => {
-    const updatedUser = await userServices.deleteTileListItem(userRagavan._id, userRagavan.tiles[0]._id, 1);
-    expect(updatedUser.tiles[0].data.list.length).toBe(userRagavan.tiles[0].data.list.length - 1);
+    const updatedUser = await userServices.deleteTileListItem(userRagavan._id, userRagavan.tiles[0]._id, userRagavan.tiles[0].list[0]._id);
+    expect(updatedUser.tiles[0].list.length).toBe(userRagavan.tiles[0].list.length - 1);
 });
 
 //updateTileListItem()
 test("Update tile list item", async () => {
-    const newFields = {text: "I've been updated", status: 2};
-    const updatedUser = await userServices.updateTileListItem(userRagavan._id, userRagavan.tiles[0]._id, 2, newFields);
-    expect(updatedUser.tiles[0].data.list[2].text).toBe(newFields.text);
-    expect(updatedUser.tiles[0].data.list[2].status).toBe(newFields.status);
+    const newFields = {text: "I've been updated", status: 400};
+    const itemIndex = 1;
+    const updatedUser = await userServices.updateTileListItem(userRagavan._id, userRagavan.tiles[0]._id, userRagavan.tiles[0].list[itemIndex]._id, newFields);
+    console.log(updatedUser);
+    for (key of Object.keys(newFields)) {
+        expect(updatedUser.tiles[0].list[itemIndex][key]).toBe(newFields[key]);
+    }
 });

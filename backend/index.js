@@ -151,10 +151,28 @@ app.post('/u/moveTile', async (req, res) => {
     }
 });
 
-app.post('/u/updateToDoItem/:id/:tileid/:itemindex', async (req, res) => {
-    const result = await userServices.updateTileListItem(req.params.id, req.params.tileid, req.body.itemindex);
+app.post('/u/addToDoItem', async (req, res) => {
+    const result = await userServices.addTileListItem(req.body.userId, req.body.tileId, req.body.tile);
     if (result) {
-        res.status(200).send('Updated tile.');
+        res.status(200).send(result);
+    } else {
+        res.status(500).send();
+    }
+});
+
+app.post('/u/removeToDoItem', async (req, res) => {
+    const result = await userServices.deleteTileListItem(req.body.userId, req.body.tileId, req.body.key);
+    if (result) {
+        res.status(200).send('Delete item.');
+    } else {
+        res.status(500).send();
+    }
+});
+
+app.post('/u/updateToDoItem', async (req, res) => {
+    const result = await userServices.updateTileListItem(req.body.userId, req.body.tileId, req.body.key, req.body.status);
+    if (result) {
+        res.status(200).send('Updated item.');
     } else {
         res.status(500).send();
     }
