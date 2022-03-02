@@ -4,6 +4,11 @@ const UserSchema = require("./userSchema");
 
 let dbConnection;
 
+function setDbConnection(conn) {
+    dbConnection = conn;
+    return conn;
+}
+
 function getDbConnection() {
     if (!dbConnection) {
         const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.9qzfh.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
@@ -38,7 +43,7 @@ async function getUserById(id){
 async function getUserByEmail(email){
     const userModel = getDbConnection().model("User", UserSchema);    
     try {
-        return await userModel.findOne({ email:email });
+        return await userModel.findOne({ email:email }) || undefined;
     } catch(error) {
         console.log(error);
         return undefined;
@@ -48,7 +53,7 @@ async function getUserByEmail(email){
 async function deleteUserById(id) {
     const userModel = getDbConnection().model("User", UserSchema);
     try {
-        return userModel.findByIdAndDelete(id);
+        return userModel.findByIdAndDelete(id) || undefined;
     } catch (error) {
         console.log(error);
         return undefined;
@@ -95,10 +100,39 @@ async function removeTileFromUserByIds(id, tileId) {
     }
 }
 
-exports.getUserById = getUserById;
-exports.getUsers = getUsers;
-exports.deleteUserById = deleteUserById;
-exports.addUser = addUser;
-exports.addTileToUserById = addTileToUserById;
-exports.removeTileFromUserByIds = removeTileFromUserByIds;
-exports.getUserByEmail = getUserByEmail;
+async function updateTileFields(userId, tileId, updatedFields) {
+    const userModel = getDbConnection().model("User", UserSchema);
+    let newFields = {};
+    for (key of Object.keys(updatedFields)) {
+        newFields[`tiles.$.${key}`] = updatedFields[key];
+    }
+    try {
+        return await userModel.findOneAndUpdate(
+            {
+                _id: userId,
+                "tiles._id": tileId
+            },
+            {
+                $set: newFields
+            },
+            {
+                upsert: true,
+                new:true,
+                safe: true
+            }
+        );
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
+}
+
+exports.setDbConnection = setDbConnection; //tested
+exports.getUserById = getUserById; //tested
+exports.getUsers = getUsers; //tested
+exports.deleteUserById = deleteUserById; //tested
+exports.addUser = addUser; //tested
+exports.addTileToUserById = addTileToUserById; //tested
+exports.removeTileFromUserByIds = removeTileFromUserByIds; //tested
+exports.getUserByEmail = getUserByEmail; //tested
+exports.updateTileFields = updateTileFields; //tested

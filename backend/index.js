@@ -9,7 +9,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 //create app
 const app = express();
 //misc config
-const port = 5000;
+const port = 5001;
 app.use(cors({
     origin: ["http://localhost:3000"],
     credentials: true
@@ -139,6 +139,15 @@ app.delete('/u/:id/:tileid', async (req, res) => {
         res.status(204).send(result);
     } else {
         res.status(404).send();
+    }
+});
+
+app.post('/u/moveTile', async (req, res) => {
+    const result = await userServices.updateTileFields(req.body.userId, req.body.tileId, {x:req.body.x, y:req.body.y});
+    if (result) {
+        res.status(200).send('Moved tile.');
+    } else {
+        res.status(500).send('Unable to move tile.');
     }
 });
 

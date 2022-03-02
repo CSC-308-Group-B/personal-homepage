@@ -16,6 +16,11 @@ class App extends React.Component {
     };
   }
 
+  //updates the user object; re-renders the page
+  updateUser = (updatedUser) => {
+    this.setState({ user: updatedUser });
+  }
+
   //Runs immediately as the page begins rendering
   componentDidMount() {
     //if getUser returns a user, set the state
@@ -30,22 +35,18 @@ class App extends React.Component {
   //Upon successful authentication, the backend will return a user, and the frontend will re-render
   //This "withCredentials: true" will need to be added to any REST api calls that need authentication (so most if not all of them)
   getUser = async () => {
-    const result = await axios.get('http://localhost:5000/getUser', { withCredentials: true });
+    const result = await axios.get('http://localhost:5001/getUser', { withCredentials: true });
     return result.data;
-  }
-  //updates the user object; re-renders the page
-  updateUser = (updatedUser) => {
-    this.setState({ user: updatedUser });
   }
 
   addTile = async () => {
     const newTile = {
-      tileType: "BRUHHHHH",
+      tileType: "ToDoListTile",
       width: 2,
-      posx: 0,
-      posy: 0
+      x: 0,
+      y: 0
     }
-    const response = await axios.post(`http://localhost:5000/u/${this.state.user._id}/tiles`, newTile);
+    const response = await axios.post(`http://localhost:5001/u/${this.state.user._id}/tiles`, newTile);
     if (response) {
       if (this.state.user.tiles) {
         newTile._id = response.data.tiles[response.data.tiles.length - 1]._id;
@@ -57,14 +58,12 @@ class App extends React.Component {
     }
   }
 
-
   render() {
-
-    
-
     return (
-      <div className="App" style={{ height: "100vh", width: "auto" }}>
-        {/* //<div className='Background' /> */}
+      <div className="App" style={{ minHeight: "100vh", width: "auto" }}>
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+        </header>
         <UserPage user={this.state.user} updateUser={this.updateUser} addTile={this.addTile} />
       </div>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
-import Tile from './tiles/Tile'
+import Tile from './tiles/TileContainer'
 import Button from 'react-bootstrap/Button'
+import FormCheck from 'react-bootstrap/FormCheck'
 import SignIn from './SignIn';
 import axios from 'axios';
 import { HexColorPicker, RgbaColorPicker } from "react-colorful";
@@ -14,26 +15,49 @@ class UserPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            canEdit: false,
+            snapToGrid: true,
             r: 255,
             g: 255,
             b: 255,
             a: 1,
-        };
+        }
+    }
+
+    moveTile = async (tileId, x, y) => {
+        await axios.post("http://localhost:5001/u/moveTile", {
+            userId: this.props.user._id,
+            tileId: tileId,
+            x: x,
+            y: y
+        });
     }
 
     removeTile = async (tileId) => {
-        const response = await axios.delete(`http://localhost:5000/u/${this.props.user._id}/${tileId}`);
+        const response = await axios.delete(`http://localhost:5001/u/${this.props.user._id}/${tileId}`);
         if (response) {
             this.props.user.tiles = this.props.user.tiles.filter((tile) => {
                 return tile._id !== tileId;
             });
+            // let elem = document.getElementById(tileId);
+            // console.log(elem);
+            // elem.remove();
             this.props.updateUser(this.props.user);
-            this.forceUpdate();
         }
     }
+
+
     updateColor = (updatedColor) => {
         this.setState({ r: updatedColor.r, g: updatedColor.g, b: updatedColor.b, a: updatedColor.a });
     }
+    toggleEdit = () => {
+        this.setState({ canEdit: !this.state.editMode });
+    }
+
+    toggleSnap = () => {
+        this.setState({ snapToGrid: !this.state.snapToGrid });
+    }
+
 
     render() {
         if (!this.props.user || !this.props.user.tiles) return (<SignIn updateUser={this.props.updateUser} />);
@@ -42,7 +66,12 @@ class UserPage extends React.Component {
 
         return (
             <>
-                <Button className="Button" onClick={() => this.props.addTile()}>Add Tile</Button>
+
+                {this.state.canEdit &&
+                    <FormCheck type="switch" label="Toggle Snapping" onChange={() => this.toggleSnap()} />
+                }
+                <Button onClick={() => this.toggleEdit()}>EDIT</Button>
+                <Button onClick={() => this.props.addTile()}>Add Tile</Button>
                 <div>
                     Current color is {this.state.r}, {this.state.g}, {this.state.b}, {this.state.a}
                 </div>
@@ -54,15 +83,18 @@ class UserPage extends React.Component {
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>
-
-
-                {this.props.user.tiles.map((tile, index) => {
+                {this.props.user.tiles.map((tile) => {
                     return (
-                        <Tile key={index} {...tile} deleteTile={this.removeTile} />
+                        <Tile key={tile._id} {...tile}
+                            deleteTile={this.removeTile}
+                            moveTile={this.moveTile}
+                            canEdit={this.state.canEdit}
+                            snapToGrid={this.state.snapToGrid}
+                        />
                     );
-                })}
+                })
+                }
             </>
-
         );
     }
 }

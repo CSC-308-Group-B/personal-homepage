@@ -11,13 +11,17 @@ const TileSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
-        posx: {
+        x: {
             type: Number,
             require: true
         },
-        posy: {
+        y: {
             type: Number,
             required: true
+        },
+        data: {
+            type: Object,
+            required: false
         }
     }
 );
