@@ -38,7 +38,7 @@ class UserPage extends React.Component {
     }
 
     toggleEdit = () => {
-        this.setState({ canEdit: !this.state.editMode});
+        this.setState({ canEdit: !this.state.canEdit});
     }
 
     toggleSnap = () => {
