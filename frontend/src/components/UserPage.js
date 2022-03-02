@@ -51,7 +51,8 @@ class UserPage extends React.Component {
         this.setState({ r: updatedColor.r, g: updatedColor.g, b: updatedColor.b, a: updatedColor.a });
     }
     toggleEdit = () => {
-        this.setState({ canEdit: !this.state.editMode });
+
+        this.setState({ canEdit: !this.state.canEdit });
     }
 
     toggleSnap = () => {
