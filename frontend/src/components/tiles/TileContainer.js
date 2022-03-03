@@ -4,9 +4,11 @@ import CloseButton from "react-bootstrap/CloseButton";
 import React from "react";
 
 class Tile extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    // }
+
+     constructor(props) {
+         super(props);
+    }
+
     componentDidMount() {
         //Receives new x, y positions whenever the tile is moved, and forwards this info to the move function (defined in UserPage)
         document
@@ -31,6 +33,7 @@ class Tile extends React.Component {
                 style={transform}
                 data-x={this.props.x}
                 data-y={this.props.y}
+                data-snaptogrid={this.props.snapToGrid}
             >
 
                 {getTileType(this.props)}

@@ -17,8 +17,29 @@ interact('.draggable')
             move: dragMoveListener,
             //this runs when the user lets go of the object:
             end(event) {
-                //Snap to grid
-                const newPos = snapTile(event.target);
+
+                var newPos;
+                const snapToGrid = event.target.getAttribute('data-snaptogrid');
+                const x = parseFloat(event.target.getAttribute('data-x')) || 0;
+                const y = parseFloat(event.target.getAttribute('data-y')) || 0;
+
+
+                if (snapToGrid === "true") {
+                    //Snap to grid
+                    newPos = snapTile(x, y);
+                } else {
+                    newPos = {
+                        x: x,
+                        y: y
+                    }
+                }
+
+                moveTile(event.target, newPos.x, newPos.y);
+
+                //remove snap preview
+                const snapPreview = document.querySelector('.tileSnapPreview');
+                if (snapPreview) snapPreview.remove();
+
                 //create a custom event to tell the component it moved, and also send the new data-x and data-y values
                 const onTileMoveEvent = new CustomEvent("onTileMove", {
                     detail: {
@@ -49,35 +70,31 @@ function moveTile(target, x, y) {
     // update the position data attributes
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
+    //preview snapping
+    if (target.getAttribute('data-snaptogrid') === "true") {
+        const snapPos = snapTile(x, y);
+        let snapPreview = document.querySelector('.tileSnapPreview');
+        if (!snapPreview) {
+            snapPreview = document.createElement("div");
+            snapPreview.classList.add("tileSnapPreview");
+            target.appendChild(snapPreview);
+        }
+        snapPreview.style.left = `${snapPos.x - x}vw`;
+        snapPreview.style.top = `${snapPos.y - y}px`;
+    }
 }
 
-function snapTile(target, preview = false) {
+function snapTile(x, y) {
     const snapGridSizeX = 25;
     const snapGridSizeY = 200;
     //snap x and y to grid size
-    const oldX = parseFloat(target.getAttribute('data-x')) || 0;
-    const oldY = parseFloat(target.getAttribute('data-y')) || 0;
-    const x = Math.round(oldX / snapGridSizeX) * snapGridSizeX;
-    const y = Math.round(oldY / snapGridSizeY) * snapGridSizeY;
-    //move tile to snapped pos
-    let shadow = document.querySelector('.tileSnapShadow');
-    if (preview) {
-        if (!shadow) {
-            shadow = document.createElement("div");
-            shadow.classList.add("tileSnapShadow");
-            target.appendChild(shadow);
-            console.log(shadow);
-        }
-        shadow.style.left = `${x - oldX}vw`;
-        shadow.style.top = `${y - oldY}px`;
-    } else {
-        if (shadow) shadow.remove();
-        // pseudo.style.opacity = 0;
-        // target.style.boxShadow = ``;
-        moveTile(target, x, y);
-    }
+    const roundedX = Math.round( x / snapGridSizeX) * snapGridSizeX;
+    const roundedY = Math.round( y / snapGridSizeY) * snapGridSizeY;
     //return new x and y
-    return {x: x, y: y};
+    return {
+        x: roundedX,
+        y: roundedY
+    };
 }
 
 // this function is used later in the resizing and gesture demos
