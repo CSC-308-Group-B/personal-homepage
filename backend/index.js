@@ -160,12 +160,12 @@ app.post('/u/addToDoItem', async (req, res) => {
     }
 });
 
-app.post('/u/removeToDoItem', async (req, res) => {
+app.delete('/u/removeToDoItem', async (req, res) => {
     const result = await userServices.deleteTileListItem(req.body.userId, req.body.tileId, req.body.key);
     if (result) {
-        res.status(200).send('Delete item.');
+        res.status(204).send('Delete item.');
     } else {
-        res.status(500).send();
+        res.status(404).send();
     }
 });
 
