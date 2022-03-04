@@ -240,8 +240,18 @@ test("Update tile list item", async () => {
     const newFields = {text: "I've been updated", status: 400};
     const itemIndex = 1;
     const updatedUser = await userServices.updateTileListItem(userRagavan._id, userRagavan.tiles[0]._id, userRagavan.tiles[0].list[itemIndex]._id, newFields);
-    console.log(updatedUser);
     for (key of Object.keys(newFields)) {
         expect(updatedUser.tiles[0].list[itemIndex][key]).toBe(newFields[key]);
     }
+});
+
+//getTileListItem()
+test("Get tile list item", async () => {
+    const newItem = {text: "I'm a new item!", status: 200};
+    const updatedUser = await userServices.addTileListItem(userRagavan._id, userRagavan.tiles[0]._id, newItem);
+    const addedItem = await userServices.getTileListItem(updatedUser, updatedUser.tiles[0]._id, newItem);
+    for (key of Object.keys(newItem)) {
+        expect(addedItem[key]).toBe(newItem[key]);
+    }
+    expect(addedItem._id).toBeDefined();
 });

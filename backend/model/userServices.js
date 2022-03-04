@@ -150,6 +150,21 @@ async function addTileListItem(userId, tileId, newItem) {
     }
 }
 
+async function getTileListItem(user, tileId, newItem) {
+    for (tile of user.tiles) {
+        if (tile._id == tileId) {
+            outerloop:
+            for (item of tile.list) {
+                for (key of Object.keys(newItem)) {
+                    if (item[key] != newItem[key]) continue outerloop;
+                }
+                return item;
+            }
+        }
+    }
+    return undefined;
+}
+
 async function deleteTileListItem(userId, tileId, itemId) {
     const userModel = getDbConnection().model("User", UserSchema);
     try {
@@ -224,3 +239,4 @@ exports.updateTileFields = updateTileFields;
 exports.updateTileListItem = updateTileListItem;
 exports.addTileListItem = addTileListItem;
 exports.deleteTileListItem = deleteTileListItem;
+exports.getTileListItem = getTileListItem;

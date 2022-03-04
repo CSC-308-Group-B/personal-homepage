@@ -153,8 +153,9 @@ app.post('/u/moveTile', async (req, res) => {
 
 app.post('/u/addToDoItem', async (req, res) => {
     const result = await userServices.addTileListItem(req.body.userId, req.body.tileId, req.body.tile);
-    if (result) {
-        res.status(200).send(result);
+    const addedItem = await userServices.getTileListItem(result, req.body.tileId, req.body.tile);
+    if (addedItem) {
+        res.status(200).send(addedItem);
     } else {
         res.status(500).send();
     }
