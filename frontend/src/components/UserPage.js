@@ -41,7 +41,7 @@ class UserPage extends React.Component {
                 <Button onClick={() => this.props.addTile()}>Add Tile</Button>
                 {this.props.user.tiles.map((tile) => { 
                     return (
-                        <Tile key={tile._id} {...tile} deleteTile={this.removeTile} moveTile={this.moveTile} />
+                        <Tile key={tile._id} {...tile} userId = {this.props.user._id} deleteTile={this.removeTile} moveTile={this.moveTile} />
                     );
                 })}
             </>

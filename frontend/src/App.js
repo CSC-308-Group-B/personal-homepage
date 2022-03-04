@@ -61,7 +61,7 @@ class App extends React.Component {
                 <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
                 </header>
-                <UserPage user={this.state.user} updateUser={this.updateUser} addTile={this.addTile} />
+                <UserPage {...this} user={this.state.user} updateUser={this.updateUser} addTile={this.addTile} />
             </div>
         );
     }
