@@ -10,26 +10,22 @@ class ToDoListTile extends React.Component {
 
   constructor(props) {
     super(props);
-    this.myref = React.createRef();
-    this.focusTextInput = this.focusTextInput.bind(this);
+    this.textInputRef = React.createRef();
+    this.getTextInput = this.getTextInput.bind(this);
     this.state = {
-        tasks: [],
+        tasks: this.props.list,
     };
   }
 
-  focusTextInput() {
-    // Explicitly focus the text input using the raw DOM API
-    // Note: we're accessing "current" to get the DOM node
-    this.myref.current.focus();
+  getTextInput() {
+    return this.textInputRef.current.value;
   }
 
   addTask = async () => {
-
     const newTask = {
-      text: this.focusTextInput(),
+      text: this.getTextInput(),
       status: 0
     }
-    console.log(this.myref);
     const response = await axios.post(`http://localhost:5001/u/addToDoItem`, 
       {userId: this.props.userId, 
         tileId: this.props._id, 
@@ -70,11 +66,11 @@ class ToDoListTile extends React.Component {
           <Card.Title>To Do</Card.Title>
           <Card.Text>
             <InputGroup>
-              <input className="inputbar" placeholder="new task" ref={this.myref}></input>
+              <input className="inputbar" placeholder="new task" ref={this.textInputRef}></input>
               <button className='addTask' onClick={() => this.addTask()}>Add Task</button>
             </InputGroup>
             <ListGroup className="taskItems">
-              {(this.props.list && this.props.list.map((task) => {
+              {(this.state.tasks && this.props.list.map((task) => {
                 return (
                   <ToDoListItem key={task._id} {...task}/>);}))}
             </ListGroup>
