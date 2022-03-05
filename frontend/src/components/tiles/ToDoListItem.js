@@ -4,13 +4,15 @@ import FormCheck from "react-bootstrap/FormCheck";
 import React from "react";
 
 class ToDoListItem extends React.Component {
-
+    itemChecked = (event) => {
+        if (!event.target.checked) this.props.deleteTask(this.props._id);
+    }
 
     render () {
         return(
             <ListGroup.Item className="task">
                 {this.props.text}
-                <FormCheck defaultChecked = {this.props.status}
+                <FormCheck onChange={this.itemChecked} defaultChecked = {this.props.status}
                 className='checkbox'/>
             </ListGroup.Item>
         )

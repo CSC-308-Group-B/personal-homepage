@@ -162,12 +162,17 @@ app.post('/u/addToDoItem', async (req, res) => {
 });
 
 app.delete('/u/removeToDoItem', async (req, res) => {
-    const result = await userServices.deleteTileListItem(req.body.userId, req.body.tileId, req.body.itemId);
-    if (result) {
-        res.status(204).send('Delete item.');
-    } else {
-        res.status(404).send();
-    }
+    console.log("REMOVE");
+    res.status(404).send();
+    // console.log(req.body.userId, req.body.tileId, req.body.itemId);
+    // res.status(404).send();
+    // return;
+    // const result = await userServices.deleteTileListItem(req.body.userId, req.body.tileId, req.body.itemId);
+    // if (result) {
+    //     res.status(204).send('Delete item.');
+    // } else {
+    //     res.status(404).send();
+    // }
 });
 
 app.post('/u/updateToDoItem', async (req, res) => {

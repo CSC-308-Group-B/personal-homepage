@@ -40,24 +40,17 @@ class ToDoListTile extends React.Component {
     }
 }
 
-// deleteTask = async () => {
+deleteTask = async (itemId) => {
+  const response = await axios.delete(`http://localhost:5001/u/removeToDoItem`);
 
-//   const response = await axios.delete(`http://localhost:5001/u/u/removeToDoItem`,
-//   {
-//     userId: this.props.userId,
-//     tileId: this.props._id,
-//     itemId: this.props.list._id
-//   });
-
-//   if (response) {
-//       if (this.state.tasks) {
-//           this.state.tasks.push(newTask);
-//       }
-//       this.setState({tasks : this.state.tasks});
-//   } else {
-//       console.log("Failed to delete task.");
-//   }
-// }
+  // if (response) {
+  //   this.state.tasks = this.state.tasks.filter((item) => {
+  //     return item._id !== itemId;
+  //   });
+  // } else {
+  //   console.log("Failed to delete task.");
+  // }
+}
 
   render() {
     return (
@@ -72,7 +65,7 @@ class ToDoListTile extends React.Component {
             <ListGroup className="taskItems">
               {(this.state.tasks && this.props.list.map((task) => {
                 return (
-                  <ToDoListItem key={task._id} {...task}/>);}))}
+                  <ToDoListItem key={task._id} {...task} deleteTask={this.deleteTask} />);}))}
             </ListGroup>
           </Card.Text>
         </Card.Body>
