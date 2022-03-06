@@ -5,7 +5,11 @@ import React from "react";
 
 class ToDoListItem extends React.Component {
     itemChecked = (event) => {
-        if (!event.target.checked) this.props.deleteTask(this.props._id);
+        if (event.target.checked) {
+            this.props.updateTask(this.props._id);
+        } else {
+            this.props.deleteTask(this.props._id);
+        }
     }
 
     render () {
