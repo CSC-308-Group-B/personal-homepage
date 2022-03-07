@@ -8,6 +8,7 @@ import { HexColorPicker, RgbaColorPicker } from "react-colorful";
 import Dropdown from 'react-bootstrap/Dropdown'
 import Accordion from 'react-bootstrap/Accordion'
 import AccordionBody from 'react-bootstrap/esm/AccordionBody';
+import EditHeader from './EditHeader';
 
 
 class UserPage extends React.Component {
@@ -16,12 +17,7 @@ class UserPage extends React.Component {
         super(props);
         this.state = {
             canEdit: false,
-            snapToGrid: true,
-            canPick: false,
-            r: 255,
-            g: 255,
-            b: 255,
-            a: 1,
+            snapToGrid: false,
         }
     }
 
@@ -47,15 +43,8 @@ class UserPage extends React.Component {
         }
     }
 
-    updateColor = (updatedColor) => {
-        this.setState({ r: updatedColor.r, g: updatedColor.g, b: updatedColor.b, a: updatedColor.a });
-    }
     toggleEdit = () => {
         this.setState({ canEdit: !this.state.canEdit });
-    }
-
-    togglePicker = () => {
-        this.setState({ canPick: !this.state.canPick });
     }
 
     toggleSnap = () => {
@@ -68,42 +57,20 @@ class UserPage extends React.Component {
         document.title = `${this.props.user.name}'s Personal Homepage`;
 
         return (
-            //click toggle edit
-            //show color Button
-            //show picker
-
             <>
-                <button className="Edit" onClick={() => this.toggleEdit()}>EDIT</button>
-                {this.state.canEdit &&
-                    <FormCheck className="toggle" type="switch" onChange={() => this.toggleSnap()} />
-                }
-                {this.state.canEdit &&
-                    <Button onClick={() => this.togglePicker()}>Color Picker</Button>
-                }
-                {this.state.canEdit &&
-                    <Button onClick={() => this.props.addTile()}>Add Tile</Button>
-                }
-                {this.state.canPick &&
-                    <Accordion className="w-25 p-3" defaultActiveKey="0" >
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>Color Button</Accordion.Header>
-                            <Accordion.Body>
-                                <RgbaColorPicker color={{ r: this.state.r, g: this.state.g, b: this.state.b, a: this.state.a }} onChange={this.updateColor} />
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                }
+                <EditHeader addTile = {this.props.addTile} toggleSnap = {this.toggleSnap} canEdit={this.state.canEdit} canPick={this.state.canPick} />
 
-                <div>
-                    Current color is {this.state.r}, {this.state.g}, {this.state.b}, {this.state.a}
-                </div>
+                <Button className="Edit" onClick={() => this.toggleEdit()}>EDIT</Button>
+
+                
+
 
                 {this.props.user.tiles.map((tile) => {
                     return (
                         <Tile
                             key={tile._id}
                             {...tile}
-                            userId = {this.props.user._id}
+                            userId={this.props.user._id}
                             deleteTile={this.removeTile}
                             moveTile={this.moveTile}
                             canEdit={this.state.canEdit}

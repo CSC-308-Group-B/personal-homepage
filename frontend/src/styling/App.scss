@@ -57,7 +57,25 @@
 }
 
 .Edit{
-  float:right;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 10;
+
+}
+.EditHeader{
+  max-height: 0;
+  width: 100%;
+  overflow: hidden;
+  padding: 1rem;
+  transform: translate(0, -3rem);
+  box-shadow: 0 0 .5rem 0;
+  transition: .5s ease-in;
+  &.editHeaderVis{
+    transform: translate(0, 0);
+    max-height: 30rem;
+  }
+  
 }
 
 /* TILE CONTAINER */
@@ -142,7 +160,10 @@
   z-index: 1;
 }
 
-
+.colorSwab{
+  border-left: 1.5rem solid black;
+  padding-left: 0.25rem;
+}
 
 
 
