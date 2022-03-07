@@ -61,9 +61,9 @@ class App extends React.Component {
   render() {
     return (
       <div className="App" style={{ minHeight: "100vh", width: "auto" }}>
-        <header className="App-header">
+        {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-        </header>
+        </header> */}
         <UserPage user={this.state.user} updateUser={this.updateUser} addTile={this.addTile} />
       </div>
     );
