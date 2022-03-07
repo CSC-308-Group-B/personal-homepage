@@ -2,11 +2,12 @@ const mongoose = require("mongoose");
 const UserSchema = require("./userSchema");
 const userServices = require("./userServices");
 const { MongoMemoryServer } = require("mongodb-memory-server");
-const { add } = require("./tileSchema");
 
 let mongoServer;
 let conn;
 let userModel;
+
+let userBolas, userJace, userRagavan;
 
 beforeAll(async () => {
     mongoServer = await MongoMemoryServer.create();
@@ -52,8 +53,8 @@ beforeEach(async () => {
             },
         ]
     }
-    let result = new userModel(dummyUser);
-    await result.save();
+    userBolas = new userModel(dummyUser);
+    await userBolas.save();
     //second dummyUser
     dummyUser = {
         name: "Jace, the Mind Sculptor",
@@ -64,50 +65,32 @@ beforeEach(async () => {
                 width: 2,
                 x: 0,
                 y: 200,
-            },
-            {
-                tileType: "noTileType",
-                width: 2,
-                x: 25,
-                y: 400,
-            },
-            {
-                tileType: "noTileType",
-                width: 2,
-                x: 75,
-                y: 600,
-            },
+            }
         ]
     }
-    result = new userModel(dummyUser);
-    await result.save();
+    userJace = new userModel(dummyUser);
+    await userJace.save();
     //third dummyUser
     dummyUser = {
         name: "Ragavan",
         email: "monke@gmail.com",
         tiles: [
             {
-                tileType: "noTileType",
+                tileType: "toDoListTile",
                 width: 2,
                 x: 0,
                 y: 200,
-            },
-            {
-                tileType: "noTileType",
-                width: 2,
-                x: 25,
-                y: 400,
-            },
-            {
-                tileType: "noTileType",
-                width: 2,
-                x: 75,
-                y: 600,
-            },
+                data: { },
+                list: [
+                    {text: "Text1", status: 0},
+                    {text: "Text2", status: 1},
+                    {text: "Text3", status: 0}
+                ]
+            }
         ]
     }
-    result = new userModel(dummyUser);
-    await result.save();
+    userRagavan = new userModel(dummyUser);
+    await userRagavan.save();
 });
 
 afterEach(async () => {
@@ -131,26 +114,12 @@ test("Fetching user by id - doesn't exist", async () => {
     const foundUser = await userServices.getUserById("notAnId");
     expect(foundUser).toBeUndefined();
 });
-test("Fetching user by id - newly added", async () => {
-    const dummyUser = {
-        name: "Fblthp",
-        email: "fblthp@gmail.com",
-        tiles: [
-            {
-                tileType: "noTileType",
-                width: 2,
-                x: 0,
-                y: 200,
-            },
-        ]
-    }
-    const result = new userModel(dummyUser);
-    const addedUser = await result.save();
-    const foundUser = await userServices.getUserById(addedUser.id);
+test("Fetching user by id", async () => {
+    const foundUser = await userServices.getUserById(userBolas._id);
     expect(foundUser).toBeDefined();
-    expect(foundUser.name).toBe(addedUser.name);
-    expect(foundUser.email).toBe(addedUser.email);
-    expect(foundUser.tiles.length).toBe(addedUser.tiles.length);
+    expect(foundUser.name).toBe(userBolas.name);
+    expect(foundUser.email).toBe(userBolas.email);
+    expect(foundUser.tiles.length).toBe(userBolas.tiles.length);
 });
 
 //getUserByEmail()
@@ -159,14 +128,14 @@ test("Fetch user by email - doesn't exist", async () => {
     expect(foundUser).toBeUndefined();
 });
 test("Fetch user by email - exists", async () => {
-    const foundUser = await userServices.getUserByEmail("monke@gmail.com");
+    const foundUser = await userServices.getUserByEmail(userRagavan.email);
     expect(foundUser).toBeDefined();
-    expect(foundUser.name).toBe("Ragavan");
+    expect(foundUser.name).toBe(userRagavan.name);
 });
 
 //addUser()
 test("add user - invalid", async () => {
-    const dummyUser = {
+    const userFblthp = {
         namasdfasdfe: "Fblthp",
         emasdfasdfasdail: "fblthp@gmail.com",
         tifasdfasdfasdfasdfasdfles: [
@@ -178,11 +147,11 @@ test("add user - invalid", async () => {
             },
         ]
     }
-    const addedUser = await userServices.addUser(dummyUser);
+    const addedUser = await userServices.addUser(userFblthp);
     expect(addedUser).toBe(false);
 });
 test("add user", async () => {
-    const dummyUser = {
+    const userFblthp = {
         name: "Fblthp",
         email: "fblthp@gmail.com",
         tiles: [
@@ -194,11 +163,11 @@ test("add user", async () => {
             },
         ]
     }
-    const addedUser = await userServices.addUser(dummyUser);
+    const addedUser = await userServices.addUser(userFblthp);
     expect(addedUser).toBeDefined();
-    expect(addedUser.name).toBe("Fblthp");
-    expect(addedUser.email).toBe("fblthp@gmail.com");
-    expect(addedUser.tiles.length).toBe(1);
+    expect(addedUser.name).toBe(userFblthp.name);
+    expect(addedUser.email).toBe(userFblthp.email);
+    expect(addedUser.tiles.length).toBe(userFblthp.tiles.length);
 });
 
 //deleteUserById()
@@ -206,68 +175,83 @@ test("Delete user by id - doesn't exist", async () => {
     const deletedUser = await userServices.deleteUserById("61fdb8eca419f17fb12d92c4");
     expect(deletedUser).toBeNull();
 });
-test("Delete user by id - newly added", async () => {
-    const foundUser = await userServices.getUserByEmail("monke@gmail.com");
-    const deletedUser = await userServices.deleteUserById(foundUser._id);
+test("Delete user by id", async () => {
+    const deletedUser = await userServices.deleteUserById(userRagavan._id);
     expect(deletedUser).toBeDefined();
-    expect(deletedUser.name).toBe(foundUser.name);
-    expect(deletedUser.email).toBe(foundUser.email);
-    expect(deletedUser.tiles.length).toBe(foundUser.tiles.length);
+    expect(deletedUser.name).toBe(userRagavan.name);
+    expect(deletedUser.email).toBe(userRagavan.email);
+    expect(deletedUser.tiles.length).toBe(userRagavan.tiles.length);
+    const noLongerExistingUser = await userServices.getUserById(deletedUser._id);
+    expect(noLongerExistingUser).toBeUndefined();
 });
 
 //addTileToUserById()
 test("Add tile to user by id", async () => {
-    const dummyUser = {
-        name: "Fblthp",
-        email: "fblthp@gmail.com",
-        tiles: []
-    }
-    const result = new userModel(dummyUser);
-    const addedUser = await result.save();
-    expect(addedUser.tiles.length).toBe(0);
-    const updatedUser = await userServices.addTileToUserById(addedUser.id, {
+    const updatedUser = await userServices.addTileToUserById(userBolas._id, {
         tileType: "noTileType",
         width: 2,
         x: 0,
         y: 200,
     });
     expect(updatedUser).toBeDefined();
-    expect(updatedUser.name).toBe(addedUser.name);
-    expect(updatedUser.email).toBe(addedUser.email);
-    expect(updatedUser.tiles.length).toBe(addedUser.tiles.length + 1);
+    expect(updatedUser.name).toBe(userBolas.name);
+    expect(updatedUser.email).toBe(userBolas.email);
+    expect(updatedUser.tiles.length).toBe(userBolas.tiles.length + 1);
 });
 
 //removeTileFromUserByIds()
-test("Remove tile to user by ids", async () => {
-    const dummyUser = {
-        name: "Fblthp",
-        email: "fblthp@gmail.com",
-        tiles: [{
-            tileType: "noTileType",
-            width: 2,
-            x: 0,
-            y: 200,
-        }]
-    }
-    const result = new userModel(dummyUser);
-    const addedUser = await result.save();
-    expect(addedUser.tiles.length).toBe(1);
-    const updatedUser = await userServices.removeTileFromUserByIds(addedUser.id, addedUser.tiles[0]._id);
+test("Remove tile from user by ids", async () => {
+    const updatedUser = await userServices.removeTileFromUserByIds(userBolas.id, userBolas.tiles[0]._id);
     expect(updatedUser).toBeDefined();
-    expect(updatedUser.name).toBe(addedUser.name);
-    expect(updatedUser.email).toBe(addedUser.email);
-    expect(updatedUser.tiles.length).toBe(addedUser.tiles.length - 1);
+    expect(updatedUser.name).toBe(userBolas.name);
+    expect(updatedUser.email).toBe(userBolas.email);
+    expect(updatedUser.tiles.length).toBe(userBolas.tiles.length - 1);
 });
 
 //updateTileFields()
 test("Update tile fields", async () => {
-    const foundUser = await userServices.getUserByEmail("monke@gmail.com");
     const newFields = {x: 1, width: 42}
-    const updatedUser = await userServices.updateTileFields(foundUser._id, foundUser.tiles[1]._id, newFields);
+    const updatedUser = await userServices.updateTileFields(userBolas._id, userBolas.tiles[1]._id, newFields);
     expect(updatedUser).toBeDefined();
-    expect(updatedUser.tiles.length).toBe(foundUser.tiles.length);
+    expect(updatedUser.tiles.length).toBe(userBolas.tiles.length);
     for (key of Object.keys(newFields)) {
-        expect(key).toBeDefined();
         expect(updatedUser.tiles[1][key]).toBe(newFields[key]);
     }
+});
+
+//addTileListItem()
+test("Add tile list item", async () => {
+    const newItem = {text: "I'm a new item!", status: 200};
+    const updatedUser = await userServices.addTileListItem(userRagavan._id, userRagavan.tiles[0]._id, newItem);
+    const newIndex = userRagavan.tiles[0].list.length;
+    for (key of Object.keys(newItem)) {
+        expect(updatedUser.tiles[0].list[newIndex][key]).toBe(newItem[key]);
+    }
+});
+
+//deleteTileListItem()
+test("Delete tile list item", async () => {
+    const updatedUser = await userServices.deleteTileListItem(userRagavan._id, userRagavan.tiles[0]._id, userRagavan.tiles[0].list[0]._id);
+    expect(updatedUser.tiles[0].list.length).toBe(userRagavan.tiles[0].list.length - 1);
+});
+
+//updateTileListItem()
+test("Update tile list item", async () => {
+    const newFields = {text: "I've been updated", status: 400};
+    const itemIndex = 1;
+    const updatedUser = await userServices.updateTileListItem(userRagavan._id, userRagavan.tiles[0]._id, userRagavan.tiles[0].list[itemIndex]._id, newFields);
+    for (key of Object.keys(newFields)) {
+        expect(updatedUser.tiles[0].list[itemIndex][key]).toBe(newFields[key]);
+    }
+});
+
+//getTileListItem()
+test("Get tile list item", async () => {
+    const newItem = {text: "I'm a new item!", status: 200};
+    const updatedUser = await userServices.addTileListItem(userRagavan._id, userRagavan.tiles[0]._id, newItem);
+    const addedItem = await userServices.getTileListItem(updatedUser, updatedUser.tiles[0]._id, newItem);
+    for (key of Object.keys(newItem)) {
+        expect(addedItem[key]).toBe(newItem[key]);
+    }
+    expect(addedItem._id).toBeDefined();
 });

@@ -44,27 +44,27 @@ passport.use(new GoogleStrategy({
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "/api/auth/google/callback",
 },
-async function(accessToken, refreshToken, profile, callback) {
-    //2) on successful auth, try and find user...
-    const user = await userServices.getUserByEmail(profile._json.email);
-    if (user) {
-        //If they exist, return them
-        callback(null, user);
-    } else {
-        //Otherwise, create a new user and return them
-        const newUser = await userServices.addUser({
-            name: profile.displayName,
-            email: profile._json.email,
-            tiles: []
-        });
-        if (newUser) {
-            callback(null, newUser);
+    async function (accessToken, refreshToken, profile, callback) {
+        //2) on successful auth, try and find user...
+        const user = await userServices.getUserByEmail(profile._json.email);
+        if (user) {
+            //If they exist, return them
+            callback(null, user);
         } else {
-            //And if for some reason the creation fails, return null
-            callback(null, null);
+            //Otherwise, create a new user and return them
+            const newUser = await userServices.addUser({
+                name: profile.displayName,
+                email: profile._json.email,
+                tiles: []
+            });
+            if (newUser) {
+                callback(null, newUser);
+            } else {
+                //And if for some reason the creation fails, return null
+                callback(null, null);
+            }
         }
-    }
-}));
+    }));
 //1) User makes a get request to sign in, so we try to authenticate via passport (See above for step "2")
 app.get("/api/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 //3) on success/error, return to our homepage. Now that the session is initialized, the user will be signed in immediately
@@ -143,11 +143,39 @@ app.delete('/u/:id/:tileid', async (req, res) => {
 });
 
 app.post('/u/moveTile', async (req, res) => {
-    const result = await userServices.updateTileFields(req.body.userId, req.body.tileId, {x:req.body.x, y:req.body.y});
+    const result = await userServices.updateTileFields(req.body.userId, req.body.tileId, { x: req.body.x, y: req.body.y });
     if (result) {
-        res.status(200).send('Moved tile.');
+        res.status(200).send('Updated tile.');
     } else {
-        res.status(500).send('Unable to move tile.');
+        res.status(500).send('Unable to update tile.');
+    }
+});
+
+app.post('/addToDoItem', async (req, res) => {
+    const result = await userServices.addTileListItem(req.body.userId, req.body.tileId, req.body.tile);
+    const addedItem = await userServices.getTileListItem(result, req.body.tileId, req.body.tile);
+    if (addedItem) {
+        res.status(200).send(addedItem);
+    } else {
+        res.status(500).send();
+    }
+});
+
+app.delete('/removeToDoItem', async (req, res) => {
+    const result = await userServices.deleteTileListItem(req.body.userId, req.body.tileId, req.body.itemId);
+    if (result) {
+        res.status(204).send('Deleted item.');
+    } else {
+        res.status(404).send();
+    }
+});
+
+app.post('/updateToDoItem', async (req, res) => {
+    const result = await userServices.updateTileListItem(req.body.userId, req.body.tileId, req.body.itemId, {status: req.body.status});
+    if (result) {
+        res.status(200).send('Updated item.');
+    } else {
+        res.status(500).send();
     }
 });
 

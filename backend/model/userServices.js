@@ -33,7 +33,7 @@ async function getUsers(){
 async function getUserById(id){
     const userModel = getDbConnection().model("User", UserSchema);    
     try {
-        return await userModel.findById(id);
+        return await userModel.findById(id) || undefined;
     } catch(error) {
         console.log(error);
         return undefined;
@@ -127,12 +127,116 @@ async function updateTileFields(userId, tileId, updatedFields) {
     }
 }
 
-exports.setDbConnection = setDbConnection; //tested
-exports.getUserById = getUserById; //tested
-exports.getUsers = getUsers; //tested
-exports.deleteUserById = deleteUserById; //tested
-exports.addUser = addUser; //tested
-exports.addTileToUserById = addTileToUserById; //tested
-exports.removeTileFromUserByIds = removeTileFromUserByIds; //tested
-exports.getUserByEmail = getUserByEmail; //tested
-exports.updateTileFields = updateTileFields; //tested
+async function addTileListItem(userId, tileId, newItem) {
+    const userModel = getDbConnection().model("User", UserSchema);
+    try {
+        return await userModel.findOneAndUpdate(
+            {
+                _id: userId,
+                "tiles._id": tileId
+            },
+            {
+                $push: {"tiles.$.list": newItem}
+            },
+            {
+                upsert: true,
+                new: true,
+                safe: true
+            }
+        )
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
+}
+
+async function getTileListItem(user, tileId, newItem) {
+    for (tile of user.tiles) {
+        if (tile._id == tileId) {
+            outerloop:
+            for (item of tile.list) {
+                for (key of Object.keys(newItem)) {
+                    if (item[key] != newItem[key]) continue outerloop;
+                }
+                return item;
+            }
+        }
+    }
+    return undefined;
+}
+
+async function deleteTileListItem(userId, tileId, itemId) {
+    const userModel = getDbConnection().model("User", UserSchema);
+    try {
+        return await userModel.findOneAndUpdate(
+            {
+                _id: userId,
+                "tiles._id": tileId
+            },
+            {
+                $pull: {"tiles.$.list": {"_id": itemId}}
+            },
+            {
+                upsert: true,
+                new:true,
+                safe: true
+            }
+        )
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
+}
+
+async function updateTileListItem(userId, tileId, itemId, updatedFields) {
+    const userModel = getDbConnection().model("User", UserSchema);
+    //multiple positional ($) operators are not allowed, so we must find the index manually
+    const oldUser = await getUserById(userId);
+    let tileIndex = -1;
+    for (tile of oldUser.tiles) {
+        tileIndex ++;
+        if (tile._id == tileId) break;
+    }
+    if (tileIndex < 0) return undefined;
+    //now, create the new fields object
+    let newFields = {};
+    for (key of Object.keys(updatedFields)) {
+        newFields[`tiles.${tileIndex}.list.$.${key}`] = updatedFields[key];
+    }
+    //and create the query object
+    let queryObject = {
+        _id: userId
+    };
+    queryObject[`tiles.${tileIndex}.list._id`] = itemId;
+    //mongoose query
+    try {
+        return await userModel.findOneAndUpdate(
+            queryObject,
+            {
+                $set: newFields
+            },
+            {
+                upsert: true,
+                new:true,
+                safe: true
+            }
+        )
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
+}
+
+exports.setDbConnection = setDbConnection;
+exports.getUserById = getUserById;
+exports.getUsers = getUsers;
+exports.deleteUserById = deleteUserById;
+exports.addUser = addUser;
+exports.addTileToUserById = addTileToUserById;
+exports.removeTileFromUserByIds = removeTileFromUserByIds;
+exports.getUserByEmail = getUserByEmail;
+exports.updateTileFields = updateTileFields;
+exports.updateTileListItem = updateTileListItem;
+exports.addTileListItem = addTileListItem;
+exports.deleteTileListItem = deleteTileListItem;
+exports.getTileListItem = getTileListItem;

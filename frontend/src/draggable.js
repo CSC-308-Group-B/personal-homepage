@@ -25,21 +25,20 @@ interact('.draggable')
 
 
                 if (snapToGrid === "true") {
-
                     //Snap to grid
                     newPos = snapTile(x, y);
-
                 } else {
-
                     newPos = {
                         x: x,
                         y: y
                     }
-
                 }
 
                 moveTile(event.target, newPos.x, newPos.y);
 
+                //remove snap preview
+                const snapPreview = document.querySelector('.tileSnapPreview');
+                if (snapPreview) snapPreview.remove();
 
                 //create a custom event to tell the component it moved, and also send the new data-x and data-y values
                 const onTileMoveEvent = new CustomEvent("onTileMove", {
@@ -62,6 +61,7 @@ function dragMoveListener(event) {
     const y = (parseFloat(event.target.getAttribute('data-y')) || 0) + event.dy;
     //move to new x and y
     moveTile(event.target, x, y);
+    snapTile(event.target, true);
 }
 
 function moveTile(target, x, y) {
@@ -70,17 +70,26 @@ function moveTile(target, x, y) {
     // update the position data attributes
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
+    //preview snapping
+    if (target.getAttribute('data-snaptogrid') === "true") {
+        const snapPos = snapTile(x, y);
+        let snapPreview = document.querySelector('.tileSnapPreview');
+        if (!snapPreview) {
+            snapPreview = document.createElement("div");
+            snapPreview.classList.add("tileSnapPreview");
+            target.appendChild(snapPreview);
+        }
+        snapPreview.style.left = `${snapPos.x - x}vw`;
+        snapPreview.style.top = `${snapPos.y - y}px`;
+    }
 }
 
 function snapTile(x, y) {
-
     const snapGridSizeX = 25;
     const snapGridSizeY = 200;
-
     //snap x and y to grid size
     const roundedX = Math.round( x / snapGridSizeX) * snapGridSizeX;
     const roundedY = Math.round( y / snapGridSizeY) * snapGridSizeY;
-    
     //return new x and y
     return {
         x: roundedX,
