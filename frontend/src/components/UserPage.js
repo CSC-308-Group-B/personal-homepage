@@ -64,21 +64,21 @@ class UserPage extends React.Component {
 
                 
 
-
-                {this.props.user.tiles.map((tile) => {
-                    return (
-                        <Tile
-                            key={tile._id}
-                            {...tile}
-                            userId={this.props.user._id}
-                            deleteTile={this.removeTile}
-                            moveTile={this.moveTile}
-                            canEdit={this.state.canEdit}
-                            snapToGrid={this.state.snapToGrid}
-                        />
-                    );
-                })
-                }
+                <div className="tileDragArea">
+                    {this.props.user.tiles.map((tile) => {
+                        return (
+                            <Tile
+                                key={tile._id}
+                                {...tile}
+                                userId={this.props.user._id}
+                                deleteTile={this.removeTile}
+                                moveTile={this.moveTile}
+                                canEdit={this.state.canEdit}
+                                snapToGrid={this.state.snapToGrid}
+                            />
+                        );
+                    })}
+                </div>
             </>
         );
     }

@@ -67,12 +67,13 @@
   max-height: 0;
   width: 100%;
   overflow: hidden;
-  padding: 1rem;
-  transform: translate(0, -3rem);
+  padding: 0 1.25rem;
+  // transform: translate(0, -3rem);
   box-shadow: 0 0 .5rem 0;
   transition: .5s ease-in;
   &.editHeaderVis{
-    transform: translate(0, 0);
+    // transform: translate(0, 0);
+    padding: 1rem 1.25rem;
     max-height: 30rem;
   }
   
@@ -80,7 +81,7 @@
 
 /* TILE CONTAINER */
 .TileContainer {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   &:hover {
@@ -94,6 +95,9 @@
   z-index: -1;
   border: 0.25rem dashed $black;
   background-color: rgba(128, 128, 128, 0.5);
+}
+.tileDragArea {
+  min-height: 100vh;
 }
 
 /* CARD TILES */
