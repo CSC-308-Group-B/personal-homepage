@@ -1,13 +1,8 @@
 import React from 'react';
 import Tile from './tiles/TileContainer'
 import Button from 'react-bootstrap/Button'
-import FormCheck from 'react-bootstrap/FormCheck'
 import SignIn from './SignIn';
 import axios from 'axios';
-import { HexColorPicker, RgbaColorPicker } from "react-colorful";
-import Dropdown from 'react-bootstrap/Dropdown'
-import Accordion from 'react-bootstrap/Accordion'
-import AccordionBody from 'react-bootstrap/esm/AccordionBody';
 import EditHeader from './EditHeader';
 
 
@@ -61,8 +56,6 @@ class UserPage extends React.Component {
                 <EditHeader addTile = {this.props.addTile} toggleSnap = {this.toggleSnap} canEdit={this.state.canEdit} canPick={this.state.canPick} />
 
                 <Button className="Edit" onClick={() => this.toggleEdit()}>EDIT</Button>
-
-                
 
                 <div className="tileDragArea">
                     {this.props.user.tiles.map((tile) => {

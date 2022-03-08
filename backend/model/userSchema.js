@@ -53,7 +53,13 @@ const UserSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
-        tiles: [TileSchema]
+        tiles: [TileSchema],
+
+        backgroundColor: {
+            type: Object, 
+            required: false,
+            
+        }
     },
     {
         collection : 'users'

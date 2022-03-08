@@ -14,8 +14,10 @@
 .Background
 {
   position: fixed;
+  top: 0;
   z-index: -1;
-  background-image: url(bike.jpg);
+  background-color: white;
+  //background-image: url(bike.jpg);
   background-size: cover;
   background-repeat:   no-repeat;
   background-position: center center;
@@ -64,6 +66,7 @@
 
 }
 .EditHeader{
+  background-color: white;
   max-height: 0;
   width: 100%;
   overflow: hidden;

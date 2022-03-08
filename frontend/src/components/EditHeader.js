@@ -1,13 +1,8 @@
 import React from 'react';
-import Tile from './tiles/TileContainer'
 import Button from 'react-bootstrap/Button'
 import FormCheck from 'react-bootstrap/FormCheck'
-import SignIn from './SignIn';
-import axios from 'axios';
-import { HexColorPicker, RgbaColorPicker } from "react-colorful";
-import Dropdown from 'react-bootstrap/Dropdown'
-import Accordion from 'react-bootstrap/Accordion'
-import AccordionBody from 'react-bootstrap/esm/AccordionBody';
+
+import { RgbaColorPicker } from "react-colorful";
 
 class EditHeader extends React.Component {
     constructor(props) {
@@ -23,6 +18,7 @@ class EditHeader extends React.Component {
 
     updateColor = (updatedColor) => {
         this.setState({ r: updatedColor.r, g: updatedColor.g, b: updatedColor.b, a: updatedColor.a });
+        document.querySelector(".Background").style["background-color"] = `rgba(${this.state.r}, ${this.state.g}, ${this.state.b}, ${this.state.a})`
     }
 
     render() {
