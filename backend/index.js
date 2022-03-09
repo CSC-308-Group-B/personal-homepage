@@ -142,6 +142,15 @@ app.delete('/u/:id/:tileid', async (req, res) => {
     }
 });
 
+app.post('/setColor', async (req, res) => {
+    const result = await userServices.setUserFields( req.user._id, {backgroundColor: req.body.color} );
+    if (result) {
+        res.status(200).send('Updated color.');
+    } else {
+        res.status(500).send('Unable to update color.');
+    }
+});
+
 app.post('/u/moveTile', async (req, res) => {
     const result = await userServices.updateTileFields(req.body.userId, req.body.tileId, { x: req.body.x, y: req.body.y });
     if (result) {
