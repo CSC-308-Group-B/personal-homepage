@@ -71,7 +71,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App" style={{ minHeight: "100vh", width: "auto" }}>
-        <UserPage user={this.state.user} updateUser={this.updateUser} addTile={this.addTile} updateColor={this.updateColor}/>
+        <UserPage user={this.state.user} color={this.state.color} updateUser={this.updateUser} addTile={this.addTile} updateColor={this.updateColor}/>
         <Background color = {this.state.color}/>
       </div>
     );

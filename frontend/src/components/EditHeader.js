@@ -8,8 +8,7 @@ class EditHeader extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            color: "#ffffff"
-        
+            color: this.props.color
         }
     }
 
@@ -19,8 +18,7 @@ class EditHeader extends React.Component {
         this.setState({ color: updatedColor });
     }
 
-    render() {
-        
+    render() {        
         let classes = 'EditHeader';
 
         if (this.props.canEdit) {
