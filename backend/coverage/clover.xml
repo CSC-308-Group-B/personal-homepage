@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1646712387441" clover="3.2.0">
-  <project timestamp="1646712387442" name="All files">
+<coverage generated="1646869724699" clover="3.2.0">
+  <project timestamp="1646869724700" name="All files">
     <metrics statements="116" coveredstatements="110" conditionals="32" coveredconditionals="23" methods="15" coveredmethods="15" elements="163" coveredelements="148" complexity="0" loc="116" ncloc="116" packages="1" files="2" classes="2"/>
-    <file name="userSchema.js" path="C:\Users\KyleB\OneDrive\Documents\GitHub\personal-homepage\backend\model\userSchema.js">
+    <file name="userSchema.js" path="/Users/kyleburton/Desktop/csc 308 - personal homepage/Personal-Homepage/backend/model/userSchema.js">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <line num="1" count="1" type="stmt"/>
       <line num="3" count="1" type="stmt"/>
       <line num="13" count="1" type="stmt"/>
       <line num="44" count="1" type="stmt"/>
-      <line num="63" count="1" type="stmt"/>
+      <line num="68" count="1" type="stmt"/>
     </file>
-    <file name="userServices.js" path="C:\Users\KyleB\OneDrive\Documents\GitHub\personal-homepage\backend\model\userServices.js">
+    <file name="userServices.js" path="/Users/kyleburton/Desktop/csc 308 - personal homepage/Personal-Homepage/backend/model/userServices.js">
       <metrics statements="111" coveredstatements="105" conditionals="32" coveredconditionals="23" methods="15" coveredmethods="15"/>
       <line num="1" count="1" type="stmt"/>
       <line num="2" count="1" type="stmt"/>
