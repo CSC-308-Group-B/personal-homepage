@@ -84,7 +84,7 @@
 
 /* TILE CONTAINER */
 .TileContainer {
-  position: relative;
+  position: absolute;
   top: 0;
   left: 0;
   &:hover {
@@ -101,6 +101,7 @@
 }
 .tileDragArea {
   min-height: 100vh;
+  position: relative;
 }
 
 /* CARD TILES */

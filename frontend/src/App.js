@@ -55,7 +55,6 @@ class App extends React.Component {
       width: 2,
       x: 0,
       y: 0
-
     }
     const response = await axios.post(`http://localhost:5001/u/${this.state.user._id}/tiles`, newTile);
     if (response) {
