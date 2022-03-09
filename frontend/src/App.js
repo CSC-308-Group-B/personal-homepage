@@ -13,15 +13,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: 0,
-      color: "#ffffff",
-
+      user: undefined,
+      color: "#ffffff"
     };
   }
 
   //updates the user object; re-renders the page
   updateUser = (updatedUser) => {
-    this.setState({ user: updatedUser });
+    this.setState({ user: updatedUser, color: updatedUser.backgroundColor });
   }
 
   //Runs immediately as the page begins rendering
