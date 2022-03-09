@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styling/App.scss';
 import axios from 'axios';
 import './draggable.js'
+import Background from './components/Background';
 
 
 
@@ -13,6 +14,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: 0,
+      color: "#ffffff",
+
     };
   }
 
@@ -39,6 +42,14 @@ class App extends React.Component {
     return result.data;
   }
 
+  updateColor = async (color) => {
+    const response = await axios.post(`http://localhost:5001/setColor`, {color: color}, {withCredentials: true});
+
+    if(response){
+      this.setState({color: color});
+    }
+  }
+
   addTile = async () => {
     const newTile = {
       tileType: "ToDoListTile",
@@ -62,8 +73,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App" style={{ minHeight: "100vh", width: "auto" }}>
-        <UserPage user={this.state.user} updateUser={this.updateUser} addTile={this.addTile} />
-        <div className = "Background"/>
+        <UserPage user={this.state.user} updateUser={this.updateUser} addTile={this.addTile} updateColor={this.updateColor}/>
+        <Background color = {this.state.color}/>
       </div>
     );
   }
