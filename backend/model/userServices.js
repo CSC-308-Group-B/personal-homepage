@@ -23,7 +23,7 @@ function getDbConnection() {
 async function getUsers(){
     const userModel = getDbConnection().model("User", UserSchema);    
     try {
-        return await userModel.find();
+        return await userModel.find() || undefined;
     } catch(error) {
         console.log(error);
         return undefined;
@@ -53,7 +53,7 @@ async function getUserByEmail(email){
 async function deleteUserById(id) {
     const userModel = getDbConnection().model("User", UserSchema);
     try {
-        return userModel.findByIdAndDelete(id) || undefined;
+        return await userModel.findByIdAndDelete(id) || undefined;
     } catch (error) {
         console.log(error);
         return undefined;
@@ -68,8 +68,22 @@ async function addUser(user){
         return savedUser;
     } catch(error) {
         console.log(error);
-        return false;
+        return undefined;
     }   
+}
+
+async function setUserFields(userId, newFields){
+    const userModel = getDbConnection().model("User", UserSchema);
+    try {
+        return await userModel.findByIdAndUpdate(
+            userId,
+            newFields,
+            {new:true}
+        ) || undefined;
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    } 
 }
 
 async function addTileToUserById(id, tile) {
@@ -79,7 +93,7 @@ async function addTileToUserById(id, tile) {
             id,
             {$push: {"tiles": tile}},
             {new:true, safe: true, upsert: true}
-        );
+        ) || undefined;
     } catch (error) {
         console.log(error);
         return undefined;
@@ -93,7 +107,7 @@ async function removeTileFromUserByIds(id, tileId) {
             id,
             {$pull: {"tiles": {"_id": tileId}}},
             {new:true, safe: true}
-        );
+        ) || undefined;
     } catch (error) {
         console.log(error);
         return undefined;
@@ -120,7 +134,7 @@ async function updateTileFields(userId, tileId, updatedFields) {
                 new:true,
                 safe: true
             }
-        );
+        ) || undefined;
     } catch (error) {
         console.log(error);
         return undefined;
@@ -181,7 +195,7 @@ async function deleteTileListItem(userId, tileId, itemId) {
                 new:true,
                 safe: true
             }
-        )
+        ) || undefined;
     } catch (error) {
         console.log(error);
         return undefined;
@@ -192,12 +206,17 @@ async function updateTileListItem(userId, tileId, itemId, updatedFields) {
     const userModel = getDbConnection().model("User", UserSchema);
     //multiple positional ($) operators are not allowed, so we must find the index manually
     const oldUser = await getUserById(userId);
+    if (!oldUser) return undefined;
     let tileIndex = -1;
+    let found = false;
     for (tile of oldUser.tiles) {
         tileIndex ++;
-        if (tile._id == tileId) break;
+        if (tile._id.toString() == tileId.toString()) {
+            found = true;
+            break;
+        }
     }
-    if (tileIndex < 0) return undefined;
+    if (!found) return undefined;
     //now, create the new fields object
     let newFields = {};
     for (key of Object.keys(updatedFields)) {
@@ -220,7 +239,7 @@ async function updateTileListItem(userId, tileId, itemId, updatedFields) {
                 new:true,
                 safe: true
             }
-        )
+        ) || undefined;
     } catch (error) {
         console.log(error);
         return undefined;
@@ -232,6 +251,7 @@ exports.getUserById = getUserById;
 exports.getUsers = getUsers;
 exports.deleteUserById = deleteUserById;
 exports.addUser = addUser;
+exports.setUserFields = setUserFields;
 exports.addTileToUserById = addTileToUserById;
 exports.removeTileFromUserByIds = removeTileFromUserByIds;
 exports.getUserByEmail = getUserByEmail;
