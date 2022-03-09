@@ -34,6 +34,7 @@ class ToDoListTile extends React.Component {
       text: this.getTextInput(),
       status: 0
     }
+    if (newTask.text == "") return;
     //and try adding it to the backed
     const response = await axios.post(`http://localhost:5001/addToDoItem`, {
       userId: this.props.userId,
