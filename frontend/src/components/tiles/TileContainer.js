@@ -2,10 +2,12 @@ import DefaultTile from "./DefaultTile";
 import ToDoListTile from "./ToDoListTile";
 import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
+import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
 import CloseButton from "react-bootstrap/CloseButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import React from "react";
+import GradesTile from "./GradesTile";
 import axios from 'axios';
 
 class Tile extends React.Component {
@@ -86,8 +88,14 @@ function getTileType(props) {
         case "SearchBarTile":
             return <SearchBarTile {...props} />;
 
+        case "GradesTile":
+            return <GradesTile {...props} />;
+
+        case "UpcomingAssignmentsTile":
+            return <UpcomingAssignmentsTile {...props} />;
+
         default:
-            return <DefaultTile {...props} />;
+            return <DefaultTile  {...props} />;
     }
 }
 

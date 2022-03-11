@@ -51,11 +51,12 @@ class EditHeader extends React.Component {
                         </div>
                         <Dropdown.Item onClick={() => this.props.addTile("ToDoListTile")}>Todo List</Dropdown.Item>
                         <Dropdown.Item onClick={() => this.props.addTile("BookmarksTile", { width: 2 })}>Bookmarks</Dropdown.Item>
-                        <Dropdown.Item onClick={() => this.props.addTile("SearchBarTile", {width: 2})}>Search Bar</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.props.addTile("SearchBarTile", { width: 2 })}>Search Bar</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.props.addTile("GradesTile")}>Grades Tile</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.props.addTile("UpcomingAssignmentsTile")}>Upcoming Assignments Tile</Dropdown.Item>
                         <Dropdown.Item onClick={() => this.props.addTile("OtherTileString")}>(Other type)</Dropdown.Item>
                     </Tab>
                     <Tab eventKey="color" title="Color">
-
                         <HexColorPicker className="my-2" color={this.state.color} onChange={this.updateColor} />
 
                         <div className="colorSwab my-2" style={{ borderColor: this.state.color }}>
