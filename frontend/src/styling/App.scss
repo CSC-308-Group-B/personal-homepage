@@ -66,7 +66,13 @@
 
 }
 .EditHeader{
-  background-color: white;
+  background: repeating-linear-gradient(
+    30deg,
+  #ffffff,
+  #ffffff 1rem,
+  #fafafa 1rem,
+  #fafafa 2rem 
+  );
   max-height: 0;
   width: 100%;
   overflow: hidden;
