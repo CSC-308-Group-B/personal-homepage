@@ -12,7 +12,7 @@ class UserPage extends React.Component {
         super(props);
         this.state = {
             canEdit: false,
-            snapToGrid: false,
+            snapToGrid: true,
         }
     }
 

@@ -14,13 +14,13 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: undefined,
-      color: "#ffffff"
+      color: ""
     };
   }
 
   //updates the user object; re-renders the page
   updateUser = (updatedUser) => {
-    this.setState({ user: updatedUser, color: updatedUser.backgroundColor });
+    this.setState({ user: updatedUser, color: this.state.color || updatedUser.backgroundColor });
   }
 
   //Runs immediately as the page begins rendering
@@ -49,9 +49,9 @@ class App extends React.Component {
     }
   }
 
-  addTile = async () => {
+  addTile = async (tileType = "DefaultTile") => {
     const newTile = {
-      tileType: "ToDoListTile",
+      tileType: tileType,
       width: 2,
       x: 0,
       y: 0
