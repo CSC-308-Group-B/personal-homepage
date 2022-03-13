@@ -50,14 +50,31 @@ class App extends React.Component {
   }
 
   addTile = async (tileType = "DefaultTile") => {
+    //create base tile object
     const newTile = {
       tileType: tileType,
-      width: 2,
+      width: 1,
       x: 0,
       y: 0
     }
+    //depending on the tile type, handle other defaults
+    /* There aren't any relevant examples currently, but for example:
+    
+    switch(tileType) {
+      case "SomeSpecialTile":
+        newTile.specialProperty = "specialVal";
+        newTile.width = 2;
+        break;
+      case "OtherSpecialTile":
+        newTile.width = 4;
+        break;
+    }
+
+    */
+    //Try adding tile to backend
     const response = await axios.post(`http://localhost:5001/u/${this.state.user._id}/tiles`, newTile);
     if (response) {
+      //if we get a successful response, add it to the frontend
       if (this.state.user.tiles) {
         newTile._id = response.data.tiles[response.data.tiles.length - 1]._id;
         this.state.user.tiles.push(newTile);
