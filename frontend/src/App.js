@@ -72,7 +72,7 @@ class App extends React.Component {
 
     */
     //Try adding tile to backend
-    const response = await axios.post(`http://localhost:5001/u/${this.state.user._id}/tiles`, newTile);
+    const response = await axios.post(`http://localhost:5001/u/${this.state.user._id}/tiles`, newTile, { withCredentials: true });
     if (response) {
       //if we get a successful response, add it to the frontend
       if (this.state.user.tiles) {

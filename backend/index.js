@@ -125,7 +125,7 @@ app.delete('/u/:id', async (req, res) => {
 });
 
 app.post('/u/:id/tiles', async (req, res) => {
-    const result = await userServices.addTileToUserById(req.params.id, req.body);
+    const result = await userServices.addTileToUserById(req.user._id, req.body);
     if (result) {
         res.status(201).send(result);
     } else {
@@ -134,7 +134,7 @@ app.post('/u/:id/tiles', async (req, res) => {
 });
 
 app.delete('/u/:id/:tileid', async (req, res) => {
-    const result = await userServices.removeTileFromUserByIds(req.params.id, req.params.tileid);
+    const result = await userServices.removeTileFromUserByIds(req.user._id, req.params.tileid);
     if (result) {
         res.status(204).send(result);
     } else {
@@ -152,7 +152,7 @@ app.post('/setColor', async (req, res) => {
 });
 
 app.post('/u/moveTile', async (req, res) => {
-    const result = await userServices.updateTileFields(req.body.userId, req.body.tileId, { x: req.body.x, y: req.body.y });
+    const result = await userServices.updateTileFields(req.user._id, req.body.tileId, { x: req.body.x, y: req.body.y });
     if (result) {
         res.status(200).send('Updated tile.');
     } else {
@@ -161,7 +161,7 @@ app.post('/u/moveTile', async (req, res) => {
 });
 
 app.post('/addToDoItem', async (req, res) => {
-    const result = await userServices.addTileListItem(req.body.userId, req.body.tileId, req.body.tile);
+    const result = await userServices.addTileListItem(req.user._id, req.body.tileId, req.body.tile);
     const addedItem = await userServices.getTileListItem(result, req.body.tileId, req.body.tile);
     if (addedItem) {
         res.status(200).send(addedItem);
@@ -171,7 +171,7 @@ app.post('/addToDoItem', async (req, res) => {
 });
 
 app.delete('/removeToDoItem', async (req, res) => {
-    const result = await userServices.deleteTileListItem(req.body.userId, req.body.tileId, req.body.itemId);
+    const result = await userServices.deleteTileListItem(req.user._id, req.body.tileId, req.body.itemId);
     if (result) {
         res.status(204).send('Deleted item.');
     } else {
@@ -180,7 +180,7 @@ app.delete('/removeToDoItem', async (req, res) => {
 });
 
 app.post('/updateToDoItem', async (req, res) => {
-    const result = await userServices.updateTileListItem(req.body.userId, req.body.tileId, req.body.itemId, {status: req.body.status});
+    const result = await userServices.updateTileListItem(req.user._id, req.body.tileId, req.body.itemId, {status: req.body.status});
     if (result) {
         res.status(200).send('Updated item.');
     } else {

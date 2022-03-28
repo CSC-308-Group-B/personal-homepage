@@ -22,11 +22,11 @@ class UserPage extends React.Component {
             tileId: tileId,
             x: x,
             y: y
-        });
+        }, { withCredentials: true });
     }
 
     removeTile = async (tileId) => {
-        const response = await axios.delete(`http://localhost:5001/u/${this.props.user._id}/${tileId}`);
+        const response = await axios.delete(`http://localhost:5001/u/${this.props.user._id}/${tileId}`, { withCredentials: true });
         if (response) {
             this.props.user.tiles = this.props.user.tiles.filter((tile) => {
                 return tile._id !== tileId;

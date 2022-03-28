@@ -40,7 +40,7 @@ class ToDoListTile extends React.Component {
       userId: this.props.userId,
       tileId: this.props._id,
       tile: newTask
-    });
+    }, { withCredentials: true });
     //if we get a response...
     if (response && response.status === 200) {
       //and it's valid, add it to our list and update state to rerender
@@ -63,7 +63,8 @@ class ToDoListTile extends React.Component {
         userId: this.props.userId,
         tileId: this.props._id,
         itemId: itemId
-      }
+      },
+      withCredentials: true 
     });
     //if we get a response...
     if (response && response.status === 204) {
@@ -85,7 +86,7 @@ class ToDoListTile extends React.Component {
       tileId: this.props._id,
       itemId: itemId,
       status: 1
-    });
+    }, { withCredentials: true });
     //if we get a response...
     if (response && response.status === 200) {
       //for a valid response, update the item and update our state
