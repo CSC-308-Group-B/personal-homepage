@@ -1,5 +1,6 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button'
+import Dropdown from 'react-bootstrap/Dropdown'
+import DropdownButton from 'react-bootstrap/DropdownButton'
 import FormCheck from 'react-bootstrap/FormCheck'
 
 import { HexColorPicker } from "react-colorful";
@@ -29,9 +30,12 @@ class EditHeader extends React.Component {
 
                 <h3>EDIT MODE</h3>
                 
-                <FormCheck className ="my-2" label = {'Enable Tile Snapping'} type="switch" onChange={() => this.props.toggleSnap()} />
+                <FormCheck className ="my-2" label = {'Snap Tiles to Grid'} type="switch" defaultChecked={true} onChange={() => this.props.toggleSnap()} />
 
-                <Button className ="my-2" onClick={() => this.props.addTile()}>Add Tile</Button>
+                <DropdownButton className="my-2" title="Add Tile">
+                    <Dropdown.Item onClick={() => this.props.addTile("ToDoListTile")}>Todo List</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.props.addTile("OtherTileString")}>(Other type)</Dropdown.Item>
+                </DropdownButton>
 
                 <HexColorPicker className ="my-2" color={ this.state.color } onChange={this.updateColor} />
                 

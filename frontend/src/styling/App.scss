@@ -66,7 +66,13 @@
 
 }
 .EditHeader{
-  background-color: white;
+  background: repeating-linear-gradient(
+    30deg,
+  #ffffff,
+  #ffffff 1rem,
+  #fafafa 1rem,
+  #fafafa 2rem 
+  );
   max-height: 0;
   width: 100%;
   overflow: hidden;
@@ -118,17 +124,15 @@
 }
 
 .CloseButton {
-  opacity: 0;
   position: absolute;
   top: 0;
   right: 0;
   padding: 1rem;
-  background-color: rgba(255, 255, 255, 0);
 }
 
 .CloseButton:hover{
-    opacity: 1; 
-    background-color: #ff0000;
+  opacity: 1;
+  background-color: #ff0000;
 }
 
 .addTask{

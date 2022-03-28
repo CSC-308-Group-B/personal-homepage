@@ -22,7 +22,7 @@ class Tile extends React.Component {
         //Translates the tile to the coordinates specified in the x and y properties of the tile.
         var transform = {
             transform: `translate(${this.props.x}vw, ${this.props.y}px)`,
-            width: "25%",
+            width: `${this.props.width * 25}%`,
         };
 
         return (
