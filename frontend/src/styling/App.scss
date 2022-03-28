@@ -135,12 +135,16 @@
   background-color: #ff0000;
 }
 
-.addTask{
+.addTask {
   width: 25%;
   float: left;
   text-align: center;
   cursor: pointer;
   border-radius: 0;
+}
+
+.bookmarkInputs > * {
+  width: 100%;
 }
 
 .checkbox {
@@ -156,17 +160,17 @@
   float: left;
 }
 
-.taskItems{
+.taskItems, .bookmarkItems{
   cursor: pointer;
   position: relative;
   background: #eee;
 }
 
-.task{
+.task, .bookmark{
   text-align: left;
 }
 
-.task:hover{
+.task:hover, .bookmark:hover{
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   transform: scale(1.02);
   z-index: 1;
