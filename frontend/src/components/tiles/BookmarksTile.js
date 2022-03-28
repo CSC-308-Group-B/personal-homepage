@@ -42,7 +42,7 @@ class BookmarksTile extends React.Component {
       userId: this.props.userId,
       tileId: this.props._id,
       tile: newBookmark
-    });
+    }, { withCredentials: true });
     //if we get a response...
     if (response && response.status === 200) {
       //and it's valid, add it to our list and update state to rerender
@@ -65,7 +65,8 @@ class BookmarksTile extends React.Component {
         userId: this.props.userId,
         tileId: this.props._id,
         itemId: itemId
-      }
+      },
+      withCredentials: true
     });
     //if we get a response...
     if (response && response.status === 204) {
@@ -81,6 +82,9 @@ class BookmarksTile extends React.Component {
   }
 
   render() {
+    let inputGroupClassName = "bookmarkInputs";
+    if (this.props.canEdit) inputGroupClassName += " canEdit";
+
     return (
       <Card className='Card'>
         <Card.Body>
@@ -92,11 +96,11 @@ class BookmarksTile extends React.Component {
                   <BookmarksItem key={bookmark._id} {...bookmark} deleteBookmark={this.deleteBookmark} />);
               }))}
             </ListGroup>
-            {this.props.canEdit && <InputGroup className="bookmarkInputs">
+            <InputGroup className={inputGroupClassName}>
               <input className="inputText" placeholder="bookmark text" ref={this.textInputRef}></input>
               <input className="inputUrl" placeholder="new url" ref={this.urlInputRef}></input>
               <button className='addBookmark' onClick={() => this.addBookmark()}>Add Bookmark</button>
-            </InputGroup>}
+            </InputGroup>
           </Card.Text>
         </Card.Body>
       </Card>

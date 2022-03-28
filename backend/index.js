@@ -189,7 +189,7 @@ app.post('/updateToDoItem', async (req, res) => {
 });
 
 app.post('/addBookmark', async (req, res) => {
-    const result = await userServices.addTileListItem(req.body.userId, req.body.tileId, req.body.tile);
+    const result = await userServices.addTileListItem(req.user._id, req.body.tileId, req.body.tile);
     const addedItem = await userServices.getTileListItem(result, req.body.tileId, req.body.tile);
     if (addedItem) {
         res.status(200).send(addedItem);
@@ -199,7 +199,7 @@ app.post('/addBookmark', async (req, res) => {
 });
 
 app.delete('/removeBookmark', async (req, res) => {
-    const result = await userServices.deleteTileListItem(req.body.userId, req.body.tileId, req.body.itemId);
+    const result = await userServices.deleteTileListItem(req.user._id, req.body.tileId, req.body.itemId);
     if (result) {
         res.status(204).send('Deleted item.');
     } else {

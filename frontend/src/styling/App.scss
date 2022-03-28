@@ -146,6 +146,14 @@
 .bookmarkInputs > * {
   width: 100%;
 }
+.bookmarkInputs {
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.3s ease;
+  &.canEdit {
+    max-height: 6rem;
+  }
+}
 
 .checkbox {
   position: absolute;
