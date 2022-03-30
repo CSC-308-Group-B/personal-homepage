@@ -22,9 +22,15 @@ class BookmarksTile extends React.Component {
   }
 
   getTextInput() {
+    let urlString = this.urlInputRef.current.value;
+    if (!urlString.includes("http")) {
+      urlString = "http://" + urlString;
+    }
+    const url = new URL(urlString);
     return {
       text: this.textInputRef.current.value,
-      url: this.urlInputRef.current.value
+      url: url.href,
+      domain: url.hostname
     };
   }
 
@@ -54,7 +60,7 @@ class BookmarksTile extends React.Component {
       this.clearTextInput();
     } else {
       //otherwise, log the error to the console
-      console.log("Failed to add bookmarks.");
+      console.log("Failed to add bookmark.");
     }
   }
 

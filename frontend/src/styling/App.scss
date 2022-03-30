@@ -143,6 +143,11 @@
   border-radius: 0;
 }
 
+.bookmarkItems {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 .bookmarkInputs > * {
   width: 100%;
 }
@@ -153,6 +158,23 @@
   &.canEdit {
     max-height: 6rem;
   }
+}
+.bookmark {
+  cursor: pointer;
+  position: relative;
+  background: #eee;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  margin: 0 0.25rem 0.25rem 0;
+  text-decoration: none;
+  &:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    transform: scale(1.02);
+    z-index: 1;
+  }
+}
+.bookmark > img {
+  padding-right: 0.25rem;
 }
 
 .checkbox {
@@ -168,17 +190,17 @@
   float: left;
 }
 
-.taskItems, .bookmarkItems{
+.taskItems {
   cursor: pointer;
   position: relative;
   background: #eee;
 }
 
-.task, .bookmark{
+.task {
   text-align: left;
 }
 
-.task:hover, .bookmark:hover{
+.task:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   transform: scale(1.02);
   z-index: 1;

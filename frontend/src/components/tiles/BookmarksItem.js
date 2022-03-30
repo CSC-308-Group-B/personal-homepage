@@ -6,7 +6,7 @@ class BookmarksItem extends React.Component {
     render () {
         return(
             <a className="bookmark" href={this.props.url} target="_blank" rel="noreferrer">
-                {this.props.text}
+                <img src={`http://www.google.com/s2/favicons?domain=${this.props.domain}`} /> {this.props.text}
             </a>
         )
     }
