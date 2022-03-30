@@ -4,9 +4,11 @@ import CloseButton from "react-bootstrap/CloseButton";
 import React from "react";
 
 class Tile extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    // }
+
+     constructor(props) {
+         super(props);
+    }
+
     componentDidMount() {
         //Receives new x, y positions whenever the tile is moved, and forwards this info to the move function (defined in UserPage)
         document
@@ -20,17 +22,18 @@ class Tile extends React.Component {
         //Translates the tile to the coordinates specified in the x and y properties of the tile.
         var transform = {
             transform: `translate(${this.props.x}vw, ${this.props.y}px)`,
-            width: "25%",
+            width: `${this.props.width * 25}%`,
         };
 
         return (
             //These data parameters are so interact.js knows the initial position of the tiles.
             <div
-                className={`tileContainerPosition ${this.props.canEdit ? "draggable" : ""}`}
+                className={`TileContainer ${this.props.canEdit ? "draggable" : ""}`}
                 id={this.props._id}
                 style={transform}
                 data-x={this.props.x}
                 data-y={this.props.y}
+                data-snaptogrid={this.props.snapToGrid}
             >
 
                 {getTileType(this.props)}
