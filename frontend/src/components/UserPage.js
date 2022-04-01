@@ -53,7 +53,7 @@ class UserPage extends React.Component {
 
         return (
             <>
-                <EditHeader color={this.props.color} updateColor = {this.props.updateColor} addTile = {this.props.addTile} toggleSnap = {this.toggleSnap} canEdit={this.state.canEdit} canPick={this.state.canPick} />
+                <EditHeader color={this.props.color} backgroundImage = {this.props.backgroundImage} updateBackgroundImage = {this.props.updateBackgroundImage} updateColor={this.props.updateColor} addTile={this.props.addTile} toggleSnap={this.toggleSnap} canEdit={this.state.canEdit} canPick={this.state.canPick} />
 
                 <Button className="Edit" onClick={() => this.toggleEdit()}>EDIT</Button>
 

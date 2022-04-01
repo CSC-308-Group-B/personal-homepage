@@ -55,9 +55,14 @@ const UserSchema = new mongoose.Schema(
         },
         tiles: [TileSchema],
         backgroundColor: {
-            type: Object, 
+            type: String, 
             required: true,
             default: "#ffffff"
+        },
+        backgroundImage: {
+            type: String, 
+            required: true,
+            default: ""
         }
     },
     {
