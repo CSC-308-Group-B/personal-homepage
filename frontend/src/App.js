@@ -14,13 +14,15 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: undefined,
-      color: ""
+      color: "",
+      backgroundImage: ""
+
     };
   }
 
   //updates the user object; re-renders the page
   updateUser = (updatedUser) => {
-    this.setState({ user: updatedUser, color: this.state.color || updatedUser.backgroundColor });
+    this.setState({ user: updatedUser, color: this.state.color || updatedUser.backgroundColor, backgroundImage: this.state.backgroundImage || updatedUser.backgroundImage  });
   }
 
   //Runs immediately as the page begins rendering
@@ -46,6 +48,14 @@ class App extends React.Component {
 
     if(response){
       this.setState({color: color});
+    }
+  }
+
+  updateBackgroundImage = async (image) => {
+    const response = await axios.post(`http://localhost:5001/setBackgroundImage`, {backgroundImage: image}, {withCredentials: true});
+
+    if(response){
+      this.setState({backgroundImage: image});
     }
   }
 
@@ -75,8 +85,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App" style={{ minHeight: "100vh", width: "auto" }}>
-        <UserPage user={this.state.user} color={this.state.color} updateUser={this.updateUser} addTile={this.addTile} updateColor={this.updateColor}/>
-        <Background color = {this.state.color}/>
+        <UserPage user={this.state.user} color={this.state.color} backgroundImage = {this.state.backgroundImage} updateUser={this.updateUser} addTile={this.addTile} updateColor={this.updateColor} updateBackgroundImage = {this.updateBackgroundImage} />
+        <Background color = {this.state.color} backgroundImage = {this.state.backgroundImage}/>
       </div>
     );
   }

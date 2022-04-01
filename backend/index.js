@@ -151,6 +151,16 @@ app.post('/setColor', async (req, res) => {
     }
 });
 
+app.post('/setBackgroundImage', async (req, res) => {
+    console.log(req.body.backgroundImage);
+    const result = await userServices.setUserFields( req.user._id, {backgroundImage: req.body.backgroundImage} );
+    if (result) {
+        res.status(200).send('Updated Background.');
+    } else {
+        res.status(500).send('Unable to update Background.');
+    }
+});
+
 app.post('/u/moveTile', async (req, res) => {
     const result = await userServices.updateTileFields(req.user._id, req.body.tileId, { x: req.body.x, y: req.body.y });
     if (result) {
