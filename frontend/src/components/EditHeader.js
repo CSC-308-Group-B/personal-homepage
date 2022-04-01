@@ -34,6 +34,7 @@ class EditHeader extends React.Component {
 
                 <DropdownButton className="my-2" title="Add Tile">
                     <Dropdown.Item onClick={() => this.props.addTile("ToDoListTile")}>Todo List</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.props.addTile("SearchBarTile")}>Search Bar</Dropdown.Item>
                     <Dropdown.Item onClick={() => this.props.addTile("OtherTileString")}>(Other type)</Dropdown.Item>
                 </DropdownButton>
 
