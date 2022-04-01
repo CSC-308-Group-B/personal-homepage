@@ -147,7 +147,7 @@
   border-radius: 0.25rem;
   margin: 0 0.25rem 0.25rem 0;
   &:hover {
-    box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 0 0 #0004;
     transform: translate(-2px, -2px);
     z-index: 1;
   }
