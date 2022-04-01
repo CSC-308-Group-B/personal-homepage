@@ -181,11 +181,11 @@
 .BookmarksCloseButton {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0.25rem;
   opacity: 1;
   &:hover {
     opacity: 1;
-    background-color: red;
+    background-color: #ff000088;
   }
 }
 
