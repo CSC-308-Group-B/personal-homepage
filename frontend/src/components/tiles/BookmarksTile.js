@@ -27,6 +27,7 @@ class BookmarksTile extends React.Component {
       urlString = "http://" + urlString;
     }
     const url = new URL(urlString);
+    console.log(url);
     return {
       text: this.textInputRef.current.value,
       url: url.href,
@@ -99,7 +100,7 @@ class BookmarksTile extends React.Component {
             <ListGroup className="bookmarkItems">
               {(this.state.bookmarks && this.state.bookmarks.map((bookmark) => {
                 return (
-                  <BookmarksItem key={bookmark._id} {...bookmark} deleteBookmark={this.deleteBookmark} />);
+                  <BookmarksItem key={bookmark._id} {...bookmark} canEdit={this.props.canEdit} deleteBookmark={this.deleteBookmark} />);
               }))}
             </ListGroup>
             <InputGroup className={inputGroupClassName}>

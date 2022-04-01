@@ -159,22 +159,34 @@
     max-height: 6rem;
   }
 }
-.bookmark {
+.BookmarksItem {
   cursor: pointer;
   position: relative;
   background: #eee;
-  padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
   margin: 0 0.25rem 0.25rem 0;
-  text-decoration: none;
   &:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     transform: scale(1.02);
     z-index: 1;
   }
 }
-.bookmark > img {
+.BookmarksItem > a {
+  padding: 0.25rem 0.5rem;
+  text-decoration: none;
+}
+.BookmarksItem > a > img {
   padding-right: 0.25rem;
+}
+.BookmarksCloseButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 1;
+  &:hover {
+    opacity: 1;
+    background-color: red;
+  }
 }
 
 .checkbox {

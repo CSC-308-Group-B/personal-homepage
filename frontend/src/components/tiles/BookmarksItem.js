@@ -1,13 +1,25 @@
-import ListGroup from "react-bootstrap/ListGroup";
-import FormCheck from "react-bootstrap/FormCheck";
 import React from "react";
+import CloseButton from "react-bootstrap/CloseButton";
 
 class BookmarksItem extends React.Component {
+    deleteBookmark(e) {
+        e.preventDefault();
+        console.log(this.props._id);
+    }
+
     render () {
         return(
-            <a className="bookmark" href={this.props.url} target="_blank" rel="noreferrer">
-                <img src={`http://www.google.com/s2/favicons?domain=${this.props.domain}`} /> {this.props.text}
-            </a>
+            <div className="BookmarksItem">
+                <a href={this.props.url} target="_blank" rel="noreferrer">
+                    <img src={`http://www.google.com/s2/favicons?domain=${this.props.domain}`} alt=" " /> {this.props.text}
+                </a>
+                {this.props.canEdit &&
+                    <CloseButton
+                        className="BookmarksCloseButton"
+                        onClick={() => this.props.deleteBookmark(this.props._id)}
+                    />
+                }
+            </div>
         )
     }
 }
