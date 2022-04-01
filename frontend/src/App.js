@@ -1,8 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
 import UserPage from './components/UserPage'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styling/App.scss';
+import './styling/BootstrapOverrides.scss';
 import axios from 'axios';
 import './draggable.js'
 import Background from './components/Background';
