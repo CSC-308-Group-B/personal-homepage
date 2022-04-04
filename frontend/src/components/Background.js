@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button'
 import FormCheck from 'react-bootstrap/FormCheck'
-import { HexColorPicker } from "react-colorful";
+
 
 class Background extends React.Component {
 

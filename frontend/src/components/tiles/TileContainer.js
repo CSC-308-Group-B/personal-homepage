@@ -1,5 +1,6 @@
 import DefaultTile from "./DefaultTile";
 import ToDoListTile from "./ToDoListTile";
+import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
 import CloseButton from "react-bootstrap/CloseButton";
 import React from "react";
@@ -58,6 +59,9 @@ function getTileType(props) {
             
         case "BookmarksTile":
             return <BookmarksTile {...props} />;
+
+        case "SearchBarTile":
+            return <SearchBarTile {...props} />;
 
         default:
             return <DefaultTile {...props} />;
