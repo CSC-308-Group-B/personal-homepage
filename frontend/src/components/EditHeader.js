@@ -4,6 +4,9 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 import FormCheck from 'react-bootstrap/FormCheck'
 import InputGroup from "react-bootstrap/InputGroup";
 import { HexColorPicker } from "react-colorful";
+import Tab from 'react-bootstrap/Tab'
+import Tabs from 'react-bootstrap/Tabs'
+
 
 class EditHeader extends React.Component {
     constructor(props) {
@@ -34,40 +37,51 @@ class EditHeader extends React.Component {
         if (this.props.canEdit) {
             classes += ' editHeaderVis';
         }
-        function openCity(evt, cityName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(cityName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
 
         return (
             <div className={classes}>
-                <div class="tab">
-                    <button class="tablinks" onClick={() => openCity(null, 'London')}>Snap</button>
-                    <button class="tablinks" onClick={() => openCity(null, 'Paris')}>Tiles</button>
-                    <button class="tablinks" onClick={() => openCity(null, 'Tokyo')}>Color</button>
+
+                <Tabs defaultActiveKey="tiles" id="uncontrolled-tab-example" className="mb-3">
+                    <Tab eventKey="snap" title="Snap">
+                        <FormCheck className="my-2" label={'Snap Tiles to Grid'} type="switch" defaultChecked={true} onChange={() => this.props.toggleSnap()} />
+                    </Tab>
+                    <Tab eventKey="tiles" title="Tiles">
+                        <Dropdown.Item onClick={() => this.props.addTile("ToDoListTile")}>Todo List</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.props.addTile("BookmarksTile", { width: 2 })}>Bookmarks</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.props.addTile("OtherTileString")}>(Other type)</Dropdown.Item>
+                    </Tab>
+                    <Tab eventKey="color" title="Color">
+                        <HexColorPicker className="my-2" color={this.state.color} onChange={this.updateColor} />
+
+                        <div className="colorSwab my-2" style={{ borderColor: this.state.color }}>
+                            Color: {this.state.color}
+                        </div>
+
+                        <InputGroup>
+                            <input id="inputBackgroundImageURL" value={this.props.backgroundImage} onChange={() => this.updateBackground(this.value)} />
+                            <button onClick={() => { document.getElementById("inputBackgroundImageURL").value = ""; this.updateBackground("") }}>Reset</button>
+                        </InputGroup>
+                    </Tab>
+                </Tabs>
+
+                {/* <div class="tab">
+                    <button class="tablinks" onClick={() => visible(null, 'snap')}>Snap</button>
+                    <button class="tablinks" onClick={() => visible(null, 'tiles')}>Tiles</button>
+                    <button class="tablinks" onClick={() => visible(null, 'color')}>Color</button>
                 </div>
 
-                <div id="London" class="tabcontent">
-                    <FormCheck className="my-2" label={'Snap Tiles to Grid'} type="switch" defaultChecked={true} onChange={() => this.props.toggleSnap()} />
+                <div id="snap" class="tabcontent">
+                    
 
                 </div>
 
-                <div id="Paris" class="tabcontent">
+                <div id="tiles" class="tabcontent">
                     <Dropdown.Item onClick={() => this.props.addTile("ToDoListTile")}>Todo List</Dropdown.Item>
                     <Dropdown.Item onClick={() => this.props.addTile("BookmarksTile", { width: 2 })}>Bookmarks</Dropdown.Item>
                     <Dropdown.Item onClick={() => this.props.addTile("OtherTileString")}>(Other type)</Dropdown.Item>
                 </div>
 
-                <div id="Tokyo" class="tabcontent">
+                <div id="color" class="tabcontent">
                     <HexColorPicker className="my-2" color={this.state.color} onChange={this.updateColor} />
 
                     <div className="colorSwab my-2" style={{ borderColor: this.state.color }}>
@@ -78,7 +92,7 @@ class EditHeader extends React.Component {
                         <input id="inputBackgroundImageURL" value={this.props.backgroundImage} onChange={() => this.updateBackground(this.value)} />
                         <button onClick={() => { document.getElementById("inputBackgroundImageURL").value = ""; this.updateBackground("") }}>Reset</button>
                     </InputGroup>
-                </div>
+                </div> */}
 
 
 
