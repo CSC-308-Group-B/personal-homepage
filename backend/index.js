@@ -170,6 +170,15 @@ app.post('/u/moveTile', async (req, res) => {
     }
 });
 
+app.post('/u/setTileFields', async (req, res) => {
+    const result = await userServices.updateTileFields(req.user._id, req.body.tileId, req.body);
+    if (result) {
+        res.status(200).send('Updated tile.');
+    } else {
+        res.status(500).send('Unable to update tile.');
+    }
+});
+
 app.post('/addToDoItem', async (req, res) => {
     const result = await userServices.addTileListItem(req.user._id, req.body.tileId, req.body.tile);
     const addedItem = await userServices.getTileListItem(result, req.body.tileId, req.body.tile);
