@@ -2,6 +2,7 @@ import DefaultTile from "./DefaultTile";
 import ToDoListTile from "./ToDoListTile";
 import BookmarksTile from "./BookmarksTile";
 import CloseButton from "react-bootstrap/CloseButton";
+import Dropdown from "react-bootstrap/Dropdown";
 import React from "react";
 
 class Tile extends React.Component {
@@ -40,10 +41,20 @@ class Tile extends React.Component {
                 {getTileType(this.props)}
 
                 {this.props.canEdit &&
-                    <CloseButton
-                        className="CloseButton"
-                        onClick={() => this.props.deleteTile(this.props._id)}
-                    />
+                    <div>
+                        <CloseButton
+                            className="CloseButton"
+                            onClick={() => this.props.deleteTile(this.props._id)}
+                        />
+                        <Dropdown >
+                            <Dropdown.Toggle as={CustomToggle}>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu size="sm" title=""> 
+                            <Dropdown.Header>Options</Dropdown.Header>
+                            <Dropdown.Item>test</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
                 }
             </div>
         );
