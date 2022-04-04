@@ -3,12 +3,16 @@ import ToDoListTile from "./ToDoListTile";
 import BookmarksTile from "./BookmarksTile";
 import CloseButton from "react-bootstrap/CloseButton";
 import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 import React from "react";
+import axios from 'axios';
 
 class Tile extends React.Component {
-
      constructor(props) {
          super(props);
+         this.state = {
+             width: this.props.width,
+         }
     }
 
     componentDidMount() {
@@ -20,11 +24,22 @@ class Tile extends React.Component {
             });
     }
 
+    setWidth = async (newWidth) => {
+        const res = await axios.post("http://localhost:5001/u/setTileFields", {
+            userId: this.props.userId,
+            tileId: this.props._id,
+            width: newWidth
+        }, { withCredentials: true });
+        if (res) {
+            this.setState({width: newWidth});
+        }   
+    }
+
     render() {
         //Translates the tile to the coordinates specified in the x and y properties of the tile.
         var transform = {
             transform: `translate(${this.props.x}vw, ${this.props.y}px)`,
-            width: `${this.props.width * 25}%`,
+            width: `${this.state.width * 25}%`,
         };
 
         return (
@@ -41,19 +56,20 @@ class Tile extends React.Component {
                 {getTileType(this.props)}
 
                 {this.props.canEdit &&
-                    <div>
+                    <div className="TileControls">
                         <CloseButton
                             className="CloseButton"
                             onClick={() => this.props.deleteTile(this.props._id)}
                         />
-                        <Dropdown >
-                            <Dropdown.Toggle as={CustomToggle}>
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu size="sm" title=""> 
-                            <Dropdown.Header>Options</Dropdown.Header>
-                            <Dropdown.Item>test</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <DropdownButton className="TileEditButton" title="">
+                            {/* <DropdownButton title="Width"> */}
+                                <Dropdown.Header>Width</Dropdown.Header>
+                                <Dropdown.Item onClick={() => this.setWidth(1)}>Small</Dropdown.Item>
+                                <Dropdown.Item onClick={() => this.setWidth(2)}>Medium</Dropdown.Item>
+                                <Dropdown.Item onClick={() => this.setWidth(3)}>Large</Dropdown.Item>
+                                <Dropdown.Item onClick={() => this.setWidth(4)}>Full</Dropdown.Item>
+                            </DropdownButton>
+                        {/* </DropdownButton> */}
                     </div>
                 }
             </div>
