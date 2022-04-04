@@ -151,8 +151,27 @@ app.post('/setColor', async (req, res) => {
     }
 });
 
+app.post('/setBackgroundImage', async (req, res) => {
+    console.log(req.body.backgroundImage);
+    const result = await userServices.setUserFields( req.user._id, {backgroundImage: req.body.backgroundImage} );
+    if (result) {
+        res.status(200).send('Updated Background.');
+    } else {
+        res.status(500).send('Unable to update Background.');
+    }
+});
+
 app.post('/u/moveTile', async (req, res) => {
     const result = await userServices.updateTileFields(req.user._id, req.body.tileId, { x: req.body.x, y: req.body.y });
+    if (result) {
+        res.status(200).send('Updated tile.');
+    } else {
+        res.status(500).send('Unable to update tile.');
+    }
+});
+
+app.post('/u/setTileFields', async (req, res) => {
+    const result = await userServices.updateTileFields(req.user._id, req.body.tileId, req.body);
     if (result) {
         res.status(200).send('Updated tile.');
     } else {
@@ -185,6 +204,25 @@ app.post('/updateToDoItem', async (req, res) => {
         res.status(200).send('Updated item.');
     } else {
         res.status(500).send();
+    }
+});
+
+app.post('/addBookmark', async (req, res) => {
+    const result = await userServices.addTileListItem(req.user._id, req.body.tileId, req.body.tile);
+    const addedItem = await userServices.getTileListItem(result, req.body.tileId, req.body.tile);
+    if (addedItem) {
+        res.status(200).send(addedItem);
+    } else {
+        res.status(500).send();
+    }
+});
+
+app.delete('/removeBookmark', async (req, res) => {
+    const result = await userServices.deleteTileListItem(req.user._id, req.body.tileId, req.body.itemId);
+    if (result) {
+        res.status(204).send('Deleted item.');
+    } else {
+        res.status(404).send();
     }
 });
 
