@@ -105,15 +105,22 @@
   }
 }
 
-.CloseButton {
+.TileControls {
   position: absolute;
   top: 0;
   right: 0;
-  padding: 1rem;
 }
 
-.CloseButton:hover{
-  background-color: #ff0000;
+.CloseButton {
+  padding: 1rem;
+  &:hover{
+    background-color: #ff0000;
+  }
+}
+
+.TileEditButton {
+  padding-left: 0.4rem;
+  padding-top: 0.25rem;
 }
 
 .addTask {
