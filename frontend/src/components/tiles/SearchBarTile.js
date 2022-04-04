@@ -66,7 +66,7 @@ class SearchBarTile extends React.Component {
                 <Dropdown.Item onClick={this.selectSearch("baidu")}>Baidu</Dropdown.Item>
                 <Dropdown.Item onClick={this.selectSearch("duckduckgo")}>DuckDuckGo</Dropdown.Item>
             </DropdownButton>
-          <input onKeyPress = {this.eventhandler} id = 'searchField' type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
+          <input onKeyPress = {this.eventhandler} id = 'searchField' type="search" class="inputbar" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
           </InputGroup>
         </Card.Body>
       </Card>

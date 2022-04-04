@@ -2,7 +2,6 @@ import DefaultTile from "./DefaultTile";
 import ToDoListTile from "./ToDoListTile";
 import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
-import SearchBarTile from "./SearchBarTile";
 import CloseButton from "react-bootstrap/CloseButton";
 import React from "react";
 
