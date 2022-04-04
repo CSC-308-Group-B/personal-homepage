@@ -14,6 +14,8 @@ class EditHeader extends React.Component {
         }
     }
 
+
+
     updateColor = (updatedColor) => {
         this.props.updateColor(updatedColor);
         this.setState({ color: updatedColor });
@@ -32,32 +34,78 @@ class EditHeader extends React.Component {
         if (this.props.canEdit) {
             classes += ' editHeaderVis';
         }
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
         return (
             <div className={classes}>
+                <div class="tab">
+                    <button class="tablinks" onClick={() => openCity(null, 'London')}>Snap</button>
+                    <button class="tablinks" onClick={() => openCity(null, 'Paris')}>Tiles</button>
+                    <button class="tablinks" onClick={() => openCity(null, 'Tokyo')}>Color</button>
+                </div>
 
-                <h3>EDIT MODE</h3>
+                <div id="London" class="tabcontent">
+                    <FormCheck className="my-2" label={'Snap Tiles to Grid'} type="switch" defaultChecked={true} onChange={() => this.props.toggleSnap()} />
 
-                <FormCheck className="my-2" label={'Snap Tiles to Grid'} type="switch" defaultChecked={true} onChange={() => this.props.toggleSnap()} />
+                </div>
 
-                <DropdownButton className="my-2" title="Add Tile">
+                <div id="Paris" class="tabcontent">
                     <Dropdown.Item onClick={() => this.props.addTile("ToDoListTile")}>Todo List</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.props.addTile("BookmarksTile", {width: 2})}>Bookmarks</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.props.addTile("BookmarksTile", { width: 2 })}>Bookmarks</Dropdown.Item>
                     <Dropdown.Item onClick={() => this.props.addTile("OtherTileString")}>(Other type)</Dropdown.Item>
-                </DropdownButton>
+                </div>
 
-                <HexColorPicker className="my-2" color={this.state.color} onChange={this.updateColor} />
+                <div id="Tokyo" class="tabcontent">
+                    <HexColorPicker className="my-2" color={this.state.color} onChange={this.updateColor} />
+
+                    <div className="colorSwab my-2" style={{ borderColor: this.state.color }}>
+                        Color: {this.state.color}
+                    </div>
+
+                    <InputGroup>
+                        <input id="inputBackgroundImageURL" value={this.props.backgroundImage} onChange={() => this.updateBackground(this.value)} />
+                        <button onClick={() => { document.getElementById("inputBackgroundImageURL").value = ""; this.updateBackground("") }}>Reset</button>
+                    </InputGroup>
+                </div>
+
+
+
+
+                {/* <FormCheck className="my-2" label={'Snap Tiles to Grid'} type="switch" defaultChecked={true} onChange={() => this.props.toggleSnap()} /> */}
+
+
+
+                {/* <DropdownButton className="my-2" title="Add Tile">
+                    <Dropdown.Item onClick={() => this.props.addTile("ToDoListTile")}>Todo List</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.props.addTile("BookmarksTile", { width: 2 })}>Bookmarks</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.props.addTile("OtherTileString")}>(Other type)</Dropdown.Item>
+                </DropdownButton> */}
+
+                {/* <HexColorPicker className="my-2" color={this.state.color} onChange={this.updateColor} />
 
                 <div className="colorSwab my-2" style={{ borderColor: this.state.color }}>
                     Color: {this.state.color}
                 </div>
-                
+
                 <InputGroup>
-                    <input id="inputBackgroundImageURL" value = {this.props.backgroundImage} onChange={() => this.updateBackground(this.value)}/>
-                    <button onClick={() => {document.getElementById("inputBackgroundImageURL").value = ""; this.updateBackground("") }}>Reset</button>
-                </InputGroup>
+                    <input id="inputBackgroundImageURL" value={this.props.backgroundImage} onChange={() => this.updateBackground(this.value)} />
+                    <button onClick={() => { document.getElementById("inputBackgroundImageURL").value = ""; this.updateBackground("") }}>Reset</button>
+                </InputGroup> */}
 
 
-            </div>
+            </div >
         )
     }
 }
