@@ -1,6 +1,4 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button'
-import FormCheck from 'react-bootstrap/FormCheck'
 
 
 class Background extends React.Component {

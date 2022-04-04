@@ -33,21 +33,21 @@ class SearchBarTile extends React.Component {
 
     eventhandler = (event) => {
 
-      if (event.key == "Enter"){
+      if (event.key === "Enter"){
         var searchTerm = encodeURIComponent(document.getElementById('searchField').value);
-        if (this.state.searchEngine == "Google"){
+        if (this.state.searchEngine === "Google"){
           window.open('http://www.google.com/search?q=' + searchTerm, '_blank');
         }
-        if (this.state.searchEngine == "Yahoo"){
+        if (this.state.searchEngine === "Yahoo"){
           window.open('http://search.yahoo.com/search?p=' + searchTerm, '_blank');
         }
-        if (this.state.searchEngine == "Bing"){
+        if (this.state.searchEngine === "Bing"){
           window.open('https://www.bing.com/search?q=' + searchTerm, '_blank');
         }
-        if (this.state.searchEngine == "Baidu"){
+        if (this.state.searchEngine === "Baidu"){
           window.open('https://www.baidu.com/s?wd=' + searchTerm, '_blank');
         }
-        if (this.state.searchEngine == "DuckDuckGo"){
+        if (this.state.searchEngine === "DuckDuckGo"){
           window.open('https://duckduckgo.com/?q=' + searchTerm, '_blank');
         }
       }
@@ -66,7 +66,7 @@ class SearchBarTile extends React.Component {
                 <Dropdown.Item onClick={this.selectSearch("baidu")}>Baidu</Dropdown.Item>
                 <Dropdown.Item onClick={this.selectSearch("duckduckgo")}>DuckDuckGo</Dropdown.Item>
             </DropdownButton>
-          <input onKeyPress = {this.eventhandler} id = 'searchField' type="search" class="inputbar" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
+          <input onKeyPress = {this.eventhandler} id = 'searchField' type="search" className="inputbar" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
           </InputGroup>
         </Card.Body>
       </Card>
