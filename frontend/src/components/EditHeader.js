@@ -6,6 +6,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import { HexColorPicker } from "react-colorful";
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
+import Button from 'react-bootstrap/Button'
 
 
 class EditHeader extends React.Component {
@@ -42,15 +43,15 @@ class EditHeader extends React.Component {
             <div className={classes}>
 
                 <Tabs defaultActiveKey="tiles" id="uncontrolled-tab-example" className="mb-3">
-                    <Tab eventKey="snap" title="Snap">
-                        <FormCheck className="my-2" label={'Snap Tiles to Grid'} type="switch" defaultChecked={true} onChange={() => this.props.toggleSnap()} />
-                    </Tab>
                     <Tab eventKey="tiles" title="Tiles">
+                        <Button  onClick={() => this.props.toggleSnap()}>Snap</Button>
+
                         <Dropdown.Item onClick={() => this.props.addTile("ToDoListTile")}>Todo List</Dropdown.Item>
                         <Dropdown.Item onClick={() => this.props.addTile("BookmarksTile", { width: 2 })}>Bookmarks</Dropdown.Item>
                         <Dropdown.Item onClick={() => this.props.addTile("OtherTileString")}>(Other type)</Dropdown.Item>
                     </Tab>
                     <Tab eventKey="color" title="Color">
+
                         <HexColorPicker className="my-2" color={this.state.color} onChange={this.updateColor} />
 
                         <div className="colorSwab my-2" style={{ borderColor: this.state.color }}>
@@ -63,6 +64,7 @@ class EditHeader extends React.Component {
                         </InputGroup>
                     </Tab>
                 </Tabs>
+
 
                 {/* <div class="tab">
                     <button class="tablinks" onClick={() => visible(null, 'snap')}>Snap</button>
