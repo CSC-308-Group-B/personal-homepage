@@ -61,14 +61,15 @@ class Tile extends React.Component {
                 {this.props.canEdit &&
                     <div className="TileControls">
                         <DropdownButton className="TileEditButton" title="" >
-                            {/* <DropdownButton title="Width"> */}
+                            <DropdownButton title="Width">
                                 <Dropdown.Item onClick={() => this.setWidth(1)}>Small</Dropdown.Item>
                                 <Dropdown.Item onClick={() => this.setWidth(2)}>Medium</Dropdown.Item>
                                 <Dropdown.Item onClick={() => this.setWidth(3)}>Large</Dropdown.Item>
                                 <Dropdown.Item onClick={() => this.setWidth(4)}>Full</Dropdown.Item>
-                                <Dropdown.Divider ></Dropdown.Divider>
-                                <Dropdown.Item onClick={() => this.props.deleteTile(this.props._id)}>Delete</Dropdown.Item>
                             </DropdownButton>
+                            <Dropdown.Divider ></Dropdown.Divider>
+                            <Dropdown.Item onClick={() => this.props.deleteTile(this.props._id)}>Delete</Dropdown.Item>
+                        </DropdownButton>
                     </div>
                 }
             </div>
