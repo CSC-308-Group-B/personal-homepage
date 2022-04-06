@@ -58,10 +58,6 @@ class Tile extends React.Component {
 
                 {this.props.canEdit &&
                     <div className="TileControls">
-                        <CloseButton
-                            className="CloseButton"
-                            onClick={() => this.props.deleteTile(this.props._id)}
-                        />
                         <DropdownButton className="TileEditButton" title="">
                             {/* <DropdownButton title="Width"> */}
                                 <Dropdown.Header>Width</Dropdown.Header>
@@ -71,6 +67,10 @@ class Tile extends React.Component {
                                 <Dropdown.Item onClick={() => this.setWidth(4)}>Full</Dropdown.Item>
                             </DropdownButton>
                         {/* </DropdownButton> */}
+                        <CloseButton
+                            className="CloseButton"
+                            onClick={() => this.props.deleteTile(this.props._id)}
+                        />
                     </div>
                 }
             </div>
