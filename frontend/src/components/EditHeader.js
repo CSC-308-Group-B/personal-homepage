@@ -47,10 +47,11 @@ class EditHeader extends React.Component {
                     <Tab eventKey="tiles" title="Tiles">
                         <div>
                             <p className = 'd-inline-block'>Grid Snapping&nbsp;</p>                   
-                            <BootstrapSwitchButton className="ml-4" checked={true} onChange={() => this.props.toggleSnap()} size = 'xs' />
+                            <BootstrapSwitchButton className="ml-4" checked={true} onChange={() => this.props.toggleSnap()} size = 'sm' />
                         </div>
                         <Dropdown.Item onClick={() => this.props.addTile("ToDoListTile")}>Todo List</Dropdown.Item>
                         <Dropdown.Item onClick={() => this.props.addTile("BookmarksTile", { width: 2 })}>Bookmarks</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.props.addTile("SearchBarTile", {width: 2})}>Search Bar</Dropdown.Item>
                         <Dropdown.Item onClick={() => this.props.addTile("OtherTileString")}>(Other type)</Dropdown.Item>
                     </Tab>
                     <Tab eventKey="color" title="Color">
@@ -67,63 +68,6 @@ class EditHeader extends React.Component {
                         </InputGroup>
                     </Tab>
                 </Tabs>
-
-
-                {/* <div class="tab">
-                    <button class="tablinks" onClick={() => visible(null, 'snap')}>Snap</button>
-                    <button class="tablinks" onClick={() => visible(null, 'tiles')}>Tiles</button>
-                    <button class="tablinks" onClick={() => visible(null, 'color')}>Color</button>
-                </div>
-
-                <div id="snap" class="tabcontent">
-                    
-
-                </div>
-
-                <div id="tiles" class="tabcontent">
-                    <Dropdown.Item onClick={() => this.props.addTile("ToDoListTile")}>Todo List</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.props.addTile("BookmarksTile", { width: 2 })}>Bookmarks</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.props.addTile("OtherTileString")}>(Other type)</Dropdown.Item>
-                </div>
-
-                <div id="color" class="tabcontent">
-                    <HexColorPicker className="my-2" color={this.state.color} onChange={this.updateColor} />
-
-                    <div className="colorSwab my-2" style={{ borderColor: this.state.color }}>
-                        Color: {this.state.color}
-                    </div>
-
-                    <InputGroup>
-                        <input id="inputBackgroundImageURL" value={this.props.backgroundImage} onChange={() => this.updateBackground(this.value)} />
-                        <button onClick={() => { document.getElementById("inputBackgroundImageURL").value = ""; this.updateBackground("") }}>Reset</button>
-                    </InputGroup>
-                </div> */}
-
-
-
-
-                {/* <FormCheck className="my-2" label={'Snap Tiles to Grid'} type="switch" defaultChecked={true} onChange={() => this.props.toggleSnap()} /> */}
-
-
-
-                {/* <DropdownButton className="my-2" title="Add Tile">
-                    <Dropdown.Item onClick={() => this.props.addTile("ToDoListTile")}>Todo List</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.props.addTile("BookmarksTile", { width: 2 })}>Bookmarks</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.props.addTile("OtherTileString")}>(Other type)</Dropdown.Item>
-                </DropdownButton> */}
-
-                {/* <HexColorPicker className="my-2" color={this.state.color} onChange={this.updateColor} />
-
-                <div className="colorSwab my-2" style={{ borderColor: this.state.color }}>
-                    Color: {this.state.color}
-                </div>
-
-                <InputGroup>
-                    <input id="inputBackgroundImageURL" value={this.props.backgroundImage} onChange={() => this.updateBackground(this.value)} />
-                    <button onClick={() => { document.getElementById("inputBackgroundImageURL").value = ""; this.updateBackground("") }}>Reset</button>
-                </InputGroup> */}
-
-
             </div >
         )
     }

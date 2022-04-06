@@ -1,5 +1,6 @@
 @import 'variables.scss';
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
 /* APP */
 .App {
@@ -103,20 +104,19 @@
   &:hover {
     background-color: #ffffffff;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    transform: scale(1.02);
+    // transform: scale(1.02);
     // box-shadow: 0 0 1px 3px #fff8;
   }
 }
 
-.CloseButton {
+.TileControls {
   position: absolute;
   top: 0;
   right: 0;
-  padding: 1rem;
-}
-
-.CloseButton:hover{
-  background-color: #ff0000;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1.0;
+  }
 }
 
 .addTask {

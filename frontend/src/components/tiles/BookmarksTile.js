@@ -96,7 +96,6 @@ class BookmarksTile extends React.Component {
       <Card className='Card'>
         <Card.Body>
           <Card.Title>Bookmarks</Card.Title>
-          <Card.Text>
             <ListGroup className="bookmarkItems">
               {(this.state.bookmarks && this.state.bookmarks.map((bookmark) => {
                 return (
@@ -108,7 +107,6 @@ class BookmarksTile extends React.Component {
               <input className="inputUrl" placeholder="new url" ref={this.urlInputRef}></input>
               <button className='addBookmark' onClick={() => this.addBookmark()}>Add Bookmark</button>
             </InputGroup>
-          </Card.Text>
         </Card.Body>
       </Card>
     );
