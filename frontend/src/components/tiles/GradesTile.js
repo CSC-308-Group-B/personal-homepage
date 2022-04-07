@@ -47,14 +47,14 @@ class GradesTile extends React.Component {
                 <Card.Body>
                     <Card.Title className="d-flex justify-content-between">
                         {this.state.student.name.substring(0, this.state.student.name.indexOf(" ")) + "'s Grades"}
-                        <img className="small-icon" src={require("../../styling/Canvas_Bug_Color_RGB.png")} />
+                        <img className="small-icon" alt="C" src={require("../../styling/Canvas_Bug_Color_RGB.png")} />
                     </Card.Title>
                     <ListGroup>
                         {
                             this.state.courses.map((course) => {
                                 //If we haven't recieved any data from Canvas yet, we want to skip
 
-                                if (course.name != "course") {
+                                if (course.name !== "course") {
 
                                     var grade;
                                     if (typeof course.enrollments[0].computed_current_score === 'object')
@@ -70,6 +70,8 @@ class GradesTile extends React.Component {
                                             </div>
                                         </ListGroup.Item>
                                     );
+                                } else {
+                                    return (<></>)
                                 }
                             })
                         }

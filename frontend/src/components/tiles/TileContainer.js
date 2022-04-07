@@ -41,8 +41,8 @@ class Tile extends React.Component {
     render() {
         //Translates the tile to the coordinates specified in the x and y properties of the tile.
         var transform = {
-            transform: `translate(${this.props.x}vw, ${this.props.y}px)`,
-            width: `${this.state.width * 25}%`,
+            transform: `translate(${this.props.x}vw, ${this.props.y}rem)`,
+            width: `${this.state.width * 25 - 2}vw`,
         };
 
         return (

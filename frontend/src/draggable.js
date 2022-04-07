@@ -58,7 +58,8 @@ interact('.draggable')
 function dragMoveListener(event) {
     //calculate new x and y
     const x = (parseFloat(event.target.getAttribute('data-x')) || 0) + (event.dx / window.innerWidth * 100);
-    const y = (parseFloat(event.target.getAttribute('data-y')) || 0) + event.dy;
+    const y = (parseFloat(event.target.getAttribute('data-y')) || 0) + (event.dy / parseFloat(getComputedStyle(document.documentElement).fontSize));
+    console.log(y)
     //move to new x and y
     moveTile(event.target, x, y);
     snapTile(event.target, true);
@@ -66,7 +67,7 @@ function dragMoveListener(event) {
 
 function moveTile(target, x, y) {
     // translate the to the new position
-    target.style.transform = 'translate(' + x + 'vw, ' + y + 'px)';
+    target.style.transform = 'translate(' + x + 'vw, ' + y + 'rem)';
     // update the position data attributes
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
@@ -80,13 +81,13 @@ function moveTile(target, x, y) {
             target.appendChild(snapPreview);
         }
         snapPreview.style.left = `${snapPos.x - x}vw`;
-        snapPreview.style.top = `${snapPos.y - y}px`;
+        snapPreview.style.top = `${snapPos.y - y}rem`;
     }
 }
 
 function snapTile(x, y) {
     const snapGridSizeX = 25;
-    const snapGridSizeY = 200;
+    const snapGridSizeY = 4;
     //snap x and y to grid size
     const roundedX = Math.round( x / snapGridSizeX) * snapGridSizeX;
     const roundedY = Math.round( y / snapGridSizeY) * snapGridSizeY;
