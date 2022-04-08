@@ -2,10 +2,12 @@ import DefaultTile from "./DefaultTile";
 import ToDoListTile from "./ToDoListTile";
 import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
+import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
 import CloseButton from "react-bootstrap/CloseButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import React from "react";
+import GradesTile from "./GradesTile";
 import axios from 'axios';
 
 class Tile extends React.Component {
@@ -23,6 +25,8 @@ class Tile extends React.Component {
             .addEventListener("onTileMove", (e) => {
                 this.props.moveTile(this.props._id, e.detail.x, e.detail.y);
             });
+        //test
+        console.log(this);
     }
 
     setWidth = async (newWidth) => {
@@ -38,10 +42,15 @@ class Tile extends React.Component {
 
     render() {
         //Translates the tile to the coordinates specified in the x and y properties of the tile.
-        var transform = {
-            transform: `translate(${this.props.x}vw, ${this.props.y}px)`,
-            width: `${this.state.width * 25}%`,
+        let transform = {
+            transform: `translate(${this.props.x}vw, ${this.props.y}rem)`,
+            width: `${this.state.width * 25 - 2}vw`,
         };
+
+        if (window.innerWidth < 720) {
+            console.log(window.innerWidth);
+            transform = {width: "94vw", position: "static", margin: "3vw"};
+        }
 
         return (
             //These data parameters are so interact.js knows the initial position of the tiles.
@@ -59,14 +68,15 @@ class Tile extends React.Component {
                 {this.props.canEdit &&
                     <div className="TileControls">
                         <DropdownButton className="TileEditButton" title="" >
-                            {/* <DropdownButton title="Width"> */}
+                            <DropdownButton title="Width">
                                 <Dropdown.Item onClick={() => this.setWidth(1)}>Small</Dropdown.Item>
                                 <Dropdown.Item onClick={() => this.setWidth(2)}>Medium</Dropdown.Item>
                                 <Dropdown.Item onClick={() => this.setWidth(3)}>Large</Dropdown.Item>
                                 <Dropdown.Item onClick={() => this.setWidth(4)}>Full</Dropdown.Item>
-                                <Dropdown.Divider ></Dropdown.Divider>
-                                <Dropdown.Item onClick={() => this.props.deleteTile(this.props._id)}>Delete</Dropdown.Item>
                             </DropdownButton>
+                            <Dropdown.Divider ></Dropdown.Divider>
+                            <Dropdown.Item onClick={() => this.props.deleteTile(this.props._id)}>Delete</Dropdown.Item>
+                        </DropdownButton>
                     </div>
                 }
             </div>
@@ -86,8 +96,14 @@ function getTileType(props) {
         case "SearchBarTile":
             return <SearchBarTile {...props} />;
 
+        case "GradesTile":
+            return <GradesTile {...props} />;
+
+        case "UpcomingAssignmentsTile":
+            return <UpcomingAssignmentsTile {...props} />;
+
         default:
-            return <DefaultTile {...props} />;
+            return <DefaultTile  {...props} />;
     }
 }
 

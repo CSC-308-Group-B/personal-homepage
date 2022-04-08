@@ -4,8 +4,22 @@ const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 const userServices = require('./model/userServices');
+const axios = require('axios');
+
+//External APIs
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const canvasAPI = require('node-canvas-api');
+
+
+const canvasAxios = axios.create({
+    withCredentials: true,
+    baseURL: process.env.CANVAS_API_DOMAIN,
+    headers: {
+        'Authorization': `Bearer ${process.env.CANVAS_API_TOKEN}`
+    },
+})
+
 //create app
 const app = express();
 //misc config
@@ -74,6 +88,36 @@ app.get("/api/auth/google/callback", passport.authenticate("google", { failureRe
 //If the get request on the frontend sends the session cookie, passport will automatically add a "user" field to "req", via the serialization methods (above)
 app.get('/getUser', async (req, res) => {
     res.send(req.user);
+});
+
+/*
+ * 
+ * Canvas API
+ * 
+ */
+
+//For a valid result, it should return an id and name
+app.get("/canvas/self", async (req, res, next) => {
+    canvasAPI.getSelf()
+        .then(self => res.send(self));
+});
+
+app.get("/canvas/activecourses", async (req, res) => {
+    canvasAxios.get(`/users/self/favorites/courses?include=total_scores`)
+        .then(response => res.send(response.data))
+        .catch(err => next(err));
+});
+
+app.get("/canvas/enrollments", async (req, res) => {
+    canvasAxios.get(`users/self/enrollments?include=uuid`)
+        .then(response => res.send(response.data))
+        .catch(err => next(err));
+});
+
+app.get("/canvas/upcomingassignments", async (req, res) => {
+    canvasAxios.get(`users/self/todo`)
+        .then(response => res.send(response.data))
+        .catch(err => next(err));
 });
 
 /*

@@ -84,7 +84,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App" style={{ minHeight: "100vh", width: "auto" }}>
+      <div className="App NoHorizontalScroll">
         <UserPage user={this.state.user} color={this.state.color} backgroundImage = {this.state.backgroundImage} updateUser={this.updateUser} addTile={this.addTile} updateColor={this.updateColor} updateBackgroundImage = {this.updateBackgroundImage} />
         <Background color = {this.state.color} backgroundImage = {this.state.backgroundImage}/>
       </div>

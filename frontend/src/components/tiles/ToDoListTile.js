@@ -34,7 +34,7 @@ class ToDoListTile extends React.Component {
       text: this.getTextInput(),
       status: 0
     }
-    if (newTask.text === "") return;
+    if (newTask.text == "") return;
     //and try adding it to the backed
     const response = await axios.post(`http://localhost:5001/addToDoItem`, {
       userId: this.props.userId,
@@ -104,7 +104,8 @@ class ToDoListTile extends React.Component {
     return (
       <Card className='Card'>
         <Card.Body>
-          <Card.Title>Notes</Card.Title>
+          <Card.Title>To Do</Card.Title>
+          <Card.Text>
             <InputGroup>
               <input className="inputbar" placeholder="new task" ref={this.textInputRef}></input>
               <button className='addTask' onClick={() => this.addTask()}>Add Task</button>
@@ -115,6 +116,7 @@ class ToDoListTile extends React.Component {
                   <ToDoListItem key={task._id} {...task} deleteTask={this.deleteTask} updateTask={this.updateTask} />);
               }))}
             </ListGroup>
+          </Card.Text>
         </Card.Body>
       </Card>
     );
