@@ -105,9 +105,9 @@ class ToDoListTile extends React.Component {
       <Card className='Card'>
         <Card.Body>
           <Card.Title>To Do</Card.Title>
-            <InputGroup>
-              <input className="inputbar" placeholder="new task" ref={this.textInputRef}></input>
-              <button className='addTask' onClick={() => this.addTask()}>Add Task</button>
+            <InputGroup className="ToDoInputGroup">
+              <input placeholder="new task" ref={this.textInputRef}></input>
+              <button onClick={() => this.addTask()}>Add</button>
             </InputGroup>
             <ListGroup className="taskItems">
               {(this.state.tasks && this.state.tasks.map((task) => {

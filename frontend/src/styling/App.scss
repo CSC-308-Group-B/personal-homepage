@@ -182,10 +182,28 @@
   padding: 8px 16px;
 }
 
-.inputbar{
-  width: 75%;
-  padding: 5px;
-  float: left;
+// .inputBar{
+//   width: 75%;
+//   padding: 0.125rem;
+//   float: left;
+// }
+
+.SearchBarInputGroup {
+  display: grid;
+  grid-template-columns: 6rem auto;
+}
+
+.SearchBarInput {
+  width: 100%;
+}
+
+.ToDoInputGroup {
+  display: grid;
+  grid-template-columns: calc(100% - 4rem) 4rem;
+}
+
+.ToDoInputGroup > input {
+  padding: 0.25rem 0.25rem;
 }
 
 .taskItems {
