@@ -5,7 +5,7 @@ import React from 'react';
 import ToDoListItem from "./ToDoListItem";
 import axios from 'axios';
 
-class ToDoListTile extends React.Component {
+class NotesTile extends React.Component {
 
   constructor(props) {
     //props
@@ -104,7 +104,7 @@ class ToDoListTile extends React.Component {
     return (
       <Card className='Card'>
         <Card.Body>
-          <Card.Title>Notes</Card.Title>
+          <Card.Title>To Do</Card.Title>
             <InputGroup>
               <input className="inputbar" placeholder="new task" ref={this.textInputRef}></input>
               <button className='addTask' onClick={() => this.addTask()}>Add Task</button>
