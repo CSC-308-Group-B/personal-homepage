@@ -25,6 +25,8 @@ class Tile extends React.Component {
             .addEventListener("onTileMove", (e) => {
                 this.props.moveTile(this.props._id, e.detail.x, e.detail.y);
             });
+        //test
+        console.log(this);
     }
 
     setWidth = async (newWidth) => {
@@ -40,10 +42,15 @@ class Tile extends React.Component {
 
     render() {
         //Translates the tile to the coordinates specified in the x and y properties of the tile.
-        var transform = {
+        let transform = {
             transform: `translate(${this.props.x}vw, ${this.props.y}rem)`,
             width: `${this.state.width * 25 - 2}vw`,
         };
+
+        if (window.innerWidth < 720) {
+            console.log(window.innerWidth);
+            transform = {width: "94vw", position: "static", margin: "3vw"};
+        }
 
         return (
             //These data parameters are so interact.js knows the initial position of the tiles.
