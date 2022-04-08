@@ -1,0 +1,8 @@
+
+.SearchBarInputGroup {
+    display: grid;
+    grid-template-columns: 6rem auto;
+    & > input {
+      width: 100%;
+    }
+  }

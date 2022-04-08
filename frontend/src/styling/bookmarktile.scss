@@ -1,0 +1,49 @@
+@import 'variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+
+.bookmarkItems {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .bookmarkInputs > * {
+    width: 100%;
+  }
+  .bookmarkInputs {
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.3s ease;
+    &.canEdit {
+      max-height: 6rem;
+    }
+  }
+  .BookmarksItem {
+    cursor: pointer;
+    position: relative;
+    background: #ddd;
+    border-radius: 0.25rem;
+    margin: 0 0.25rem 0.25rem 0;
+    &:hover {
+      box-shadow: 2px 2px 0 0 #0004;
+      transform: translate(-2px, -2px);
+      z-index: 1;
+    }
+  }
+  .BookmarksItem > a {
+    padding: 0.25rem 0.5rem;
+    text-decoration: none;
+  }
+  .BookmarksItem > a > img {
+    padding-right: 0.25rem;
+  }
+  .BookmarksCloseButton {
+    position: absolute;
+    top: 0;
+    left: 0.25rem;
+    &:hover {
+      background-color: red;
+    }
+  }
+  
+  
