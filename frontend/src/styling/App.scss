@@ -191,19 +191,17 @@
 .SearchBarInputGroup {
   display: grid;
   grid-template-columns: 6rem auto;
-}
-
-.SearchBarInput {
-  width: 100%;
+  & > input {
+    width: 100%;
+  }
 }
 
 .ToDoInputGroup {
   display: grid;
   grid-template-columns: calc(100% - 4rem) 4rem;
-}
-
-.ToDoInputGroup > input {
-  padding: 0.25rem 0.25rem;
+  & > input {
+    padding: 0.25rem 0.25rem;
+  }
 }
 
 .taskItems {
