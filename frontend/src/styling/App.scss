@@ -1,11 +1,11 @@
 @import 'variables.scss';
-@import 'card.scss';
-@import 'todolisttile.scss';
-@import 'bookmarktile.scss';
-@import 'searchbartile.scss';
-@import 'gradetile.scss';
-@import 'assignmenttile.scss';
-@import 'color.scss';
+@import 'Tile.scss';
+@import 'tiles/ToDoList.scss';
+@import 'tiles/Bookmarks.scss';
+@import 'tiles/SearchBar.scss';
+@import 'tiles/Grades.scss';
+@import 'tiles/Assignments.scss';
+@import 'ColorPicker.scss';
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
