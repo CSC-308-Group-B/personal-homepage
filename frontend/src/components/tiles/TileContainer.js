@@ -3,12 +3,10 @@ import ToDoListTile from "./ToDoListTile";
 import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
 import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
-import CloseButton from "react-bootstrap/CloseButton";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import React from "react";
 import GradesTile from "./GradesTile";
 import axios from 'axios';
+import HoverDropdown from "../HoverDropdown";
 
 class Tile extends React.Component {
      constructor(props) {
@@ -66,18 +64,14 @@ class Tile extends React.Component {
                 {getTileType(this.props)}
 
                 {this.props.canEdit &&
-                    <div className="TileControls">
-                        <DropdownButton className="TileEditButton" title="" >
-                            <DropdownButton title="Width">
-                                <Dropdown.Item onClick={() => this.setWidth(1)}>Small</Dropdown.Item>
-                                <Dropdown.Item onClick={() => this.setWidth(2)}>Medium</Dropdown.Item>
-                                <Dropdown.Item onClick={() => this.setWidth(3)}>Large</Dropdown.Item>
-                                <Dropdown.Item onClick={() => this.setWidth(4)}>Full</Dropdown.Item>
-                            </DropdownButton>
-                            <Dropdown.Divider ></Dropdown.Divider>
-                            <Dropdown.Item onClick={() => this.props.deleteTile(this.props._id)}>Delete</Dropdown.Item>
-                        </DropdownButton>
-                    </div>
+                    <HoverDropdown className="TileControls" toggleContent={<img alt='#' src="https://miro.medium.com/max/512/1*Js0Y20MwjcTnVAe7KjDXNg.png"/>}>
+                        <HoverDropdown.Item onClick={() => this.setWidth(1)}>Small</HoverDropdown.Item>
+                        <HoverDropdown.Item onClick={() => this.setWidth(2)}>Medium</HoverDropdown.Item>
+                        <HoverDropdown.Item onClick={() => this.setWidth(3)}>Large</HoverDropdown.Item>
+                        <HoverDropdown.Item onClick={() => this.setWidth(4)}>Full</HoverDropdown.Item>
+                        <HoverDropdown.Div />
+                        <HoverDropdown.Item className="TileDeleteButton" onClick={() => this.props.deleteTile(this.props._id)}>Delete</HoverDropdown.Item>
+                    </HoverDropdown>
                 }
             </div>
         );

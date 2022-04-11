@@ -4,9 +4,18 @@ import React from 'react';
 class Background extends React.Component {
 
     render() {
-        return (
-            <div className="Background" style = {{backgroundColor: this.props.color, backgroundImage: `url(${this.props.backgroundImage})`}}/>
-        );
+
+        if (this.props.user != undefined) {
+            return (
+                <div className="Background" style={{ backgroundColor: this.props.color, backgroundImage: `url(${this.props.backgroundImage})` }} />
+            );
+        } else {
+            return (
+                <div className="Background SignInBackground" />
+
+                );
+        }
+       
     }
 }
 

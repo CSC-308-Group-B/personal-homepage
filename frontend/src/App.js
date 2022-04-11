@@ -13,7 +13,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: undefined,
-      color: "",
+        color: "#fff",
       backgroundImage: ""
 
     };
@@ -85,7 +85,7 @@ class App extends React.Component {
     return (
       <div className="App NoHorizontalScroll">
         <UserPage user={this.state.user} color={this.state.color} backgroundImage = {this.state.backgroundImage} updateUser={this.updateUser} addTile={this.addTile} updateColor={this.updateColor} updateBackgroundImage = {this.updateBackgroundImage} />
-        <Background color = {this.state.color} backgroundImage = {this.state.backgroundImage}/>
+            <Background color={this.state.color} backgroundImage={this.state.backgroundImage} user={this.state.user}/>
       </div>
     );
   }
