@@ -103,8 +103,8 @@ class BookmarksTile extends React.Component {
               }))}
             </ListGroup>
             <InputGroup className={inputGroupClassName}>
-              <input className="inputText" placeholder="bookmark text" ref={this.textInputRef}></input>
-              <input className="inputUrl" placeholder="new url" ref={this.urlInputRef}></input>
+              <input className="input" placeholder="bookmark text" ref={this.textInputRef}></input>
+              <input className="input" placeholder="new url" ref={this.urlInputRef}></input>
               <button className='addBookmark' onClick={() => this.addBookmark()}>Add Bookmark</button>
             </InputGroup>
         </Card.Body>

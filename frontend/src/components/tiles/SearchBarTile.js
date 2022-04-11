@@ -60,7 +60,7 @@ class SearchBarTile extends React.Component {
                 <Dropdown.Item onClick={this.selectSearch("Baidu")}>Baidu</Dropdown.Item>
                 <Dropdown.Item onClick={this.selectSearch("DuckDuckGo")}>DuckDuckGo</Dropdown.Item>
             </DropdownButton>
-            <input onFocus = {this.highlightText} onKeyPress = {this.eventhandler} id = 'searchField' type="search" className="SearchBarInput" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
+            <input onFocus = {this.highlightText} onKeyPress = {this.eventhandler} id = 'searchField' type="search" className="input" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
           </InputGroup>
         </Card.Body>
       </Card>
