@@ -47,7 +47,7 @@ class GradesTile extends React.Component {
                 <Card.Body>
                     <Card.Title className="d-flex justify-content-between">
                         {this.state.student.name.substring(0, this.state.student.name.indexOf(" ")) + "'s Grades"}
-                        <img className="small-icon" alt="C" src={require("../../styling/Canvas_Bug_Color_RGB.png")} />
+                        <img className="small-icon" alt="C" src={require("../../styling/img/Canvas_Bug_Color_RGB.png")} />
                     </Card.Title>
                     <ListGroup>
                         {
