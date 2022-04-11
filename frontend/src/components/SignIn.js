@@ -11,12 +11,11 @@ function SignIn(props) {
     document.title = "Sign In - Personal Homepage";
 
     return (
-        <Card className={ "mx-auto" } style={{ "width":"18rem" }}>
-            <Card.Body>
-                <Card.Title>Sign In</Card.Title>
-                <Button onClick={googleLogin}>Sign in to Google</Button>
-            </Card.Body>
-        </Card>
+        <div className="SignInTile" style={{ "width": "25rem" }}>
+            <h1 className="d-inline-block">Welcome to&nbsp;</h1>
+            <h1 className="d-inline-block cool">&nbsp;Tiles&nbsp;</h1>
+            <Button className="cool" onClick={googleLogin}>Sign in to Google</Button>
+        </div>
     );
 }
 
