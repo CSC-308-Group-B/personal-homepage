@@ -54,6 +54,7 @@ class EditHeader extends React.Component {
                         <Dropdown.Item onClick={() => this.props.addTile("SearchBarTile", { width: 2 })}>Search Bar</Dropdown.Item>
                         <Dropdown.Item onClick={() => this.props.addTile("GradesTile")}>Grades Tile</Dropdown.Item>
                         <Dropdown.Item onClick={() => this.props.addTile("UpcomingAssignmentsTile")}>Upcoming Assignments Tile</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.props.addTile("CatMemeTile")}>CATS</Dropdown.Item>
                         <Dropdown.Item onClick={() => this.props.addTile("OtherTileString")}>(Other type)</Dropdown.Item>
                     </Tab>
                     <Tab eventKey="color" title="Color">

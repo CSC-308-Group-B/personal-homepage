@@ -3,7 +3,8 @@ import ToDoListTile from "./ToDoListTile";
 import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
 import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
-import CloseButton from "react-bootstrap/CloseButton";
+import CatMemeTile from "./CatMemeTile";
+
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import React from "react";
@@ -119,6 +120,9 @@ function getTileType(props) {
 
         case "UpcomingAssignmentsTile":
             return <UpcomingAssignmentsTile {...props} />;
+
+        case "CatMemeTile":
+            return <CatMemeTile {...props} />;
 
         default:
             return <DefaultTile  {...props} />;
