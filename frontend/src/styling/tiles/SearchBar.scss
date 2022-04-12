@@ -3,8 +3,13 @@
   grid-template-columns: 3rem auto;
   & > input {
     width: 100%;
+    transition: 0.2s ease;
+  }
+  & .canEdit {
+    width: 95%;
   }
 }
+
 
 .engineButtom {
   height: 2rem;

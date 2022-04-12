@@ -48,7 +48,13 @@ class SearchBarTile extends React.Component {
 
 
   render() {
+
+
+    let inputName = "input";
+    if (this.props.canEdit) inputName += " canEdit";
+
     return (
+
       <Card className="Card">
         <Card.Body>
           <InputGroup className="SearchBarInputGroup">
@@ -67,7 +73,7 @@ class SearchBarTile extends React.Component {
               onKeyPress={this.eventhandler}
               id="searchField"
               type="search"
-              className="input"
+              className={inputName}
               placeholder="Search"
               aria-label="Search"
               aria-describedby="search-addon"
