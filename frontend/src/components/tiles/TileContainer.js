@@ -70,6 +70,7 @@ class Tile extends React.Component {
                                 <a href="/#" onClick={() => this.setWidth(2)}>Medium</a>
                                 <a href="/#" onClick={() => this.setWidth(3)}>Large</a>
                                 <a href="/#" onClick={() => this.setWidth(4)}>Full</a>
+                                <hr className="division"></hr>
                                 <a className="deleteButtom" href="/#" onClick={() => this.props.deleteTile(this.props._id)}>Delete</a>
                             </div>
                         </div>
