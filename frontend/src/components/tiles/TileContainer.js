@@ -66,18 +66,26 @@ class Tile extends React.Component {
                 {getTileType(this.props)}
 
                 {this.props.canEdit &&
-                    <div className="TileControls">
-                        <DropdownButton className="TileEditButton" title="" >
-                            <DropdownButton title="Width">
-                                <Dropdown.Item onClick={() => this.setWidth(1)}>Small</Dropdown.Item>
-                                <Dropdown.Item onClick={() => this.setWidth(2)}>Medium</Dropdown.Item>
-                                <Dropdown.Item onClick={() => this.setWidth(3)}>Large</Dropdown.Item>
-                                <Dropdown.Item onClick={() => this.setWidth(4)}>Full</Dropdown.Item>
-                            </DropdownButton>
-                            <Dropdown.Divider ></Dropdown.Divider>
-                            <Dropdown.Item onClick={() => this.props.deleteTile(this.props._id)}>Delete</Dropdown.Item>
-                        </DropdownButton>
-                    </div>
+                        // {/* <DropdownButton className="TileEditButton" title="" >
+                        //     <DropdownButton title="Width">
+                        //         <Dropdown.Item onClick={() => this.setWidth(1)}>Small</Dropdown.Item>
+                        //         <Dropdown.Item onClick={() => this.setWidth(2)}>Medium</Dropdown.Item>
+                        //         <Dropdown.Item onClick={() => this.setWidth(3)}>Large</Dropdown.Item>
+                        //         <Dropdown.Item onClick={() => this.setWidth(4)}>Full</Dropdown.Item>
+                        //     </DropdownButton>
+                        //     <Dropdown.Divider ></Dropdown.Divider>
+                        //     <Dropdown.Item onClick={() => this.props.deleteTile(this.props._id)}>Delete</Dropdown.Item>
+                        // </DropdownButton> */}
+                        <div class="dropdown" className="threeDots">
+                            <input className="threeDots" type="image" alt='#' src="https://miro.medium.com/max/512/1*Js0Y20MwjcTnVAe7KjDXNg.png"/>
+                            <div className="dropdown-content">
+                                <a href="/#" onClick={() => this.setWidth(1)}>Small</a>
+                                <a href="/#" onClick={() => this.setWidth(2)}>Medium</a>
+                                <a href="/#" onClick={() => this.setWidth(3)}>Large</a>
+                                <a href="/#" onClick={() => this.setWidth(4)}>Full</a>
+                                <a className="deleteButtom" href="/#" onClick={() => this.props.deleteTile(this.props._id)}>Delete</a>
+                            </div>
+                        </div>
                 }
             </div>
         );
