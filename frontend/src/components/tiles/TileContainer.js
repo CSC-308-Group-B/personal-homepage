@@ -3,9 +3,6 @@ import ToDoListTile from "./ToDoListTile";
 import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
 import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
-import CloseButton from "react-bootstrap/CloseButton";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import React from "react";
 import GradesTile from "./GradesTile";
 import axios from 'axios';
@@ -66,16 +63,6 @@ class Tile extends React.Component {
                 {getTileType(this.props)}
 
                 {this.props.canEdit &&
-                        // {/* <DropdownButton className="TileEditButton" title="" >
-                        //     <DropdownButton title="Width">
-                        //         <Dropdown.Item onClick={() => this.setWidth(1)}>Small</Dropdown.Item>
-                        //         <Dropdown.Item onClick={() => this.setWidth(2)}>Medium</Dropdown.Item>
-                        //         <Dropdown.Item onClick={() => this.setWidth(3)}>Large</Dropdown.Item>
-                        //         <Dropdown.Item onClick={() => this.setWidth(4)}>Full</Dropdown.Item>
-                        //     </DropdownButton>
-                        //     <Dropdown.Divider ></Dropdown.Divider>
-                        //     <Dropdown.Item onClick={() => this.props.deleteTile(this.props._id)}>Delete</Dropdown.Item>
-                        // </DropdownButton> */}
                         <div class="dropdown" className="threeDots">
                             <input className="threeDots" type="image" alt='#' src="https://miro.medium.com/max/512/1*Js0Y20MwjcTnVAe7KjDXNg.png"/>
                             <div className="dropdown-content">

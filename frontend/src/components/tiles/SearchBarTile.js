@@ -74,7 +74,7 @@ class SearchBarTile extends React.Component {
               id="searchField"
               type="search"
               className={inputName}
-              placeholder="Search"
+              placeholder="  Search"
               aria-label="Search"
               aria-describedby="search-addon"
             />
