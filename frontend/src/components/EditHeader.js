@@ -86,13 +86,11 @@ class EditHeader extends React.Component {
                     <div class="dropdown" className="headers">
                     <a className="dropbtn" href="/#">COLOR</a>
                       <div class="dropdown-content">
-                        <a href="/#">
-                          <HexColorPicker className="my-2" color={this.state.color} onChange={this.updateColor} />
-                        </a>
-                        <a href="/#">
-                          <input id="inputBackgroundImageURL" value={this.props.backgroundImage} onChange={() => this.updateBackground(this.value)} />
+                        <div className="colorTab">
+                          <HexColorPicker className="colorPicker" color={this.state.color} onChange={this.updateColor} />
+                          <input className="backgroundPicker" id="inputBackgroundImageURL" value={this.props.backgroundImage} onChange={() => this.updateBackground(this.value)} />
                           <button onClick={() => { document.getElementById("inputBackgroundImageURL").value = ""; this.updateBackground("") }}>Reset</button>
-                        </a>
+                        </div>
                       </div>
                     </div>
                   </div>           
