@@ -22,8 +22,6 @@ class Tile extends React.Component {
             .addEventListener("onTileMove", (e) => {
                 this.props.moveTile(this.props._id, e.detail.x, e.detail.y);
             });
-        //test
-        console.log(this);
     }
 
     setWidth = async (newWidth) => {
@@ -45,7 +43,6 @@ class Tile extends React.Component {
         };
 
         if (window.innerWidth < 720) {
-            console.log(window.innerWidth);
             transform = {width: "94vw", position: "static", margin: "3vw"};
         }
 

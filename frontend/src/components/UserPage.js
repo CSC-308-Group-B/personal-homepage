@@ -31,7 +31,6 @@ class UserPage extends React.Component {
                 return tile._id !== tileId;
             });
             // let elem = document.getElementById(tileId);
-            // console.log(elem);
             // elem.remove();
             this.props.updateUser(this.props.user);
         }

@@ -27,7 +27,6 @@ class BookmarksTile extends React.Component {
       urlString = "http://" + urlString;
     }
     const url = new URL(urlString);
-    console.log(url);
     return {
       text: this.textInputRef.current.value,
       url: url.href,
