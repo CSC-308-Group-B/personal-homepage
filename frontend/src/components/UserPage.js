@@ -54,8 +54,6 @@ class UserPage extends React.Component {
             <div>
                 <EditHeader color={this.props.color} backgroundImage = {this.props.backgroundImage} updateBackgroundImage = {this.props.updateBackgroundImage} updateColor={this.props.updateColor} addTile={this.props.addTile} toggleSnap={this.toggleSnap} canEdit={this.state.canEdit} canPick={this.state.canPick} />
 
-                {/* <Button className="Edit" onClick={() => this.toggleEdit()}>EDIT</Button> */}
-
                 <input className='Edit' type='image' alt='#' src='https://icon-library.com/images/white-menu-icon-png/white-menu-icon-png-18.jpg' onClick={() => this.toggleEdit()}></input>
 
                 <div className="tileDragArea">
