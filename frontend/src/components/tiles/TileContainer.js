@@ -63,10 +63,10 @@ class Tile extends React.Component {
                 {getTileType(this.props)}
 
                 {this.props.canEdit &&
-                        <div class="dropdown" className="threeDots">
+                        <div className="dropdown threeDots">
                             <input className="threeDots" type="image" alt='#' src="https://miro.medium.com/max/512/1*Js0Y20MwjcTnVAe7KjDXNg.png"/>
                             <div className="dropdown-content">
-                                <a href="/#" onClick={() => this.setWidth(1)}>Small</a>
+                                <div onClick={() => this.setWidth(1)}>Small</div>
                                 <a href="/#" onClick={() => this.setWidth(2)}>Medium</a>
                                 <a href="/#" onClick={() => this.setWidth(3)}>Large</a>
                                 <a href="/#" onClick={() => this.setWidth(4)}>Full</a>

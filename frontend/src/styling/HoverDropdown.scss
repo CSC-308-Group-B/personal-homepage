@@ -1,0 +1,37 @@
+.HoverDropdown {
+    cursor: pointer;
+    border: 1px solid red;
+}
+
+
+
+
+// .HoverDropdown {
+//     cursor: pointer;
+//     &:hover > .HoverDropdownContent {
+//         display: inline-block;
+//     }
+//     border: 1px solid red;
+// }
+
+// .HoverDropdownContent {
+//     display: none;
+//     position: absolute;
+//     background-color: #f1f1f1;
+//     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+//     z-index: 1;
+//     left: 0;
+//     top: 3rem;
+//     &.HoverDropdownAside{
+//         // bottom: 0;
+//     }
+// }
+
+// .HoverDropdownItem {
+//     user-select: none;
+//     padding: 0.25rem 0.6rem;
+//     cursor: pointer;
+//     &:hover {
+//         background-color: #ddd;
+//     }
+// }
