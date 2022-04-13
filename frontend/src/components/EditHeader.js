@@ -45,7 +45,7 @@ class EditHeader extends React.Component {
               <a href="/#" onClick={() => this.props.addTile("GradesTile")}>Grades</a>
               <a href="/#" onClick={() => this.props.addTile("UpcomingAssignmentsTile")}>Assignments</a>
               <a href="/#" onClick={() => this.props.addTile("TwitchTile")}>Twitch</a>
-              {/* <a href="/#" onClick={() => this.props.addTile("OtherTileString")}>(Other type)</a> */}
+              <a href="/#" onClick={() => this.props.addTile("OtherTileString")}>(Other type)</a>
 
             </div>
           </div>

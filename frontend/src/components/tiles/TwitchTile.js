@@ -9,15 +9,16 @@ class TwitchTile extends React.Component {
         return (
             <Card className='Card'>
                 <Card.Body>
-                    <Card.Title>Twitch</Card.Title>
+                    <Card.Title></Card.Title>
                     <div>
                         <iframe
-                            src="https://www.twitch.tv/"
+                            src="https://player.twitch.tv/?channel=xqcow&parent=localhost"
                             frameborder="0"
+                            allowfullscreen="true"
                             scrolling="no"
-                            allowFullScreen="true"
-                            height="100%"
-                            width="100%" />
+                            height="720px"
+                            width="100%">
+                        </iframe>
                     </div>
                 </Card.Body>
             </Card>
