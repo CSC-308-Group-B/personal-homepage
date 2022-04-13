@@ -4,8 +4,22 @@ const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 const userServices = require('./model/userServices');
+const axios = require('axios');
+
+//External APIs
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const canvasAPI = require('node-canvas-api');
+
+
+const canvasAxios = axios.create({
+    withCredentials: true,
+    baseURL: process.env.CANVAS_API_DOMAIN,
+    headers: {
+        'Authorization': `Bearer ${process.env.CANVAS_API_TOKEN}`
+    },
+})
+
 //create app
 const app = express();
 //misc config
@@ -43,6 +57,7 @@ passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "/api/auth/google/callback",
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
 },
     async function (accessToken, refreshToken, profile, callback) {
         //2) on successful auth, try and find user...
@@ -74,6 +89,36 @@ app.get("/api/auth/google/callback", passport.authenticate("google", { failureRe
 //If the get request on the frontend sends the session cookie, passport will automatically add a "user" field to "req", via the serialization methods (above)
 app.get('/getUser', async (req, res) => {
     res.send(req.user);
+});
+
+/*
+ * 
+ * Canvas API
+ * 
+ */
+
+//For a valid result, it should return an id and name
+app.get("/canvas/self", async (req, res, next) => {
+    canvasAPI.getSelf()
+        .then(self => res.send(self));
+});
+
+app.get("/canvas/activecourses", async (req, res) => {
+    canvasAxios.get(`/users/self/favorites/courses?include=total_scores`)
+        .then(response => res.send(response.data))
+        .catch(err => next(err));
+});
+
+app.get("/canvas/enrollments", async (req, res) => {
+    canvasAxios.get(`users/self/enrollments?include=uuid`)
+        .then(response => res.send(response.data))
+        .catch(err => next(err));
+});
+
+app.get("/canvas/upcomingassignments", async (req, res) => {
+    canvasAxios.get(`users/self/todo`)
+        .then(response => res.send(response.data))
+        .catch(err => next(err));
 });
 
 /*
@@ -125,7 +170,7 @@ app.delete('/u/:id', async (req, res) => {
 });
 
 app.post('/u/:id/tiles', async (req, res) => {
-    const result = await userServices.addTileToUserById(req.params.id, req.body);
+    const result = await userServices.addTileToUserById(req.user._id, req.body);
     if (result) {
         res.status(201).send(result);
     } else {
@@ -134,7 +179,7 @@ app.post('/u/:id/tiles', async (req, res) => {
 });
 
 app.delete('/u/:id/:tileid', async (req, res) => {
-    const result = await userServices.removeTileFromUserByIds(req.params.id, req.params.tileid);
+    const result = await userServices.removeTileFromUserByIds(req.user._id, req.params.tileid);
     if (result) {
         res.status(204).send(result);
     } else {
@@ -151,8 +196,27 @@ app.post('/setColor', async (req, res) => {
     }
 });
 
+app.post('/setBackgroundImage', async (req, res) => {
+    console.log(req.body.backgroundImage);
+    const result = await userServices.setUserFields( req.user._id, {backgroundImage: req.body.backgroundImage} );
+    if (result) {
+        res.status(200).send('Updated Background.');
+    } else {
+        res.status(500).send('Unable to update Background.');
+    }
+});
+
 app.post('/u/moveTile', async (req, res) => {
-    const result = await userServices.updateTileFields(req.body.userId, req.body.tileId, { x: req.body.x, y: req.body.y });
+    const result = await userServices.updateTileFields(req.user._id, req.body.tileId, { x: req.body.x, y: req.body.y });
+    if (result) {
+        res.status(200).send('Updated tile.');
+    } else {
+        res.status(500).send('Unable to update tile.');
+    }
+});
+
+app.post('/u/setTileFields', async (req, res) => {
+    const result = await userServices.updateTileFields(req.user._id, req.body.tileId, req.body);
     if (result) {
         res.status(200).send('Updated tile.');
     } else {
@@ -161,7 +225,7 @@ app.post('/u/moveTile', async (req, res) => {
 });
 
 app.post('/addToDoItem', async (req, res) => {
-    const result = await userServices.addTileListItem(req.body.userId, req.body.tileId, req.body.tile);
+    const result = await userServices.addTileListItem(req.user._id, req.body.tileId, req.body.tile);
     const addedItem = await userServices.getTileListItem(result, req.body.tileId, req.body.tile);
     if (addedItem) {
         res.status(200).send(addedItem);
@@ -171,7 +235,7 @@ app.post('/addToDoItem', async (req, res) => {
 });
 
 app.delete('/removeToDoItem', async (req, res) => {
-    const result = await userServices.deleteTileListItem(req.body.userId, req.body.tileId, req.body.itemId);
+    const result = await userServices.deleteTileListItem(req.user._id, req.body.tileId, req.body.itemId);
     if (result) {
         res.status(204).send('Deleted item.');
     } else {
@@ -180,11 +244,30 @@ app.delete('/removeToDoItem', async (req, res) => {
 });
 
 app.post('/updateToDoItem', async (req, res) => {
-    const result = await userServices.updateTileListItem(req.body.userId, req.body.tileId, req.body.itemId, {status: req.body.status});
+    const result = await userServices.updateTileListItem(req.user._id, req.body.tileId, req.body.itemId, {status: req.body.status});
     if (result) {
         res.status(200).send('Updated item.');
     } else {
         res.status(500).send();
+    }
+});
+
+app.post('/addBookmark', async (req, res) => {
+    const result = await userServices.addTileListItem(req.user._id, req.body.tileId, req.body.tile);
+    const addedItem = await userServices.getTileListItem(result, req.body.tileId, req.body.tile);
+    if (addedItem) {
+        res.status(200).send(addedItem);
+    } else {
+        res.status(500).send();
+    }
+});
+
+app.delete('/removeBookmark', async (req, res) => {
+    const result = await userServices.deleteTileListItem(req.user._id, req.body.tileId, req.body.itemId);
+    if (result) {
+        res.status(204).send('Deleted item.');
+    } else {
+        res.status(404).send();
     }
 });
 

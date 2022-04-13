@@ -34,13 +34,13 @@ class ToDoListTile extends React.Component {
       text: this.getTextInput(),
       status: 0
     }
-    if (newTask.text == "") return;
+    if (newTask.text === "") return;
     //and try adding it to the backed
     const response = await axios.post(`http://localhost:5001/addToDoItem`, {
       userId: this.props.userId,
       tileId: this.props._id,
       tile: newTask
-    });
+    }, { withCredentials: true });
     //if we get a response...
     if (response && response.status === 200) {
       //and it's valid, add it to our list and update state to rerender
@@ -63,7 +63,8 @@ class ToDoListTile extends React.Component {
         userId: this.props.userId,
         tileId: this.props._id,
         itemId: itemId
-      }
+      },
+      withCredentials: true 
     });
     //if we get a response...
     if (response && response.status === 204) {
@@ -85,7 +86,7 @@ class ToDoListTile extends React.Component {
       tileId: this.props._id,
       itemId: itemId,
       status: 1
-    });
+    }, { withCredentials: true });
     //if we get a response...
     if (response && response.status === 200) {
       //for a valid response, update the item and update our state
@@ -104,10 +105,9 @@ class ToDoListTile extends React.Component {
       <Card className='Card'>
         <Card.Body>
           <Card.Title>To Do</Card.Title>
-          <Card.Text>
-            <InputGroup>
-              <input className="inputbar" placeholder="new task" ref={this.textInputRef}></input>
-              <button className='addTask' onClick={() => this.addTask()}>Add Task</button>
+            <InputGroup className="ToDoInputGroup">
+              <input className = "input" placeholder="  new task" ref={this.textInputRef}></input>
+              <button onClick={() => this.addTask()}>Add</button>
             </InputGroup>
             <ListGroup className="taskItems">
               {(this.state.tasks && this.state.tasks.map((task) => {
@@ -115,7 +115,6 @@ class ToDoListTile extends React.Component {
                   <ToDoListItem key={task._id} {...task} deleteTask={this.deleteTask} updateTask={this.updateTask} />);
               }))}
             </ListGroup>
-          </Card.Text>
         </Card.Body>
       </Card>
     );

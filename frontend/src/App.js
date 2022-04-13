@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import UserPage from './components/UserPage'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styling/App.scss';
@@ -14,13 +13,15 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: undefined,
-      color: ""
+      color: "",
+      backgroundImage: ""
+
     };
   }
 
   //updates the user object; re-renders the page
   updateUser = (updatedUser) => {
-    this.setState({ user: updatedUser, color: this.state.color || updatedUser.backgroundColor });
+    this.setState({ user: updatedUser, color: this.state.color || updatedUser.backgroundColor, backgroundImage: this.state.backgroundImage || updatedUser.backgroundImage  });
   }
 
   //Runs immediately as the page begins rendering
@@ -49,30 +50,25 @@ class App extends React.Component {
     }
   }
 
-  addTile = async (tileType = "DefaultTile") => {
+  updateBackgroundImage = async (image) => {
+    const response = await axios.post(`http://localhost:5001/setBackgroundImage`, {backgroundImage: image}, {withCredentials: true});
+
+    if(response){
+      this.setState({backgroundImage: image});
+    }
+  }
+
+  addTile = async (tileType = "DefaultTile", defaultFields = {}) => {
     //create base tile object
     const newTile = {
       tileType: tileType,
       width: 1,
       x: 0,
-      y: 0
+      y: 0,
+      ...defaultFields
     }
-    //depending on the tile type, handle other defaults
-    /* There aren't any relevant examples currently, but for example:
-    
-    switch(tileType) {
-      case "SomeSpecialTile":
-        newTile.specialProperty = "specialVal";
-        newTile.width = 2;
-        break;
-      case "OtherSpecialTile":
-        newTile.width = 4;
-        break;
-    }
-
-    */
     //Try adding tile to backend
-    const response = await axios.post(`http://localhost:5001/u/${this.state.user._id}/tiles`, newTile);
+    const response = await axios.post(`http://localhost:5001/u/${this.state.user._id}/tiles`, newTile, { withCredentials: true });
     if (response) {
       //if we get a successful response, add it to the frontend
       if (this.state.user.tiles) {
@@ -87,9 +83,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App" style={{ minHeight: "100vh", width: "auto" }}>
-        <UserPage user={this.state.user} color={this.state.color} updateUser={this.updateUser} addTile={this.addTile} updateColor={this.updateColor}/>
-        <Background color = {this.state.color}/>
+      <div className="App NoHorizontalScroll">
+        <UserPage user={this.state.user} color={this.state.color} backgroundImage = {this.state.backgroundImage} updateUser={this.updateUser} addTile={this.addTile} updateColor={this.updateColor} updateBackgroundImage = {this.updateBackgroundImage} />
+        <Background color = {this.state.color} backgroundImage = {this.state.backgroundImage}/>
       </div>
     );
   }

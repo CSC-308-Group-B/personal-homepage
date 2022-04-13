@@ -1,12 +1,18 @@
 import DefaultTile from "./DefaultTile";
 import ToDoListTile from "./ToDoListTile";
-import CloseButton from "react-bootstrap/CloseButton";
+import SearchBarTile from "./SearchBarTile";
+import BookmarksTile from "./BookmarksTile";
+import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
 import React from "react";
+import GradesTile from "./GradesTile";
+import axios from 'axios';
 
 class Tile extends React.Component {
-
      constructor(props) {
          super(props);
+         this.state = {
+             width: this.props.width,
+         }
     }
 
     componentDidMount() {
@@ -18,12 +24,27 @@ class Tile extends React.Component {
             });
     }
 
+    setWidth = async (newWidth) => {
+        const res = await axios.post("http://localhost:5001/u/setTileFields", {
+            userId: this.props.userId,
+            tileId: this.props._id,
+            width: newWidth
+        }, { withCredentials: true });
+        if (res) {
+            this.setState({width: newWidth});
+        }   
+    }
+
     render() {
         //Translates the tile to the coordinates specified in the x and y properties of the tile.
-        var transform = {
-            transform: `translate(${this.props.x}vw, ${this.props.y}px)`,
-            width: `${this.props.width * 25}%`,
+        let transform = {
+            transform: `translate(${this.props.x}vw, ${this.props.y}rem)`,
+            width: `${this.state.width * 25 - 2}vw`,
         };
+
+        if (window.innerWidth < 720) {
+            transform = {width: "94vw", position: "static", margin: "3vw"};
+        }
 
         return (
             //These data parameters are so interact.js knows the initial position of the tiles.
@@ -39,10 +60,17 @@ class Tile extends React.Component {
                 {getTileType(this.props)}
 
                 {this.props.canEdit &&
-                    <CloseButton
-                        className="CloseButton"
-                        onClick={() => this.props.deleteTile(this.props._id)}
-                    />
+                        <div class="dropdown" className="threeDots">
+                            <input className="threeDots" type="image" alt='#' src="https://miro.medium.com/max/512/1*Js0Y20MwjcTnVAe7KjDXNg.png"/>
+                            <div className="dropdown-content">
+                                <a href="/#" onClick={() => this.setWidth(1)}>Small</a>
+                                <a href="/#" onClick={() => this.setWidth(2)}>Medium</a>
+                                <a href="/#" onClick={() => this.setWidth(3)}>Large</a>
+                                <a href="/#" onClick={() => this.setWidth(4)}>Full</a>
+                                <hr className="division"></hr>
+                                <a className="deleteButtom" href="/#" onClick={() => this.props.deleteTile(this.props._id)}>Delete</a>
+                            </div>
+                        </div>
                 }
             </div>
         );
@@ -54,9 +82,21 @@ function getTileType(props) {
 
         case "ToDoListTile":
             return <ToDoListTile {...props} />;
+            
+        case "BookmarksTile":
+            return <BookmarksTile {...props} />;
+
+        case "SearchBarTile":
+            return <SearchBarTile {...props} />;
+
+        case "GradesTile":
+            return <GradesTile {...props} />;
+
+        case "UpcomingAssignmentsTile":
+            return <UpcomingAssignmentsTile {...props} />;
 
         default:
-            return <DefaultTile {...props} />;
+            return <DefaultTile  {...props} />;
     }
 }
 

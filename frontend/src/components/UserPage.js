@@ -1,6 +1,5 @@
 import React from 'react';
 import Tile from './tiles/TileContainer'
-import Button from 'react-bootstrap/Button'
 import SignIn from './SignIn';
 import axios from 'axios';
 import EditHeader from './EditHeader';
@@ -22,17 +21,16 @@ class UserPage extends React.Component {
             tileId: tileId,
             x: x,
             y: y
-        });
+        }, { withCredentials: true });
     }
 
     removeTile = async (tileId) => {
-        const response = await axios.delete(`http://localhost:5001/u/${this.props.user._id}/${tileId}`);
+        const response = await axios.delete(`http://localhost:5001/u/${this.props.user._id}/${tileId}`, { withCredentials: true });
         if (response) {
             this.props.user.tiles = this.props.user.tiles.filter((tile) => {
                 return tile._id !== tileId;
             });
             // let elem = document.getElementById(tileId);
-            // console.log(elem);
             // elem.remove();
             this.props.updateUser(this.props.user);
         }
@@ -52,10 +50,12 @@ class UserPage extends React.Component {
         document.title = `${this.props.user.name}'s Personal Homepage`;
 
         return (
-            <>
-                <EditHeader color={this.props.color} updateColor = {this.props.updateColor} addTile = {this.props.addTile} toggleSnap = {this.toggleSnap} canEdit={this.state.canEdit} canPick={this.state.canPick} />
+            <div>
+                <EditHeader color={this.props.color} backgroundImage = {this.props.backgroundImage} updateBackgroundImage = {this.props.updateBackgroundImage} updateColor={this.props.updateColor} addTile={this.props.addTile} toggleSnap={this.toggleSnap} canEdit={this.state.canEdit} canPick={this.state.canPick} />
 
-                <Button className="Edit" onClick={() => this.toggleEdit()}>EDIT</Button>
+                {/* <Button className="Edit" onClick={() => this.toggleEdit()}>EDIT</Button> */}
+
+                <input className='Edit' type='image' alt='#' src='https://icon-library.com/images/white-menu-icon-png/white-menu-icon-png-18.jpg' onClick={() => this.toggleEdit()}></input>
 
                 <div className="tileDragArea">
                     {this.props.user.tiles.map((tile) => {
@@ -72,7 +72,7 @@ class UserPage extends React.Component {
                         );
                     })}
                 </div>
-            </>
+            </div>
         );
     }
 }
