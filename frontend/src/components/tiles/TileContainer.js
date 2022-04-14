@@ -3,6 +3,7 @@ import ToDoListTile from "./ToDoListTile";
 import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
 import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
+import RandomImageTile from "./RandomImageTile";
 import React from "react";
 import GradesTile from "./GradesTile";
 import axios from 'axios';
@@ -80,22 +81,18 @@ class Tile extends React.Component {
 
 function getTileType(props) {
     switch (props.tileType) {
-
         case "ToDoListTile":
             return <ToDoListTile {...props} />;
-            
         case "BookmarksTile":
             return <BookmarksTile {...props} />;
-
         case "SearchBarTile":
             return <SearchBarTile {...props} />;
-
         case "GradesTile":
             return <GradesTile {...props} />;
-
         case "UpcomingAssignmentsTile":
             return <UpcomingAssignmentsTile {...props} />;
-
+        case "RandomImageTile":
+            return <RandomImageTile {...props} />;
         default:
             return <DefaultTile  {...props} />;
     }
