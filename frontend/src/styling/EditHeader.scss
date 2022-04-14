@@ -1,0 +1,61 @@
+.EditHeader {
+    transition: max-height 0.3s ease;
+    background-color:rgba(75, 75, 75, 1);
+    overflow: hidden;
+    height: 3rem;
+    max-height: 0;
+    & > * {
+        transition: opacity 0.3s ease;
+        opacity: 0;
+    }
+    &.canEdit{
+        overflow: visible;
+        max-height: 3rem;
+        & > * {
+            opacity: 1;
+        }
+    }
+    & > * {
+        display: inline-block;
+        width: auto;
+        height: 100%;
+        margin: auto;
+        padding: 0.6rem 1rem;
+        color: white;
+        font-size: 1.25rem;
+    }
+  }
+
+.EditHeaderDropdown, .HeaderLabel {
+    & > .dropdown > .dropdown-toggle, & > .dropdown-toggle {
+        font-size: 1.25rem;
+        & > :hover {
+            color: black
+        }
+    }
+}
+
+.HeaderToggleSnap {
+    transform: translate(0, 0.05rem);
+    & > label {
+        margin-right: 0.75rem;
+    }
+}
+
+.BackgroundPicker {
+    margin: 1rem;
+}
+
+.ColorPicker {
+    margin: auto;
+    bottom: 0.5rem;
+}
+
+.EditModeToggler{
+    position: fixed;
+    height: 3rem;
+    width: 3rem;
+    top: 0;
+    right: 0;
+    z-index: 100;
+}
