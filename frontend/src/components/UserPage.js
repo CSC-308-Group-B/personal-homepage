@@ -56,7 +56,7 @@ class UserPage extends React.Component {
 
                 {/* <Button className="Edit" onClick={() => this.toggleEdit()}>EDIT</Button> */}
 
-                <input className='Edit' type='image' alt='#' src='https://icon-library.com/images/white-menu-icon-png/white-menu-icon-png-18.jpg' onClick={() => this.toggleEdit()}></input>
+                <input className='EditModeToggler' type='image' alt='#' src='https://icon-library.com/images/white-menu-icon-png/white-menu-icon-png-18.jpg' onClick={() => this.toggleEdit()}></input>
 
                 <div className="tileDragArea">
                     {this.props.user.tiles.map((tile) => {
