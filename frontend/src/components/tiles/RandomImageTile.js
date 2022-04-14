@@ -29,7 +29,6 @@ class RandomImageTile extends React.Component {
                     .then((r) => {if (r) this.loadImage(r.data[0].url)});
                 break;
         }
-        
     }
 
     loadImage = async (url) => {
