@@ -46,7 +46,7 @@
 }
 
 .TileEditWidth {
-  display: inline-block;
+  display: block;
 }
 .TileEditOrder {
   display: none;
@@ -65,6 +65,6 @@
     display: none;
   }
   .TileEditOrder {
-    display: inline-block;
+    display: block;
   }
 }
