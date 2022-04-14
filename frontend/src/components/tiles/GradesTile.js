@@ -44,11 +44,7 @@ class GradesTile extends React.Component {
               0,
               this.state.student.name.indexOf(" ")
             ) + "'s Grades"}
-            <img
-              className="small-icon"
-              alt="C"
-              src={require("../../styling/img/Canvas_Bug_Color_RGB.png")}
-            />
+            {!this.props.canEdit && <img className="small-icon" src={require("../../styling/img/Canvas_Bug_Color_RGB.png")} />}
           </Card.Title>
           <ListGroup>
             {this.state.courses.map((course) => {
