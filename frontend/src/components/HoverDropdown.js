@@ -10,30 +10,40 @@ class HoverDropdown extends React.Component {
     }
 
     handleMouseEnter = () => {
+        console.log('enter');
         this.setState({visible: true});
-        console.log('enter')
     }
 
-    handleMouseLeave = (e) => {
+    handleMouseLeave = () => {
+        console.log('leave');
         this.setState({visible: false});
-        console.log('leave')
     }
 
     render() {
         return (
-            <DropdownButton 
-                className="HoverDropdown"
-                onHover={() => this.handleMouseEnter}
-                show={this.state.visible}
-                title={this.props.button}
-            >
-                {this.state.visible && 
-                <div className={"HoverDropdownContent" + (this.props.aside ? " HoverDropdownAside" : "")}>
+            <div
+            onMouseEnter={this.handleMouseEnter}
+            onMouseLeave={this.handleMouseLeave}>
+                <DropdownButton 
+                    className="HoverDropdown"
+                    show={this.state.visible}
+                    title={this.props.button}
+                >
                     {this.props.children}
-                </div>}
-            </DropdownButton>
+                </DropdownButton>
+            </div>
         );
     }
 }
 
-export default HoverDropdown;
+class HoverDropdownItem extends React.Component {
+    render() {
+        return (
+            <div className="HoverDropdownItem" onClick={this.props.onClick}>
+                {this.props.children}
+            </div>
+        );
+    }
+}
+
+export {HoverDropdown, HoverDropdownItem};

@@ -1,8 +1,7 @@
 import Card from "react-bootstrap/Card";
 import InputGroup from "react-bootstrap/InputGroup";
 import React from "react";
-import HoverDropdown from "../HoverDropdown";
-import HoverDropdownItem from "../HoverDropdownItem";
+import {HoverDropdown, HoverDropdownItem} from "../HoverDropdown";
 
 class SearchBarTile extends React.Component {
   constructor() {

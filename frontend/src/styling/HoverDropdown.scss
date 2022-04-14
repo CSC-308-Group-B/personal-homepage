@@ -1,8 +1,11 @@
 .HoverDropdown {
     cursor: pointer;
-    border: 1px solid red;
 }
-
+.HoverDropdownItem {
+    cursor: pointer;
+    user-select: none;
+    padding: 0.25rem 0.6rem;
+}
 
 
 
