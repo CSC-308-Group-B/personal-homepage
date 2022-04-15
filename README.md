@@ -18,3 +18,6 @@ File   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 ...les |   94.95 |    71.87 |     100 |   94.82 |                   
  ...js |     100 |      100 |     100 |     100 |                   
  ...js |   94.73 |    71.87 |     100 |   94.59 | 14-15,28-29,48-49 
+
+## Code Formatter
+https://prettier.io/
