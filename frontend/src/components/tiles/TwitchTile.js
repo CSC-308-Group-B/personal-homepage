@@ -1,25 +1,43 @@
 import Card from 'react-bootstrap/Card';
 import React from 'react';
+import ReactPlayer from "react-player"
+
 
 class TwitchTile extends React.Component {
     constructor() {
         super();
+        this.state = {
+            streamer: ""
+        }
     }
+
+
+    updateStreamer = () => {
+        const updatedStreamer = document.getElementById("streamer").value;
+        this.setState({ streamer: updatedStreamer });
+    }
+
+    handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            this.updateStreamer(this.value)
+        }
+    }
+
     render() {
+
         return (
             <Card className='Card'>
                 <Card.Body>
-                    <Card.Title></Card.Title>
-                    <div>
-                        <iframe
-                            src="https://player.twitch.tv/?channel=xqcow&parent=localhost"
-                            frameborder="0"
-                            allowfullscreen="true"
-                            scrolling="no"
-                            height="720px"
-                            width="100%">
-                        </iframe>
-                    </div>
+                    <Card.Title>Twitch&ensp;
+                        <input size = "1" id="streamer" placeholder="Streamer" onKeyPress={this.handleKeyPress} />
+                    </Card.Title>
+                    <ReactPlayer className="TwitchPlayer"
+                        url={`https://www.twitch.tv/${this.state.streamer}`}
+                        controls="true"
+                        playing="true"
+                        width="100%"
+                        height="100%"
+                    />
                 </Card.Body>
             </Card>
 
