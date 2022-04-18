@@ -59,7 +59,6 @@ function dragMoveListener(event) {
     //calculate new x and y
     const x = (parseFloat(event.target.getAttribute('data-x')) || 0) + (event.dx / window.innerWidth * 100);
     const y = (parseFloat(event.target.getAttribute('data-y')) || 0) + (event.dy / parseFloat(getComputedStyle(document.documentElement).fontSize));
-    console.log(y)
     //move to new x and y
     moveTile(event.target, x, y);
     snapTile(event.target, true);
