@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 .SearchBarInputGroup {
     display: grid;
@@ -6,3 +7,16 @@
       width: 100%;
     }
   }
+=======
+.SearchBarInputGroup {
+  display: grid;
+  grid-template-columns: 3rem auto;
+  & > input {
+    width: 100%;
+    transition: 0.2s ease;
+  }
+  & .canEdit {
+    width: 95%;
+  }
+}
+>>>>>>> 4bc70afa1c529d2e55a896b0fe2d268035a16916

@@ -13,7 +13,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: undefined,
-      color: "",
+      color: "#fff",
       backgroundImage: ""
 
     };

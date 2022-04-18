@@ -1,0 +1,47 @@
+.SignInDiv {
+    margin: auto;
+    margin-top: 8rem;
+    width: 75vw;
+    color: $blue;
+    font-style: italic;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.SignInLeft {
+    display: flex;
+    padding: 2rem;
+    align-items: center;
+    text-align: right;
+    border-radius: 5rem;
+}
+
+.SignInRight {
+    text-align: left;
+    padding: 2rem;
+    font-size: 1.5rem;
+}
+
+.Logo {
+    font-weight: bold;
+    font-style: normal;
+    font-size: 3rem;
+    color: $black;
+}
+
+.VerticalDivider {
+    border-left: 6px solid $green;
+}
+
+.SignInButton {
+    background-color: $blue;
+    color: $white;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+
+    &:hover {
+        background-color: $turqoise;
+    }
+}

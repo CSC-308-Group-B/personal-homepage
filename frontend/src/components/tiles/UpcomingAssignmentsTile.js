@@ -39,11 +39,11 @@ class UpcomingAssignmentsTile extends React.Component {
 
     render() {
         return (
-            <Card>
+            <Card className='Card'>
                 <Card.Body>
                     <Card.Title className="d-flex justify-content-between">
                         {this.state.student.name.substring(0, this.state.student.name.indexOf(" ")) + "'s Assignments"}
-                        <img className="small-icon" src={require("../../styling/img/Canvas_Bug_Color_RGB.png")} />
+                        {!this.props.canEdit && <img className="small-icon" src={require("../../styling/img/Canvas_Bug_Color_RGB.png")} />}
                     </Card.Title>
                     <ListGroup>
                         {

@@ -105,10 +105,9 @@ class ToDoListTile extends React.Component {
       <Card className='Card'>
         <Card.Body>
           <Card.Title>To Do</Card.Title>
-          <Card.Text>
-            <InputGroup>
-              <input className="inputbar" placeholder="new task" ref={this.textInputRef}></input>
-              <button className='addTask' onClick={() => this.addTask()}>Add Task</button>
+            <InputGroup className="ToDoInputGroup">
+              <input className = "input" placeholder="  new task" ref={this.textInputRef}></input>
+              <button onClick={() => this.addTask()}>Add</button>
             </InputGroup>
             <ListGroup className="taskItems">
               {(this.state.tasks && this.state.tasks.map((task) => {
@@ -116,9 +115,8 @@ class ToDoListTile extends React.Component {
                   <ToDoListItem key={task._id} {...task} deleteTask={this.deleteTask} updateTask={this.updateTask} />);
               }))}
             </ListGroup>
-          </Card.Text>
         </Card.Body>
-      </Card>
+      </Card> 
     );
   }
 }
