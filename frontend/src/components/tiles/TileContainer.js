@@ -4,9 +4,11 @@ import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
 import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
 import TwitchTile from "./TwitchTile";
+import RandomImageTile from "./RandomImageTile";
 import React from "react";
 import GradesTile from "./GradesTile";
 import axios from 'axios';
+import HoverDropdown from "../HoverDropdown";
 
 class Tile extends React.Component {
     constructor(props) {
@@ -64,17 +66,14 @@ class Tile extends React.Component {
                 {getTileType(this.props)}
 
                 {this.props.canEdit &&
-                    <div class="dropdown" className="threeDots">
-                        <input className="threeDots" type="image" alt='#' src="https://miro.medium.com/max/512/1*Js0Y20MwjcTnVAe7KjDXNg.png" />
-                        <div className="dropdown-content">
-                            <a href="/#" onClick={() => this.setWidth(1)}>Small</a>
-                            <a href="/#" onClick={() => this.setWidth(2)}>Medium</a>
-                            <a href="/#" onClick={() => this.setWidth(3)}>Large</a>
-                            <a href="/#" onClick={() => this.setWidth(4)}>Full</a>
-                            <hr className="division"></hr>
-                            <a className="deleteButtom" href="/#" onClick={() => this.props.deleteTile(this.props._id)}>Delete</a>
-                        </div>
-                    </div>
+                    <HoverDropdown className="TileControls" toggleContent={<img alt='#' src="https://miro.medium.com/max/512/1*Js0Y20MwjcTnVAe7KjDXNg.png"/>}>
+                        <HoverDropdown.Item onClick={() => this.setWidth(1)}>Small</HoverDropdown.Item>
+                        <HoverDropdown.Item onClick={() => this.setWidth(2)}>Medium</HoverDropdown.Item>
+                        <HoverDropdown.Item onClick={() => this.setWidth(3)}>Large</HoverDropdown.Item>
+                        <HoverDropdown.Item onClick={() => this.setWidth(4)}>Full</HoverDropdown.Item>
+                        <HoverDropdown.Div />
+                        <HoverDropdown.Item className="TileDeleteButton" onClick={() => this.props.deleteTile(this.props._id)}>Delete</HoverDropdown.Item>
+                    </HoverDropdown>
                 }
             </div>
         );
@@ -83,25 +82,20 @@ class Tile extends React.Component {
 
 function getTileType(props) {
     switch (props.tileType) {
-
         case "ToDoListTile":
             return <ToDoListTile {...props} />;
-
         case "BookmarksTile":
             return <BookmarksTile {...props} />;
-
         case "SearchBarTile":
             return <SearchBarTile {...props} />;
-
         case "GradesTile":
             return <GradesTile {...props} />;
-
         case "UpcomingAssignmentsTile":
             return <UpcomingAssignmentsTile {...props} />;
-
         case "TwitchTile":
             return <TwitchTile {...props} />;
-
+        case "RandomImageTile":
+            return <RandomImageTile {...props} />;
         default:
             return <DefaultTile  {...props} />;
     }

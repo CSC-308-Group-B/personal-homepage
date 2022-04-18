@@ -11,12 +11,18 @@ function SignIn(props) {
     document.title = "Sign In - Personal Homepage";
 
     return (
-        <Card className={ "mx-auto" } style={{ "width":"18rem" }}>
-            <Card.Body>
-                <Card.Title>Sign In</Card.Title>
-                <Button onClick={googleLogin}>Sign in to Google</Button>
-            </Card.Body>
-        </Card>
+        <div className="SignInDiv">
+            <div className="SignInLeft">
+                <h1 className="Logo">Personal Homepage</h1>
+            </div>
+            <div className="VerticalDivider"></div>
+            <div className="SignInRight">
+                <div className="pt-2 pb-2">
+                    Create a personalized landing page for your web browser.
+                </div>
+                <Button className="SignInButton" onClick={googleLogin}>Sign in with Google &#8594;</Button>
+            </div>
+        </div>
     );
 }
 
