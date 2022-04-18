@@ -64,10 +64,14 @@ class Tile extends React.Component {
 
                 {this.props.canEdit &&
                     <HoverDropdown className="TileControls" toggleContent={<img alt='#' src="https://miro.medium.com/max/512/1*Js0Y20MwjcTnVAe7KjDXNg.png"/>}>
-                        <HoverDropdown.Item onClick={() => this.setWidth(1)}>Small</HoverDropdown.Item>
-                        <HoverDropdown.Item onClick={() => this.setWidth(2)}>Medium</HoverDropdown.Item>
-                        <HoverDropdown.Item onClick={() => this.setWidth(3)}>Large</HoverDropdown.Item>
-                        <HoverDropdown.Item onClick={() => this.setWidth(4)}>Full</HoverDropdown.Item>
+                        <HoverDropdown.Item onClick={() => this.setWidth(1)} className="TileEditWidth">Small</HoverDropdown.Item>
+                        <HoverDropdown.Item onClick={() => this.setWidth(2)} className="TileEditWidth">Medium</HoverDropdown.Item>
+                        <HoverDropdown.Item onClick={() => this.setWidth(3)} className="TileEditWidth">Large</HoverDropdown.Item>
+                        <HoverDropdown.Item onClick={() => this.setWidth(4)} className="TileEditWidth">Full</HoverDropdown.Item>
+                        <HoverDropdown.Item onClick={() => this.moveTop()} className="TileEditOrder">Small</HoverDropdown.Item>
+                        <HoverDropdown.Item onClick={() => this.moveUp()} className="TileEditOrder">Medium</HoverDropdown.Item>
+                        <HoverDropdown.Item onClick={() => this.moveDown()} className="TileEditOrder">Large</HoverDropdown.Item>
+                        <HoverDropdown.Item onClick={() => this.moveBottom()} className="TileEditOrder">Full</HoverDropdown.Item>
                         <HoverDropdown.Div />
                         <HoverDropdown.Item className="TileDeleteButton" onClick={() => this.props.deleteTile(this.props._id)}>Delete</HoverDropdown.Item>
                     </HoverDropdown>
