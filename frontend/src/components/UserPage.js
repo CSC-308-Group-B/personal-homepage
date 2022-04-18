@@ -9,6 +9,7 @@ class UserPage extends React.Component {
 
     constructor(props) {
         super(props);
+        this.maxPageHeight = 0;
         this.state = {
             canEdit: false,
             snapToGrid: true,
@@ -45,11 +46,13 @@ class UserPage extends React.Component {
     }
 
     updateTileAreaHeight = (y) => {
-        console.log(y);
+        this.maxPageHeight = Math.max(this.maxPageHeight, y);
     }
 
     render() {
         if (!this.props.user || !this.props.user.tiles) return (<SignIn />);
+
+        this.maxPageHeight = 0;
 
         document.title = `${this.props.user.name}'s Personal Homepage`;
 
