@@ -3,6 +3,7 @@ import ToDoListTile from "./ToDoListTile";
 import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
 import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
+import RandomImageTile from "./RandomImageTile";
 import React from "react";
 import GradesTile from "./GradesTile";
 import axios from 'axios';
@@ -24,7 +25,6 @@ class Tile extends React.Component {
                 this.props.moveTile(this.props._id, e.detail.x, e.detail.y);
             });
         //test
-        console.log(this);
     }
 
     setWidth = async (newWidth) => {
@@ -38,19 +38,6 @@ class Tile extends React.Component {
         }   
     }
 
-    moveTop = async () => {
-        console.log("top!")
-    }
-    moveUp = async () => {
-        console.log("up!")
-    }
-    moveDown = async () => {
-        console.log("down!")
-    }
-    moveBottom = async () => {
-        console.log("bottom!")
-    }
-
     render() {
         //Translates the tile to the coordinates specified in the x and y properties of the tile.
         let transform = {
@@ -59,19 +46,19 @@ class Tile extends React.Component {
         };
 
         if (window.innerWidth < 720) {
-            console.log(window.innerWidth);
             transform = {width: "94vw", position: "static", margin: "3vw"};
         }
 
         return (
             //These data parameters are so interact.js knows the initial position of the tiles.
             <div
-                className={`TileContainer ${this.props.canEdit ? "draggable Editing" : ""}`}
+                className={`TileContainer ${this.props.canEdit ? "draggable" : ""}`}
                 id={this.props._id}
                 style={transform}
                 data-x={this.props.x}
                 data-y={this.props.y}
-                data-snaptogrid={this.props.snapToGrid} >
+                data-snaptogrid={this.props.snapToGrid}
+            >
 
                 {getTileType(this.props)}
 
@@ -96,22 +83,18 @@ class Tile extends React.Component {
 
 function getTileType(props) {
     switch (props.tileType) {
-
         case "ToDoListTile":
             return <ToDoListTile {...props} />;
-            
         case "BookmarksTile":
             return <BookmarksTile {...props} />;
-
         case "SearchBarTile":
             return <SearchBarTile {...props} />;
-
         case "GradesTile":
             return <GradesTile {...props} />;
-
         case "UpcomingAssignmentsTile":
             return <UpcomingAssignmentsTile {...props} />;
-
+        case "RandomImageTile":
+            return <RandomImageTile {...props} />;
         default:
             return <DefaultTile  {...props} />;
     }

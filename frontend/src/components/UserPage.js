@@ -31,7 +31,6 @@ class UserPage extends React.Component {
                 return tile._id !== tileId;
             });
             // let elem = document.getElementById(tileId);
-            // console.log(elem);
             // elem.remove();
             this.props.updateUser(this.props.user);
         }
@@ -46,7 +45,7 @@ class UserPage extends React.Component {
     }
 
     render() {
-        if (!this.props.user || !this.props.user.tiles) return (<SignIn updateUser={this.props.updateUser} />);
+        if (!this.props.user || !this.props.user.tiles) return (<SignIn />);
 
         document.title = `${this.props.user.name}'s Personal Homepage`;
 

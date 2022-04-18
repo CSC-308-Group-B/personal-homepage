@@ -4,7 +4,6 @@ import CloseButton from "react-bootstrap/CloseButton";
 class BookmarksItem extends React.Component {
     deleteBookmark(e) {
         e.preventDefault();
-        // console.log(this.props._id);
     }
 
     render () {
