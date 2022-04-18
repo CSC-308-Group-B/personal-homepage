@@ -29,7 +29,7 @@ class TwitchTile extends React.Component {
             <Card className='Card'>
                 <Card.Body>
                     <Card.Title>Twitch&ensp;
-                        <input size = "1" id="streamer" placeholder="Streamer" onKeyPress={this.handleKeyPress} />
+                        <input size = "15" id="streamer" placeholder="Streamer" onKeyPress={this.handleKeyPress} />
                     </Card.Title>
                     <ReactPlayer className="TwitchPlayer"
                         url={`https://www.twitch.tv/${this.state.streamer}`}
