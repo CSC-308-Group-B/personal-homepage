@@ -23,6 +23,7 @@ class UserPage extends React.Component {
             x: x,
             y: y
         }, { withCredentials: true });
+        this.updateTileAreaHeight(y);
     }
 
     removeTile = async (tileId) => {
@@ -31,8 +32,6 @@ class UserPage extends React.Component {
             this.props.user.tiles = this.props.user.tiles.filter((tile) => {
                 return tile._id !== tileId;
             });
-            // let elem = document.getElementById(tileId);
-            // elem.remove();
             this.props.updateUser(this.props.user);
         }
     }
@@ -48,7 +47,7 @@ class UserPage extends React.Component {
     updateTileAreaHeight = (y) => {
         this.maxPageHeight = Math.max(this.maxPageHeight, y);
         let dragArea = document.getElementById("tileDragArea");
-        if (dragArea) dragArea.style.height = (this.maxPageHeight + (this.state.canEdit ? 300 : 0)) + "vw";
+        if (dragArea) dragArea.style.paddingTop = this.maxPageHeight + "vw";
     }
 
     render() {
@@ -66,7 +65,7 @@ class UserPage extends React.Component {
 
                 <div className="tileDragArea" id="tileDragArea">
                     {this.props.user.tiles.map((tile) => {
-                        if (this.props.canEdit) this.updateTileAreaHeight(tile.y);
+                        this.updateTileAreaHeight(tile.y);
                         return (
                             <Tile
                                 key={tile._id}
@@ -79,6 +78,7 @@ class UserPage extends React.Component {
                             />
                         );
                     })}
+                    <div id="extraDragSpace" className={(this.state.canEdit ? "extraDragSpace" : "")} />
                 </div>
             </div>
         );
