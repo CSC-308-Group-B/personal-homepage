@@ -48,7 +48,7 @@ class UserPage extends React.Component {
     updateTileAreaHeight = (y) => {
         this.maxPageHeight = Math.max(this.maxPageHeight, y);
         let dragArea = document.getElementById("tileDragArea");
-        if (dragArea) dragArea.style.height = (this.maxPageHeight + (this.state.canEdit ? 200 : 0)) + "vw";
+        if (dragArea) dragArea.style.height = (this.maxPageHeight + (this.state.canEdit ? 300 : 0)) + "vw";
     }
 
     render() {
@@ -66,7 +66,7 @@ class UserPage extends React.Component {
 
                 <div className="tileDragArea" id="tileDragArea">
                     {this.props.user.tiles.map((tile) => {
-                        this.updateTileAreaHeight(tile.y);
+                        if (this.props.canEdit) this.updateTileAreaHeight(tile.y);
                         return (
                             <Tile
                                 key={tile._id}
