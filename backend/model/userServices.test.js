@@ -53,8 +53,8 @@ beforeEach(async () => {
                 x: 75,
                 y: 600,
             },
-        ]
-    }
+        ],
+    };
     userBolas = new userModel(dummyUser);
     await userBolas.save();
     //second dummyUser
@@ -67,9 +67,9 @@ beforeEach(async () => {
                 width: 2,
                 x: 0,
                 y: 200,
-            }
-        ]
-    }
+            },
+        ],
+    };
     userJace = new userModel(dummyUser);
     await userJace.save();
     //third dummyUser
@@ -82,15 +82,15 @@ beforeEach(async () => {
                 width: 2,
                 x: 0,
                 y: 200,
-                data: { },
+                data: {},
                 list: [
-                    {text: "Text1", status: 0},
-                    {text: "Text2", status: 1},
-                    {text: "Text3", status: 0}
-                ]
-            }
-        ]
-    }
+                    { text: "Text1", status: 0 },
+                    { text: "Text2", status: 1 },
+                    { text: "Text3", status: 0 },
+                ],
+            },
+        ],
+    };
     userRagavan = new userModel(dummyUser);
     await userRagavan.save();
 });
@@ -99,9 +99,7 @@ afterEach(async () => {
     await userModel.deleteMany();
 });
 
-
 //TEST CASES:
-
 
 //getUsers()
 test("Fetching all users", async () => {
@@ -147,8 +145,8 @@ test("add user", async () => {
                 x: 0,
                 y: 200,
             },
-        ]
-    }
+        ],
+    };
     const addedUser = await userServices.addUser(userFblthp);
     expect(addedUser).toBeDefined();
     expect(addedUser.name).toBe(userFblthp.name);
@@ -166,8 +164,8 @@ test("add user (bad schema)", async () => {
                 there: 0,
                 O: 200,
             },
-        ]
-    }
+        ],
+    };
     const addedUser = await userServices.addUser(userFblthp);
     expect(addedUser).toBeUndefined();
 });
@@ -179,7 +177,9 @@ test("Delete user by id", async () => {
     expect(deletedUser.name).toBe(userRagavan.name);
     expect(deletedUser.email).toBe(userRagavan.email);
     expect(deletedUser.tiles.length).toBe(userRagavan.tiles.length);
-    const noLongerExistingUser = await userServices.getUserById(deletedUser._id);
+    const noLongerExistingUser = await userServices.getUserById(
+        deletedUser._id
+    );
     expect(noLongerExistingUser).toBeUndefined();
 });
 test("Delete user by id (bad userId)", async () => {
@@ -189,8 +189,11 @@ test("Delete user by id (bad userId)", async () => {
 
 //setUserFields()
 test("Set user fields", async () => {
-    const newFields = {email: "sakashimaTheImpostor@gmail.com"}
-    const updatedUser = await userServices.setUserFields(userJace._id, newFields);
+    const newFields = { email: "sakashimaTheImpostor@gmail.com" };
+    const updatedUser = await userServices.setUserFields(
+        userJace._id,
+        newFields
+    );
     expect(updatedUser).toBeDefined();
     for (key of Object.keys(newFields)) {
         expect(updatedUser[key]).toBe(newFields[key]);
@@ -221,25 +224,38 @@ test("Add tile to user by id (bad userId)", async () => {
 
 //removeTileFromUserByIds()
 test("Remove tile from user by ids", async () => {
-    const updatedUser = await userServices.removeTileFromUserByIds(userBolas.id, userBolas.tiles[0]._id);
+    const updatedUser = await userServices.removeTileFromUserByIds(
+        userBolas.id,
+        userBolas.tiles[0]._id
+    );
     expect(updatedUser).toBeDefined();
     expect(updatedUser.name).toBe(userBolas.name);
     expect(updatedUser.email).toBe(userBolas.email);
     expect(updatedUser.tiles.length).toBe(userBolas.tiles.length - 1);
 });
 test("Remove tile from user by ids (bad userId)", async () => {
-    const updatedUser = await userServices.removeTileFromUserByIds(fakeId, userBolas.tiles[0]._id);
+    const updatedUser = await userServices.removeTileFromUserByIds(
+        fakeId,
+        userBolas.tiles[0]._id
+    );
     expect(updatedUser).toBeUndefined();
 });
 test("Remove tile from user by ids (bad tileId)", async () => {
-    const updatedUser = await userServices.removeTileFromUserByIds(userBolas.id, fakeId);
+    const updatedUser = await userServices.removeTileFromUserByIds(
+        userBolas.id,
+        fakeId
+    );
     expect(updatedUser).toBeUndefined();
 });
 
 //updateTileFields()
 test("Update tile fields", async () => {
-    const newFields = {x: 1, width: 42}
-    const updatedUser = await userServices.updateTileFields(userBolas._id, userBolas.tiles[1]._id, newFields);
+    const newFields = { x: 1, width: 42 };
+    const updatedUser = await userServices.updateTileFields(
+        userBolas._id,
+        userBolas.tiles[1]._id,
+        newFields
+    );
     expect(updatedUser).toBeDefined();
     expect(updatedUser.tiles.length).toBe(userBolas.tiles.length);
     for (key of Object.keys(newFields)) {
@@ -247,83 +263,153 @@ test("Update tile fields", async () => {
     }
 });
 test("Update tile fields (bad userId)", async () => {
-    const updatedUser = await userServices.updateTileFields(fakeId, userBolas.tiles[1]._id, {});
+    const updatedUser = await userServices.updateTileFields(
+        fakeId,
+        userBolas.tiles[1]._id,
+        {}
+    );
     expect(updatedUser).toBeUndefined();
 });
 test("Update tile fields (bad tileId)", async () => {
-    const updatedUser = await userServices.updateTileFields(userBolas._id, fakeId, {});
+    const updatedUser = await userServices.updateTileFields(
+        userBolas._id,
+        fakeId,
+        {}
+    );
     expect(updatedUser).toBeUndefined();
 });
 
 //addTileListItem()
 test("Add tile list item", async () => {
-    const newItem = {text: "I'm a new item!", status: 200};
-    const updatedUser = await userServices.addTileListItem(userRagavan._id, userRagavan.tiles[0]._id, newItem);
+    const newItem = { text: "I'm a new item!", status: 200 };
+    const updatedUser = await userServices.addTileListItem(
+        userRagavan._id,
+        userRagavan.tiles[0]._id,
+        newItem
+    );
     const newIndex = userRagavan.tiles[0].list.length;
     for (key of Object.keys(newItem)) {
         expect(updatedUser.tiles[0].list[newIndex][key]).toBe(newItem[key]);
     }
 });
 test("Add tile list item (bad userId)", async () => {
-    const updatedUser = await userServices.addTileListItem(fakeId, userRagavan.tiles[0]._id, {});
+    const updatedUser = await userServices.addTileListItem(
+        fakeId,
+        userRagavan.tiles[0]._id,
+        {}
+    );
     expect(updatedUser).toBeUndefined();
 });
 test("Add tile list item (bad tileId)", async () => {
-    const updatedUser = await userServices.addTileListItem(userRagavan._id, fakeId, {});
+    const updatedUser = await userServices.addTileListItem(
+        userRagavan._id,
+        fakeId,
+        {}
+    );
     expect(updatedUser).toBeUndefined();
 });
 
 //deleteTileListItem()
 test("Delete tile list item", async () => {
-    const updatedUser = await userServices.deleteTileListItem(userRagavan._id, userRagavan.tiles[0]._id, userRagavan.tiles[0].list[0]._id);
-    expect(updatedUser.tiles[0].list.length).toBe(userRagavan.tiles[0].list.length - 1);
+    const updatedUser = await userServices.deleteTileListItem(
+        userRagavan._id,
+        userRagavan.tiles[0]._id,
+        userRagavan.tiles[0].list[0]._id
+    );
+    expect(updatedUser.tiles[0].list.length).toBe(
+        userRagavan.tiles[0].list.length - 1
+    );
 });
 test("Delete tile list item (bad userId)", async () => {
-    const updatedUser = await userServices.deleteTileListItem(fakeId, userRagavan.tiles[0]._id, userRagavan.tiles[0].list[0]._id);
+    const updatedUser = await userServices.deleteTileListItem(
+        fakeId,
+        userRagavan.tiles[0]._id,
+        userRagavan.tiles[0].list[0]._id
+    );
     expect(updatedUser).toBeUndefined();
 });
 test("Delete tile list item (bad tileId)", async () => {
-    const updatedUser = await userServices.deleteTileListItem(userRagavan._id, fakeId, userRagavan.tiles[0].list[0]._id);
+    const updatedUser = await userServices.deleteTileListItem(
+        userRagavan._id,
+        fakeId,
+        userRagavan.tiles[0].list[0]._id
+    );
     expect(updatedUser).toBeUndefined();
 });
 test("Delete tile list item (bad itemId)", async () => {
-    const updatedUser = await userServices.deleteTileListItem(userRagavan._id, userRagavan.tiles[0]._id, fakeId);
+    const updatedUser = await userServices.deleteTileListItem(
+        userRagavan._id,
+        userRagavan.tiles[0]._id,
+        fakeId
+    );
     expect(updatedUser).toBeUndefined();
 });
 
 //updateTileListItem()
 test("Update tile list item", async () => {
-    const newFields = {text: "I've been updated", status: 400};
+    const newFields = { text: "I've been updated", status: 400 };
     const itemIndex = 1;
-    const updatedUser = await userServices.updateTileListItem(userRagavan._id, userRagavan.tiles[0]._id, userRagavan.tiles[0].list[itemIndex]._id, newFields);
+    const updatedUser = await userServices.updateTileListItem(
+        userRagavan._id,
+        userRagavan.tiles[0]._id,
+        userRagavan.tiles[0].list[itemIndex]._id,
+        newFields
+    );
     for (key of Object.keys(newFields)) {
         expect(updatedUser.tiles[0].list[itemIndex][key]).toBe(newFields[key]);
     }
 });
 test("Update tile list item (bad userId)", async () => {
-    const updatedUser = await userServices.updateTileListItem(fakeId, userRagavan.tiles[0]._id, userRagavan.tiles[0].list[0]._id, {});
+    const updatedUser = await userServices.updateTileListItem(
+        fakeId,
+        userRagavan.tiles[0]._id,
+        userRagavan.tiles[0].list[0]._id,
+        {}
+    );
     expect(updatedUser).toBeUndefined();
 });
 test("Update tile list item (bad tileId)", async () => {
-    const updatedUser = await userServices.updateTileListItem(userRagavan._id, fakeId, userRagavan.tiles[0].list[0]._id, {});
+    const updatedUser = await userServices.updateTileListItem(
+        userRagavan._id,
+        fakeId,
+        userRagavan.tiles[0].list[0]._id,
+        {}
+    );
     expect(updatedUser).toBeUndefined();
 });
 test("Update tile list item (bad itemId)", async () => {
-    const updatedUser = await userServices.updateTileListItem(userRagavan._id, userRagavan.tiles[0]._id, fakeId, {});
+    const updatedUser = await userServices.updateTileListItem(
+        userRagavan._id,
+        userRagavan.tiles[0]._id,
+        fakeId,
+        {}
+    );
     expect(updatedUser).toBeUndefined();
 });
 
 //getTileListItem()
 test("Get tile list item", async () => {
-    const newItem = {text: "I'm a new item!", status: 200};
-    const updatedUser = await userServices.addTileListItem(userRagavan._id, userRagavan.tiles[0]._id, newItem);
-    const addedItem = await userServices.getTileListItem(updatedUser, updatedUser.tiles[0]._id, newItem);
+    const newItem = { text: "I'm a new item!", status: 200 };
+    const updatedUser = await userServices.addTileListItem(
+        userRagavan._id,
+        userRagavan.tiles[0]._id,
+        newItem
+    );
+    const addedItem = await userServices.getTileListItem(
+        updatedUser,
+        updatedUser.tiles[0]._id,
+        newItem
+    );
     for (key of Object.keys(newItem)) {
         expect(addedItem[key]).toBe(newItem[key]);
     }
     expect(addedItem._id).toBeDefined();
 });
 test("Get tile list item (bad input)", async () => {
-    const foundItem = await userServices.getTileListItem(userRagavan, fakeId, {});
+    const foundItem = await userServices.getTileListItem(
+        userRagavan,
+        fakeId,
+        {}
+    );
     expect(foundItem).toBeUndefined();
 });
