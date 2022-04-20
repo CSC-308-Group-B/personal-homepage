@@ -328,6 +328,23 @@ app.delete("/removeBookmark", async (req, res) => {
     }
 });
 
+app.post("/moveTileMobile", async (req, res) => {
+    const result = await userServices.moveTileMobile(
+        req.body.userId,
+        req.body.tiles,
+        req.body.tileId,
+        req.body.direction
+    );
+
+    if (result) {
+        res.status(200).send(result);
+    } else if (result == undefined) {
+        res.status(201).send();
+    } else {
+        res.status(500).send();
+    }
+});
+
 //Begin listening
 app.listen(port, () => {
     console.log(`Now listening at http://localhost:${port}`);

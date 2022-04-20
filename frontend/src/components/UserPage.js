@@ -7,7 +7,6 @@ import EditHeader from "./EditHeader";
 class UserPage extends React.Component {
     constructor(props) {
         super(props);
-        this.maxPageHeight = 0;
         this.state = {
             canEdit: false,
             snapToGrid: true,
@@ -37,8 +36,28 @@ class UserPage extends React.Component {
             this.props.user.tiles = this.props.user.tiles.filter((tile) => {
                 return tile._id !== tileId;
             });
+            // let elem = document.getElementById(tileId);
+            // elem.remove();
             this.props.updateUser(this.props.user);
         }
+    };
+
+    moveTileMobile = async (tileId, direction) => {
+        const response = await axios.post(
+            `http://localhost:5001/moveTileMobile`,
+            {
+                userId: this.props.user._id,
+                tiles: this.props.user.tiles,
+                tileId: tileId,
+                direction: direction
+            },
+            { withCredentials: true }
+        );
+
+        if (response.status == 200) {
+            this.props.updateUser(response.data);
+        }
+
     };
 
     toggleEdit = () => {
@@ -77,6 +96,8 @@ class UserPage extends React.Component {
                     canPick={this.state.canPick}
                 />
 
+                {/* <Button className="Edit" onClick={() => this.toggleEdit()}>EDIT</Button> */}
+
                 <input
                     className="EditModeToggler"
                     type="image"
@@ -85,9 +106,8 @@ class UserPage extends React.Component {
                     onClick={() => this.toggleEdit()}
                 ></input>
 
-                <div id="tileDragArea">
+                <div className="tileDragArea">
                     {this.props.user.tiles.map((tile) => {
-                        this.updateTileAreaHeight(tile.y);
                         return (
                             <Tile
                                 key={tile._id}
@@ -95,6 +115,7 @@ class UserPage extends React.Component {
                                 userId={this.props.user._id}
                                 deleteTile={this.removeTile}
                                 moveTile={this.moveTile}
+                                moveTileMobile={this.moveTileMobile}
                                 canEdit={this.state.canEdit}
                                 snapToGrid={this.state.snapToGrid}
                             />
