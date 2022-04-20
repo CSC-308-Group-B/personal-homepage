@@ -1,24 +1,24 @@
-@import '../variables.scss';
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import "../variables.scss";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
 .bookmarkItems {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-  }
-  .bookmarkInputs > * {
+}
+.bookmarkInputs > * {
     width: 100%;
-  }
-  .bookmarkInputs {
+}
+.bookmarkInputs {
     max-height: 0;
     overflow: hidden;
     transition: 0.3s ease;
     &.canEdit {
-      max-height: 6rem;
+        max-height: 6rem;
     }
-  }
-  .BookmarksItem {
+}
+.BookmarksItem {
     cursor: pointer;
     position: relative;
     background: #ddd;
@@ -26,27 +26,25 @@
     margin: 0 0.25rem 0.25rem 0;
     padding-right: 1rem;
     &:hover {
-      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-      // transform: translate(-2px, -2px);
-      z-index: 1;
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        // transform: translate(-2px, -2px);
+        z-index: 1;
     }
-  }
-  .BookmarksItem > a {
+}
+.BookmarksItem > a {
     padding: 0.25rem 0.5rem;
     text-decoration: none;
-  }
-  .BookmarksItem > a > img {
+}
+.BookmarksItem > a > img {
     padding-right: 0.25rem;
-  }
-  .BookmarksCloseButton {
+}
+.BookmarksCloseButton {
     position: absolute;
     top: 0.25rem;
     height: 0.5rem;
     width: 0.5rem;
     right: 0.25rem;
     &:hover {
-      background-color: red;
+        background-color: red;
     }
-  }
-  
-  
+}
