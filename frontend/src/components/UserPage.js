@@ -47,7 +47,9 @@ class UserPage extends React.Component {
     updateTileAreaHeight = (y) => {
         this.maxPageHeight = Math.max(this.maxPageHeight, y);
         let dragArea = document.getElementById("tileDragArea");
-        if (dragArea) dragArea.style.paddingTop = this.maxPageHeight + "vw";
+        if (dragArea) {
+            dragArea.style.paddingTop = this.maxPageHeight + "vw";
+        }
     }
 
     render() {
@@ -63,7 +65,7 @@ class UserPage extends React.Component {
 
                 <input className='EditModeToggler' type='image' alt='#' src='https://icon-library.com/images/white-menu-icon-png/white-menu-icon-png-18.jpg' onClick={() => this.toggleEdit()}></input>
 
-                <div className="tileDragArea" id="tileDragArea">
+                <div id="tileDragArea">
                     {this.props.user.tiles.map((tile) => {
                         this.updateTileAreaHeight(tile.y);
                         return (
