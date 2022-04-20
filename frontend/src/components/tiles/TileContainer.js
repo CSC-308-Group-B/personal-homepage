@@ -3,6 +3,7 @@ import ToDoListTile from "./ToDoListTile";
 import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
 import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
+import TwitchTile from "./TwitchTile";
 import RandomImageTile from "./RandomImageTile";
 import React from "react";
 import GradesTile from "./GradesTile";
@@ -10,11 +11,11 @@ import axios from 'axios';
 import HoverDropdown from "../HoverDropdown";
 
 class Tile extends React.Component {
-     constructor(props) {
-         super(props);
-         this.state = {
-             width: this.props.width,
-         }
+    constructor(props) {
+        super(props);
+        this.state = {
+            width: this.props.width,
+        }
     }
 
     componentDidMount() {
@@ -34,8 +35,8 @@ class Tile extends React.Component {
             width: newWidth
         }, { withCredentials: true });
         if (res) {
-            this.setState({width: newWidth});
-        }   
+            this.setState({ width: newWidth });
+        }
     }
 
     render() {
@@ -97,6 +98,8 @@ function getTileType(props) {
             return <GradesTile {...props} />;
         case "UpcomingAssignmentsTile":
             return <UpcomingAssignmentsTile {...props} />;
+        case "TwitchTile":
+            return <TwitchTile {...props} />;
         case "RandomImageTile":
             return <RandomImageTile {...props} />;
         default:

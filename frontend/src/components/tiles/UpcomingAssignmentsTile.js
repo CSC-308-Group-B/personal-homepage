@@ -52,7 +52,6 @@ class UpcomingAssignmentsTile extends React.Component {
                                 if ("assignment" in container) {
 
                                     var date = new Date(container.assignment.all_dates[0].due_at);
-                                    console.log(date.toString());
 
                                     return (
                                         <ListGroup.Item key={container.assignment.id}>
