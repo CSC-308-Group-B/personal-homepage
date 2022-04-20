@@ -26,9 +26,9 @@ class TwitchTile extends React.Component {
     render() {
 
         return (
-            <Card className='Card'>
+            <Card className='Card' style = {{backgroundColor: '#8838ff'}}>
                 <Card.Body>
-                    <Card.Title>Twitch&ensp;
+                    <Card.Title style = {{color: 'black'}}>Twitch&ensp;
                         <input size = "15" id="streamer" placeholder="Streamer" onKeyPress={this.handleKeyPress} />
                     </Card.Title>
                     <ReactPlayer className="TwitchPlayer"
