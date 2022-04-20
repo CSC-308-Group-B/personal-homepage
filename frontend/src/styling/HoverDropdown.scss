@@ -39,3 +39,21 @@
     margin: 0.5rem 1rem;
     background-color: #222;
 }
+
+.NestedHoverDropdown {
+    user-select: none;
+    padding: 0.25rem 0.6rem;
+    cursor: pointer;
+    &:hover {
+        background-color: #ddd;
+    }
+    & > .dropdown > .dropdown-toggle {
+        color: #222;
+        text-align: left;
+        background: none;
+        border: none;
+        width: 100%;
+        margin: auto;
+        padding: 0;
+    }
+}

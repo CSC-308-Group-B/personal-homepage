@@ -78,9 +78,7 @@ class Tile extends React.Component {
                             />
                         }
                     >
-                        <HoverDropdown.Item className="WidthControls">
-                            Width
-                            <HoverDropdown className="NestedHoverDropdown">
+                            <HoverDropdown className="NestedHoverDropdown" toggleContent={<div>Width</div>}>
                                 <HoverDropdown.Item
                                     onClick={() => this.setWidth(1)}
                                     className="TileEditWidth"
@@ -106,7 +104,6 @@ class Tile extends React.Component {
                                     Full
                                 </HoverDropdown.Item>
                             </HoverDropdown>
-                        </HoverDropdown.Item>
                         <HoverDropdown.Item
                             onClick={() => this.moveTop()}
                             className="TileEditOrder"
