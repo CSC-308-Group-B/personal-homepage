@@ -1,5 +1,5 @@
-const { Router } = require('express');
-const mongoose = require('mongoose');
+const { Router } = require("express");
+const mongoose = require("mongoose");
 const UserSchema = require("./userSchema");
 
 let dbConnection;
@@ -20,31 +20,31 @@ function getDbConnection() {
     return dbConnection;
 }
 
-async function getUsers(){
-    const userModel = getDbConnection().model("User", UserSchema);    
+async function getUsers() {
+    const userModel = getDbConnection().model("User", UserSchema);
     try {
-        return await userModel.find() || undefined;
-    } catch(error) {
+        return (await userModel.find()) || undefined;
+    } catch (error) {
         console.log(error);
         return undefined;
     }
 }
 
-async function getUserById(id){
-    const userModel = getDbConnection().model("User", UserSchema);    
+async function getUserById(id) {
+    const userModel = getDbConnection().model("User", UserSchema);
     try {
-        return await userModel.findById(id) || undefined;
-    } catch(error) {
+        return (await userModel.findById(id)) || undefined;
+    } catch (error) {
         console.log(error);
         return undefined;
     }
 }
 
-async function getUserByEmail(email){
-    const userModel = getDbConnection().model("User", UserSchema);    
+async function getUserByEmail(email) {
+    const userModel = getDbConnection().model("User", UserSchema);
     try {
-        return await userModel.findOne({ email:email }) || undefined;
-    } catch(error) {
+        return (await userModel.findOne({ email: email })) || undefined;
+    } catch (error) {
         console.log(error);
         return undefined;
     }
@@ -53,47 +53,49 @@ async function getUserByEmail(email){
 async function deleteUserById(id) {
     const userModel = getDbConnection().model("User", UserSchema);
     try {
-        return await userModel.findByIdAndDelete(id) || undefined;
+        return (await userModel.findByIdAndDelete(id)) || undefined;
     } catch (error) {
         console.log(error);
         return undefined;
     }
 }
 
-async function addUser(user){
+async function addUser(user) {
     const userModel = getDbConnection().model("User", UserSchema);
     try {
         const userToAdd = new userModel(user);
-        const savedUser = await userToAdd.save()
+        const savedUser = await userToAdd.save();
         return savedUser;
-    } catch(error) {
-        console.log(error);
-        return undefined;
-    }   
-}
-
-async function setUserFields(userId, newFields){
-    const userModel = getDbConnection().model("User", UserSchema);
-    try {
-        return await userModel.findByIdAndUpdate(
-            userId,
-            newFields,
-            {new:true}
-        ) || undefined;
     } catch (error) {
         console.log(error);
         return undefined;
-    } 
+    }
+}
+
+async function setUserFields(userId, newFields) {
+    const userModel = getDbConnection().model("User", UserSchema);
+    try {
+        return (
+            (await userModel.findByIdAndUpdate(userId, newFields, {
+                new: true,
+            })) || undefined
+        );
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
 }
 
 async function addTileToUserById(id, tile) {
     const userModel = getDbConnection().model("User", UserSchema);
     try {
-        return await userModel.findByIdAndUpdate(
-            id,
-            {$push: {"tiles": tile}},
-            {new:true, safe: true, upsert: true}
-        ) || undefined;
+        return (
+            (await userModel.findByIdAndUpdate(
+                id,
+                { $push: { tiles: tile } },
+                { new: true, safe: true, upsert: true }
+            )) || undefined
+        );
     } catch (error) {
         console.log(error);
         return undefined;
@@ -103,11 +105,13 @@ async function addTileToUserById(id, tile) {
 async function removeTileFromUserByIds(id, tileId) {
     const userModel = getDbConnection().model("User", UserSchema);
     try {
-        return await userModel.findByIdAndUpdate(
-            id,
-            {$pull: {"tiles": {"_id": tileId}}},
-            {new:true, safe: true}
-        ) || undefined;
+        return (
+            (await userModel.findByIdAndUpdate(
+                id,
+                { $pull: { tiles: { _id: tileId } } },
+                { new: true, safe: true }
+            )) || undefined
+        );
     } catch (error) {
         console.log(error);
         return undefined;
@@ -121,20 +125,22 @@ async function updateTileFields(userId, tileId, updatedFields) {
         newFields[`tiles.$.${key}`] = updatedFields[key];
     }
     try {
-        return await userModel.findOneAndUpdate(
-            {
-                _id: userId,
-                "tiles._id": tileId
-            },
-            {
-                $set: newFields
-            },
-            {
-                upsert: true,
-                new:true,
-                safe: true
-            }
-        ) || undefined;
+        return (
+            (await userModel.findOneAndUpdate(
+                {
+                    _id: userId,
+                    "tiles._id": tileId,
+                },
+                {
+                    $set: newFields,
+                },
+                {
+                    upsert: true,
+                    new: true,
+                    safe: true,
+                }
+            )) || undefined
+        );
     } catch (error) {
         console.log(error);
         return undefined;
@@ -147,17 +153,17 @@ async function addTileListItem(userId, tileId, newItem) {
         return await userModel.findOneAndUpdate(
             {
                 _id: userId,
-                "tiles._id": tileId
+                "tiles._id": tileId,
             },
             {
-                $push: {"tiles.$.list": newItem}
+                $push: { "tiles.$.list": newItem },
             },
             {
                 upsert: true,
                 new: true,
-                safe: true
+                safe: true,
             }
-        )
+        );
     } catch (error) {
         console.log(error);
         return undefined;
@@ -167,8 +173,7 @@ async function addTileListItem(userId, tileId, newItem) {
 async function getTileListItem(user, tileId, newItem) {
     for (tile of user.tiles) {
         if (tile._id == tileId) {
-            outerloop:
-            for (item of tile.list) {
+            outerloop: for (item of tile.list) {
                 for (key of Object.keys(newItem)) {
                     if (item[key] != newItem[key]) continue outerloop;
                 }
@@ -182,20 +187,22 @@ async function getTileListItem(user, tileId, newItem) {
 async function deleteTileListItem(userId, tileId, itemId) {
     const userModel = getDbConnection().model("User", UserSchema);
     try {
-        return await userModel.findOneAndUpdate(
-            {
-                _id: userId,
-                "tiles._id": tileId
-            },
-            {
-                $pull: {"tiles.$.list": {"_id": itemId}}
-            },
-            {
-                upsert: true,
-                new:true,
-                safe: true
-            }
-        ) || undefined;
+        return (
+            (await userModel.findOneAndUpdate(
+                {
+                    _id: userId,
+                    "tiles._id": tileId,
+                },
+                {
+                    $pull: { "tiles.$.list": { _id: itemId } },
+                },
+                {
+                    upsert: true,
+                    new: true,
+                    safe: true,
+                }
+            )) || undefined
+        );
     } catch (error) {
         console.log(error);
         return undefined;
@@ -210,7 +217,7 @@ async function updateTileListItem(userId, tileId, itemId, updatedFields) {
     let tileIndex = -1;
     let found = false;
     for (tile of oldUser.tiles) {
-        tileIndex ++;
+        tileIndex++;
         if (tile._id.toString() == tileId.toString()) {
             found = true;
             break;
@@ -224,22 +231,24 @@ async function updateTileListItem(userId, tileId, itemId, updatedFields) {
     }
     //and create the query object
     let queryObject = {
-        _id: userId
+        _id: userId,
     };
     queryObject[`tiles.${tileIndex}.list._id`] = itemId;
     //mongoose query
     try {
-        return await userModel.findOneAndUpdate(
-            queryObject,
-            {
-                $set: newFields
-            },
-            {
-                upsert: true,
-                new:true,
-                safe: true
-            }
-        ) || undefined;
+        return (
+            (await userModel.findOneAndUpdate(
+                queryObject,
+                {
+                    $set: newFields,
+                },
+                {
+                    upsert: true,
+                    new: true,
+                    safe: true,
+                }
+            )) || undefined
+        );
     } catch (error) {
         console.log(error);
         return undefined;

@@ -1,5 +1,5 @@
-@import '../variables.scss';
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import "../variables.scss";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
 .addTask {
@@ -8,36 +8,35 @@
     text-align: center;
     cursor: pointer;
     border-radius: 0;
-  }
+}
 
-  .checkbox {
+.checkbox {
     position: absolute;
     top: 0;
     right: 0;
     padding: 8px 16px;
-  }
+}
 
-  .ToDoInputGroup {
+.ToDoInputGroup {
     display: grid;
     grid-template-columns: calc(100% - 4rem) 4rem;
     & > input {
-      padding: 0.25rem 0.25rem;
+        padding: 0.25rem 0.25rem;
     }
-  }
-  
-  .taskItems {
+}
+
+.taskItems {
     cursor: pointer;
     position: relative;
     background: #eee;
-  }
-  
-  .task {
+}
+
+.task {
     text-align: left;
-  }
-  
-  .task:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.task:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     transform: scale(1.02);
     z-index: 1;
-  }
-  
+}

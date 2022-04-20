@@ -9,16 +9,19 @@ class ToDoListItem extends React.Component {
         } else {
             this.props.deleteTask(this.props._id);
         }
-    }
+    };
 
-    render () {
-        return(
+    render() {
+        return (
             <ListGroup.Item className="task">
                 {this.props.text}
-                <FormCheck onChange={this.itemChecked} defaultChecked = {this.props.status}
-                className='checkbox'/>
+                <FormCheck
+                    onChange={this.itemChecked}
+                    defaultChecked={this.props.status}
+                    className="checkbox"
+                />
             </ListGroup.Item>
-        )
+        );
     }
 }
 

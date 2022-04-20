@@ -1,12 +1,12 @@
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 function SignIn(props) {
     //To login via google, we redirect the user to our sign in endpoint, which redirects to google's login, which eventually brings the user back to our homepage.
     //if the login was successful, the user will have a session cookie (see App.js for how that's handled)
     const googleLogin = () => {
         window.open("http://localhost:5001/api/auth/google", "_self");
-    }
+    };
 
     document.title = "Sign In - Personal Homepage";
 
@@ -20,7 +20,9 @@ function SignIn(props) {
                 <div className="pt-2 pb-2">
                     Create a personalized landing page for your web browser.
                 </div>
-                <Button className="SignInButton" onClick={googleLogin}>Sign in with Google &#8594;</Button>
+                <Button className="SignInButton" onClick={googleLogin}>
+                    Sign in with Google &#8594;
+                </Button>
             </div>
         </div>
     );
