@@ -26,6 +26,7 @@
   },
   "scripts": {
     "format": "prettier --write ./src",
+    "checkFormat": "prettier --check ./src",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
