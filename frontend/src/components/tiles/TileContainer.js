@@ -64,6 +64,7 @@ class Tile extends React.Component {
 
                 {this.props.canEdit &&
                     <HoverDropdown className="TileControls" toggleContent={<img alt='#' src="https://miro.medium.com/max/512/1*Js0Y20MwjcTnVAe7KjDXNg.png"/>}>
+                        <HoverDropdown className="WidthControls"></HoverDropdown>
                         <HoverDropdown.Item onClick={() => this.setWidth(1)} className="TileEditWidth">Small</HoverDropdown.Item>
                         <HoverDropdown.Item onClick={() => this.setWidth(2)} className="TileEditWidth">Medium</HoverDropdown.Item>
                         <HoverDropdown.Item onClick={() => this.setWidth(3)} className="TileEditWidth">Large</HoverDropdown.Item>
