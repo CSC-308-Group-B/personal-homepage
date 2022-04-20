@@ -18,6 +18,12 @@ class EditHeader extends React.Component {
         this.setState({ color: updatedColor });
     };
 
+    updateBackground = () => {
+        const updatedBackground = document.getElementById("inputBackgroundImageURL").value;
+        this.props.updateBackgroundImage(updatedBackground);
+        this.setState({ backgroundImage: updatedBackground });
+    }
+
     toggleSnapping = () => {
         this.setState({ snapping: !this.state.snapping });
         this.props.toggleSnap();
