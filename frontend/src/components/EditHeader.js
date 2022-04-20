@@ -38,6 +38,7 @@ class EditHeader extends React.Component {
                 <HoverDropdown.Item onClick={() => this.props.addTile("BookmarksTile", { width: 2 })}>Bookmarks</HoverDropdown.Item>
                 <HoverDropdown.Item onClick={() => this.props.addTile("SearchBarTile", { width: 2 })}>Search Bar</HoverDropdown.Item>
                 <HoverDropdown.Item onClick={() => this.props.addTile("GradesTile")}>Grades</HoverDropdown.Item>
+                <HoverDropdown.Item onClick={() => this.props.addTile("NotesTile")}>NoteBruh</HoverDropdown.Item>
                 <HoverDropdown.Item onClick={() => this.props.addTile("UpcomingAssignmentsTile")}>Assignments</HoverDropdown.Item>
                 <HoverDropdown.Item onClick={() => this.props.addTile("RandomImageTile")}>Cat Gifs</HoverDropdown.Item>
                 <HoverDropdown.Item onClick={() => this.props.addTile("OtherTileString")}>(Other type)</HoverDropdown.Item>

@@ -121,4 +121,4 @@ class NotesTile extends React.Component {
   }
 }
 
-export default ToDoListTile;
+export default NotesTile;

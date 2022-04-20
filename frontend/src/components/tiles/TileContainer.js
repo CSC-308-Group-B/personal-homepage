@@ -2,6 +2,7 @@ import DefaultTile from "./DefaultTile";
 import ToDoListTile from "./ToDoListTile";
 import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
+import NotesTile from "./NotesTile";
 import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
 import RandomImageTile from "./RandomImageTile";
 import React from "react";
@@ -89,6 +90,8 @@ function getTileType(props) {
             return <SearchBarTile {...props} />;
         case "GradesTile":
             return <GradesTile {...props} />;
+        case "NotesTile":
+            return <NotesTile {...props} />;
         case "UpcomingAssignmentsTile":
             return <UpcomingAssignmentsTile {...props} />;
         case "RandomImageTile":
