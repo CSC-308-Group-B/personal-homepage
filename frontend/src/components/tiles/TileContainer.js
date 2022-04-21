@@ -77,7 +77,6 @@ class Tile extends React.Component {
                             />
                         }
                     >
-
                         <HoverDropdown.Item
                             onClick={() => this.setWidth(1)}
                             className="TileEditWidth"
@@ -109,25 +108,39 @@ class Tile extends React.Component {
                             Small
                         </HoverDropdown.Item>
                         <HoverDropdown.Item
-                            onClick={() => this.props.moveTileMobile(this.props._id, "top")}
+                            onClick={() =>
+                                this.props.moveTileMobile(this.props._id, "top")
+                            }
                             className="TileEditOrder"
                         >
                             Move Top
                         </HoverDropdown.Item>
                         <HoverDropdown.Item
-                            onClick={() => this.props.moveTileMobile(this.props._id, "up")}
+                            onClick={() =>
+                                this.props.moveTileMobile(this.props._id, "up")
+                            }
                             className="TileEditOrder"
                         >
                             Move Up
                         </HoverDropdown.Item>
                         <HoverDropdown.Item
-                            onClick={() => this.props.moveTileMobile(this.props._id, "down")}
+                            onClick={() =>
+                                this.props.moveTileMobile(
+                                    this.props._id,
+                                    "down"
+                                )
+                            }
                             className="TileEditOrder"
                         >
                             Move Down
                         </HoverDropdown.Item>
                         <HoverDropdown.Item
-                            onClick={() => this.props.moveTileMobile(this.props._id, "bottom")}
+                            onClick={() =>
+                                this.props.moveTileMobile(
+                                    this.props._id,
+                                    "bottom"
+                                )
+                            }
                             className="TileEditOrder"
                         >
                             Move Bottom

@@ -267,10 +267,8 @@ async function moveTileMobile(userId, tiles, tileId, direction) {
     var tileIndex = 0;
 
     for (tile of tiles) {
-
         //If we find the tile we want to move up
         if (tile._id.toString() == tileId.toString()) {
-
             //Edge Cases
             if (direction === "up" && tileIndex == 0) {
                 return undefined;
@@ -278,49 +276,51 @@ async function moveTileMobile(userId, tiles, tileId, direction) {
                 return undefined;
             } else if (direction === "top" && tileIndex == 0) {
                 return undefined;
-            } else if (direction === "bottom" && tileIndex == tiles.length - 1) {
+            } else if (
+                direction === "bottom" &&
+                tileIndex == tiles.length - 1
+            ) {
                 return undefined;
             } else {
-
                 //Swap previous tile with the identified tile
                 if (direction === "up")
-                    swappedTiles = swapTiles(tiles, tileIndex, tileIndex - 1)
-
+                    swappedTiles = swapTiles(tiles, tileIndex, tileIndex - 1);
                 else if (direction === "down")
-                    swappedTiles = swapTiles(tiles, tileIndex, tileIndex + 1)
-
+                    swappedTiles = swapTiles(tiles, tileIndex, tileIndex + 1);
                 else if (direction === "top")
-                    swappedTiles = swapTiles(tiles, tileIndex, 0)
-
+                    swappedTiles = swapTiles(tiles, tileIndex, 0);
                 else if (direction === "bottom")
-                    swappedTiles = swapTiles(tiles, tileIndex, tiles.length-1)
-
+                    swappedTiles = swapTiles(
+                        tiles,
+                        tileIndex,
+                        tiles.length - 1
+                    );
 
                 //Update backend to new tile array
                 try {
-                    return await userModel.findOneAndUpdate(
-                        {
-                            _id: userId,
-                        },
-                        {
-                            $set: { "tiles": swappedTiles }
-                        },
-                        {
-                            upsert: true,
-                            new: true,
-                            safe: true
-                        }
-                    ) || undefined;
-
+                    return (
+                        (await userModel.findOneAndUpdate(
+                            {
+                                _id: userId,
+                            },
+                            {
+                                $set: { tiles: swappedTiles },
+                            },
+                            {
+                                upsert: true,
+                                new: true,
+                                safe: true,
+                            }
+                        )) || undefined
+                    );
                 } catch (error) {
                     console.log(error);
-                    return undefined
+                    return undefined;
                 }
             }
         }
         tileIndex++;
     }
-
 }
 
 exports.setDbConnection = setDbConnection;

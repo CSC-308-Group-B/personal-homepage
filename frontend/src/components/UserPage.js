@@ -49,7 +49,7 @@ class UserPage extends React.Component {
                 userId: this.props.user._id,
                 tiles: this.props.user.tiles,
                 tileId: tileId,
-                direction: direction
+                direction: direction,
             },
             { withCredentials: true }
         );
@@ -57,7 +57,6 @@ class UserPage extends React.Component {
         if (response.status == 200) {
             this.props.updateUser(response.data);
         }
-
     };
 
     toggleEdit = () => {
