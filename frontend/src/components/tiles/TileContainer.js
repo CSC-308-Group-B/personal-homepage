@@ -3,12 +3,13 @@ import ToDoListTile from "./ToDoListTile";
 import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
 import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
-import TwitchTile from "./TwitchTile";
 import RandomImageTile from "./RandomImageTile";
 import React from "react";
 import GradesTile from "./GradesTile";
 import axios from "axios";
 import HoverDropdown from "../HoverDropdown";
+import TwitchTile from "./TwitchTile";
+
 
 class Tile extends React.Component {
     constructor(props) {
@@ -109,22 +110,42 @@ class Tile extends React.Component {
                             Small
                         </HoverDropdown.Item>
                         <HoverDropdown.Item
-                            onClick={() => this.moveUp()}
+                            onClick={() =>
+                                this.props.moveTileMobile(this.props._id, "top")
+                            }
                             className="TileEditOrder"
                         >
-                            Medium
+                            Move Top
                         </HoverDropdown.Item>
                         <HoverDropdown.Item
-                            onClick={() => this.moveDown()}
+                            onClick={() =>
+                                this.props.moveTileMobile(this.props._id, "up")
+                            }
                             className="TileEditOrder"
                         >
-                            Large
+                            Move Up
                         </HoverDropdown.Item>
                         <HoverDropdown.Item
-                            onClick={() => this.moveBottom()}
+                            onClick={() =>
+                                this.props.moveTileMobile(
+                                    this.props._id,
+                                    "down"
+                                )
+                            }
                             className="TileEditOrder"
                         >
-                            Full
+                            Move Down
+                        </HoverDropdown.Item>
+                        <HoverDropdown.Item
+                            onClick={() =>
+                                this.props.moveTileMobile(
+                                    this.props._id,
+                                    "bottom"
+                                )
+                            }
+                            className="TileEditOrder"
+                        >
+                            Move Bottom
                         </HoverDropdown.Item>
                         <HoverDropdown.Div />
                         <HoverDropdown.Item
@@ -154,10 +175,10 @@ function getTileType(props) {
             return <GradesTile {...props} />;
         case "UpcomingAssignmentsTile":
             return <UpcomingAssignmentsTile {...props} />;
-        case "TwitchTile":
-            return <TwitchTile {...props} />;
         case "RandomImageTile":
             return <RandomImageTile {...props} />;
+        case "TwitchTile":
+            return <TwitchTile {...props} />;
         default:
             return <DefaultTile {...props} />;
     }
