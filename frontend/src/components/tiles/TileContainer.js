@@ -103,12 +103,7 @@ class Tile extends React.Component {
                         >
                             Full
                         </HoverDropdown.Item>
-                        <HoverDropdown.Item
-                            onClick={() => this.moveTop()}
-                            className="TileEditOrder"
-                        >
-                            Small
-                        </HoverDropdown.Item>
+                        
                         <HoverDropdown.Item
                             onClick={() =>
                                 this.props.moveTileMobile(this.props._id, "top")
