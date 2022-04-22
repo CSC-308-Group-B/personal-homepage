@@ -6,6 +6,8 @@ import axios from "axios";
 import "./draggable.js";
 import Background from "./components/Background";
 
+export const backendURL = (process.env.NODE_ENV === "development" ? "http://localhost:5001" : "http://localhost:5001");
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -39,7 +41,7 @@ class App extends React.Component {
     //Upon successful authentication, the backend will return a user, and the frontend will re-render
     //This "withCredentials: true" will need to be added to any REST api calls that need authentication (so most if not all of them)
     getUser = async () => {
-        const result = await axios.get("http://localhost:5001/getUser", {
+        const result = await axios.get(`${backendURL}/getUser`, {
             withCredentials: true,
         });
         return result.data;
@@ -47,7 +49,7 @@ class App extends React.Component {
 
     updateColor = async (color) => {
         const response = await axios.post(
-            `http://localhost:5001/setColor`,
+            `${backendURL}/setColor`,
             { color: color },
             { withCredentials: true }
         );
@@ -59,7 +61,7 @@ class App extends React.Component {
 
     updateBackgroundImage = async (image) => {
         const response = await axios.post(
-            `http://localhost:5001/setBackgroundImage`,
+            `${backendURL}/setBackgroundImage`,
             { backgroundImage: image },
             { withCredentials: true }
         );
@@ -80,7 +82,7 @@ class App extends React.Component {
         };
         //Try adding tile to backend
         const response = await axios.post(
-            `http://localhost:5001/u/${this.state.user._id}/tiles`,
+            `${backendURL}/u/${this.state.user._id}/tiles`,
             newTile,
             { withCredentials: true }
         );

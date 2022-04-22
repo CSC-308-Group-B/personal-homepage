@@ -9,6 +9,7 @@ import React from "react";
 import GradesTile from "./GradesTile";
 import axios from "axios";
 import HoverDropdown from "../HoverDropdown";
+import {backendURL} from "../../App.js";
 
 class Tile extends React.Component {
     constructor(props) {
@@ -30,7 +31,7 @@ class Tile extends React.Component {
 
     setWidth = async (newWidth) => {
         const res = await axios.post(
-            "http://localhost:5001/u/setTileFields",
+            `${backendURL}/u/setTileFields`,
             {
                 userId: this.props.userId,
                 tileId: this.props._id,

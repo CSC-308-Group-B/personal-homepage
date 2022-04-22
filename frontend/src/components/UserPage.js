@@ -3,6 +3,7 @@ import Tile from "./tiles/TileContainer";
 import SignIn from "./SignIn";
 import axios from "axios";
 import EditHeader from "./EditHeader";
+import {backendURL} from "../App.js";
 
 class UserPage extends React.Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class UserPage extends React.Component {
 
     moveTile = async (tileId, x, y) => {
         await axios.post(
-            "http://localhost:5001/u/moveTile",
+            `${backendURL}/u/moveTile`,
             {
                 userId: this.props.user._id,
                 tileId: tileId,
@@ -30,7 +31,7 @@ class UserPage extends React.Component {
 
     removeTile = async (tileId) => {
         const response = await axios.delete(
-            `http://localhost:5001/u/${this.props.user._id}/${tileId}`,
+            `${backendURL}/u/${this.props.user._id}/${tileId}`,
             { withCredentials: true }
         );
         if (response) {

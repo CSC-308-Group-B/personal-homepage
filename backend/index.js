@@ -22,10 +22,10 @@ const canvasAxios = axios.create({
 //create app
 const app = express();
 //misc config
-const port = 5001;
+const port = process.env.PORT;
 app.use(
     cors({
-        origin: ["http://localhost:3000"],
+        origin: [process.env.FE_URL],
         credentials: true,
     })
 );
@@ -95,7 +95,7 @@ app.get(
     "/api/auth/google/callback",
     passport.authenticate("google", { failureRedirect: "/" }),
     (req, res) => {
-        res.redirect("http://localhost:3000");
+        res.redirect(process.env.FE_URL);
     }
 );
 //If the get request on the frontend sends the session cookie, passport will automatically add a "user" field to "req", via the serialization methods (above)
@@ -330,5 +330,5 @@ app.delete("/removeBookmark", async (req, res) => {
 
 //Begin listening
 app.listen(port, () => {
-    console.log(`Now listening at http://localhost:${port}`);
+    console.log(`Now listening at port ${port}`);
 });

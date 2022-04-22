@@ -11,7 +11,7 @@ function setDbConnection(conn) {
 
 function getDbConnection() {
     if (!dbConnection) {
-        const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.9qzfh.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+        const uri = process.env.DB_URL;
         dbConnection = mongoose.createConnection(uri, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
