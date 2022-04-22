@@ -1,24 +1,33 @@
-import React from 'react';
+import React from "react";
 import { HexColorPicker } from "react-colorful";
 import HoverDropdown from "./HoverDropdown";
-import BootstrapSwitchButton from 'bootstrap-switch-button-react'
+import BootstrapSwitchButton from "bootstrap-switch-button-react";
 
 class EditHeader extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      color: this.props.color,
-      backgroundImage: this.props.backgroundImage,
-      snapping: true
+    constructor(props) {
+        super(props);
+        this.state = {
+            color: this.props.color,
+            backgroundImage: this.props.backgroundImage,
+            snapping: true,
+        };
     }
-  }
 
+    updateColor = (updatedColor) => {
+        this.props.updateColor(updatedColor);
+        this.setState({ color: updatedColor });
+    };
 
-  updateColor = (updatedColor) => {
-    this.props.updateColor(updatedColor);
-    this.setState({ color: updatedColor });
-  }
+    updateBackground = () => {
+        const updatedBackground = document.getElementById("inputBackgroundImageURL").value;
+        this.props.updateBackgroundImage(updatedBackground);
+        this.setState({ backgroundImage: updatedBackground });
+    }
 
+    toggleSnapping = () => {
+        this.setState({ snapping: !this.state.snapping });
+        this.props.toggleSnap();
+    };
 
   toggleSnapping = () => {
     this.setState({ snapping: !this.state.snapping });
@@ -63,6 +72,5 @@ class EditHeader extends React.Component {
     );
   }
 }
-
 
 export default EditHeader;
