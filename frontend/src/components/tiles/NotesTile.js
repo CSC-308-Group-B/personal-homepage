@@ -1,8 +1,5 @@
 import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
-import InputGroup from "react-bootstrap/InputGroup";
 import React from "react";
-import ToDoListItem from "./ToDoListItem";
 
 class NotesTile extends React.Component {
     constructor(props) {
@@ -32,16 +29,16 @@ class NotesTile extends React.Component {
     render() {
         return (
             <Card className="Card">
-                <Card.Body>
-                    <Card.Title>Note jo mama</Card.Title>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
+                <Card.Body className="noteBody">
+                    <Card.Title>Note joaassdf mama</Card.Title>
+                <form onSubmit={this.handleSubmit} className = "bruhNote">
+                    <label className = "noteLabel">
                         jo mama dont even start:
-                        <textarea value={this.state.value} onChange={this.handleChange} />
+                        <textarea classname="noteTextarea" value={this.state.value} onChange={this.handleChange} />
                         {/* <input type="text" value={this.state.value} onChange={this.handleChange} /> */}
                     </label>
 
-                    <input type="submit" value="HAHAHAHA click me" />
+                    <input className="ipadKid" type="submit" value="HAHAHAHA click me" />
                 </form>
                 </Card.Body>
             </Card>
