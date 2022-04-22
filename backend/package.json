@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
+    "format": "prettier --write ./model && prettier --write ./index.js",
     "dev": "nodemon index.js"
   },
   "author": "",

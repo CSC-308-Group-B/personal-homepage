@@ -3,7 +3,8 @@
     overflow: none;
     width: 100%;
     z-index: 100;
-    & > .dropdown > .dropdown-toggle, & > .dropdown-toggle {
+    & > .dropdown > .dropdown-toggle,
+    & > .dropdown-toggle {
         background: none;
         border: none;
         width: 100%;
