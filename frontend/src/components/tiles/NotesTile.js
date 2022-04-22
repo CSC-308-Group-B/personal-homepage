@@ -36,7 +36,7 @@ class NotesTile extends React.Component {
                     <Card.Title>Note jo mama</Card.Title>
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        jo mama:
+                        jo mama dont even start:
                         <textarea value={this.state.value} onChange={this.handleChange} />
                         {/* <input type="text" value={this.state.value} onChange={this.handleChange} /> */}
                     </label>
