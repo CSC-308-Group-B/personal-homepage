@@ -41,9 +41,7 @@
 }
 
 .NestedHoverDropdown {
-    user-select: none;
     padding: 0.25rem 0.6rem;
-    cursor: pointer;
     &:hover {
         background-color: #ddd;
     }
