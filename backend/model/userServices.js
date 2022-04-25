@@ -269,7 +269,6 @@ async function moveTileMobile(userId, tiles, tileId, direction) {
     for (tile of tiles) {
         //If we find the tile we want to move up
         if (tile._id.toString() == tileId.toString()) {
-
             //Edge Cases
             if (direction === "up" && tileIndex == 0) {
                 return undefined;
@@ -277,10 +276,12 @@ async function moveTileMobile(userId, tiles, tileId, direction) {
                 return undefined;
             } else if (direction === "top" && tileIndex == 0) {
                 return undefined;
-            } else if ( direction === "bottom" && tileIndex == tiles.length - 1 ) {
+            } else if (
+                direction === "bottom" &&
+                tileIndex == tiles.length - 1
+            ) {
                 return undefined;
             } else {
-
                 //Swap previous tile with the identified tile
                 if (direction === "up")
                     swappedTiles = swapTiles(tiles, tileIndex, tileIndex - 1);

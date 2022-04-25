@@ -10,7 +10,6 @@ import axios from "axios";
 import HoverDropdown from "../HoverDropdown";
 import TwitchTile from "./TwitchTile";
 
-
 class Tile extends React.Component {
     constructor(props) {
         super(props);
@@ -103,7 +102,7 @@ class Tile extends React.Component {
                         >
                             Full
                         </HoverDropdown.Item>
-                        
+
                         <HoverDropdown.Item
                             onClick={() =>
                                 this.props.moveTileMobile(this.props._id, "top")
