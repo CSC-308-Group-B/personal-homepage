@@ -25,7 +25,7 @@ const app = express();
 const port = 5001;
 app.use(
     cors({
-        origin: ["http://localhost:3000"],
+        origin: [process.env.FE_URL],
         credentials: true,
     })
 );
@@ -95,7 +95,7 @@ app.get(
     "/api/auth/google/callback",
     passport.authenticate("google", { failureRedirect: "/" }),
     (req, res) => {
-        res.redirect("http://localhost:3000");
+        res.redirect(process.env.FE_URL);
     }
 );
 //If the get request on the frontend sends the session cookie, passport will automatically add a "user" field to "req", via the serialization methods (above)
@@ -328,7 +328,24 @@ app.delete("/removeBookmark", async (req, res) => {
     }
 });
 
+app.post("/moveTileMobile", async (req, res) => {
+    const result = await userServices.moveTileMobile(
+        req.user._id,
+        req.body.tiles,
+        req.body.tileId,
+        req.body.direction
+    );
+
+    if (result) {
+        res.status(200).send(result);
+    } else if (result == undefined) {
+        res.status(201).send();
+    } else {
+        res.status(500).send();
+    }
+});
+
 //Begin listening
 app.listen(port, () => {
-    console.log(`Now listening at http://localhost:${port}`);
+    console.log(`Now listening at port ${port}`);
 });

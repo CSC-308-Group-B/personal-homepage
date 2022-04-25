@@ -3,12 +3,13 @@ import ToDoListTile from "./ToDoListTile";
 import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
 import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
-import TwitchTile from "./TwitchTile";
 import RandomImageTile from "./RandomImageTile";
 import React from "react";
 import GradesTile from "./GradesTile";
 import axios from "axios";
 import HoverDropdown from "../HoverDropdown";
+import TwitchTile from "./TwitchTile";
+import { backendURL } from "../../App.js";
 
 class Tile extends React.Component {
     constructor(props) {
@@ -30,7 +31,7 @@ class Tile extends React.Component {
 
     setWidth = async (newWidth) => {
         const res = await axios.post(
-            "http://localhost:5001/u/setTileFields",
+            `${backendURL}/u/setTileFields`,
             {
                 userId: this.props.userId,
                 tileId: this.props._id,
@@ -78,56 +79,78 @@ class Tile extends React.Component {
                             />
                         }
                     >
-                            <HoverDropdown className="NestedHoverDropdown" toggleContent={<div>Width</div>}>
-                                <HoverDropdown.Item
-                                    onClick={() => this.setWidth(1)}
-                                    className="TileEditWidth"
-                                >
-                                    Small
-                                </HoverDropdown.Item>
-                                <HoverDropdown.Item
-                                    onClick={() => this.setWidth(2)}
-                                    className="TileEditWidth"
-                                >
-                                    Medium
-                                </HoverDropdown.Item>
-                                <HoverDropdown.Item
-                                    onClick={() => this.setWidth(3)}
-                                    className="TileEditWidth"
-                                >
-                                    Large
-                                </HoverDropdown.Item>
-                                <HoverDropdown.Item
-                                    onClick={() => this.setWidth(4)}
-                                    className="TileEditWidth"
-                                >
-                                    Full
-                                </HoverDropdown.Item>
-                            </HoverDropdown>
-                        <HoverDropdown.Item
-                            onClick={() => this.moveTop()}
-                            className="TileEditOrder"
+                        <HoverDropdown
+                            className="NestedHoverDropdown TileEditWidth"
+                            toggleContent={<div>Width</div>}
                         >
-                            Small
-                        </HoverDropdown.Item>
-                        <HoverDropdown.Item
-                            onClick={() => this.moveUp()}
-                            className="TileEditOrder"
+                            <HoverDropdown.Item
+                                onClick={() => this.setWidth(1)}
+                            >
+                                Small
+                            </HoverDropdown.Item>
+                            <HoverDropdown.Item
+                                onClick={() => this.setWidth(2)}
+                            >
+                                Medium
+                            </HoverDropdown.Item>
+                            <HoverDropdown.Item
+                                onClick={() => this.setWidth(3)}
+                            >
+                                Large
+                            </HoverDropdown.Item>
+                            <HoverDropdown.Item
+                                onClick={() => this.setWidth(4)}
+                            >
+                                Full
+                            </HoverDropdown.Item>
+                        </HoverDropdown>
+
+                        <HoverDropdown
+                            className="NestedHoverDropdown TileEditOrder"
+                            toggleContent={<div>Order</div>}
                         >
-                            Medium
-                        </HoverDropdown.Item>
-                        <HoverDropdown.Item
-                            onClick={() => this.moveDown()}
-                            className="TileEditOrder"
-                        >
-                            Large
-                        </HoverDropdown.Item>
-                        <HoverDropdown.Item
-                            onClick={() => this.moveBottom()}
-                            className="TileEditOrder"
-                        >
-                            Full
-                        </HoverDropdown.Item>
+                            <HoverDropdown.Item
+                                onClick={() =>
+                                    this.props.moveTileMobile(
+                                        this.props._id,
+                                        "top"
+                                    )
+                                }
+                            >
+                                Move to Top
+                            </HoverDropdown.Item>
+                            <HoverDropdown.Item
+                                onClick={() =>
+                                    this.props.moveTileMobile(
+                                        this.props._id,
+                                        "up"
+                                    )
+                                }
+                            >
+                                Move Up
+                            </HoverDropdown.Item>
+                            <HoverDropdown.Item
+                                onClick={() =>
+                                    this.props.moveTileMobile(
+                                        this.props._id,
+                                        "down"
+                                    )
+                                }
+                            >
+                                Move Down
+                            </HoverDropdown.Item>
+                            <HoverDropdown.Item
+                                onClick={() =>
+                                    this.props.moveTileMobile(
+                                        this.props._id,
+                                        "bottom"
+                                    )
+                                }
+                            >
+                                Move to Bottom
+                            </HoverDropdown.Item>
+                        </HoverDropdown>
+
                         <HoverDropdown.Div />
                         <HoverDropdown.Item
                             className="TileDeleteButton"
@@ -156,10 +179,10 @@ function getTileType(props) {
             return <GradesTile {...props} />;
         case "UpcomingAssignmentsTile":
             return <UpcomingAssignmentsTile {...props} />;
-        case "TwitchTile":
-            return <TwitchTile {...props} />;
         case "RandomImageTile":
             return <RandomImageTile {...props} />;
+        case "TwitchTile":
+            return <TwitchTile {...props} />;
         default:
             return <DefaultTile {...props} />;
     }
