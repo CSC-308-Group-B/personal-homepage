@@ -41,6 +41,22 @@ class UserPage extends React.Component {
         }
     };
 
+    moveTileMobile = async (tileId, direction) => {
+        const response = await axios.post(
+            `http://localhost:5001/moveTileMobile`,
+            {
+                tiles: this.props.user.tiles,
+                tileId: tileId,
+                direction: direction,
+            },
+            { withCredentials: true }
+        );
+
+        if (response.status == 200) {
+            this.props.updateUser(response.data);
+        }
+    };
+
     toggleEdit = () => {
         this.setState({ canEdit: !this.state.canEdit });
     };
@@ -95,6 +111,7 @@ class UserPage extends React.Component {
                                 userId={this.props.user._id}
                                 deleteTile={this.removeTile}
                                 moveTile={this.moveTile}
+                                moveTileMobile={this.moveTileMobile}
                                 canEdit={this.state.canEdit}
                                 snapToGrid={this.state.snapToGrid}
                             />
