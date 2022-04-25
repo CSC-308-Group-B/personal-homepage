@@ -6,6 +6,7 @@ import BootstrapSwitchButton from "bootstrap-switch-button-react";
 class EditHeader extends React.Component {
     constructor(props) {
         super(props);
+        this.maxPageHeight = 0;
         this.state = {
             color: this.props.color,
             backgroundImage: this.props.backgroundImage,
@@ -19,10 +20,12 @@ class EditHeader extends React.Component {
     };
 
     updateBackground = () => {
-        const updatedBackground = document.getElementById("inputBackgroundImageURL").value;
+        const updatedBackground = document.getElementById(
+            "inputBackgroundImageURL"
+        ).value;
         this.props.updateBackgroundImage(updatedBackground);
         this.setState({ backgroundImage: updatedBackground });
-    }
+    };
 
     toggleSnapping = () => {
         this.setState({ snapping: !this.state.snapping });
