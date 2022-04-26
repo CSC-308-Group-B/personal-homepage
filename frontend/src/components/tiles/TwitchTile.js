@@ -37,8 +37,6 @@ class TwitchTile extends React.Component {
                     <ReactPlayer
                         className="TwitchPlayer"
                         url={`https://www.twitch.tv/${this.state.streamer}`}
-                        controls="true"
-                        playing="true"
                         width="100%"
                         height="100%"
                     />
