@@ -2,7 +2,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import axios from "axios";
-import {backendURL} from "../../App.js";
+import { backendURL } from "../../App.js";
 
 class UpcomingAssignmentsTile extends React.Component {
     constructor(props) {
