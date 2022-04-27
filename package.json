@@ -1,0 +1,20 @@
+{
+  "name": "personal-homepage",
+  "version": "1.0.0",
+  "description": "hello",
+  "scripts": {
+    "frontend": "cd frontend && npm start",
+    "backend": "cd backend && npm run dev",
+    "heroku-postbuild": "cd frontend && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CSC-308-Group-B/personal-homepage.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CSC-308-Group-B/personal-homepage/issues"
+  },
+  "homepage": "https://github.com/CSC-308-Group-B/personal-homepage#readme"
+}

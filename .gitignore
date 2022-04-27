@@ -27,7 +27,4 @@ backend/model/credentials.js
 backend/.env
 backend/package-lock.json
 frontend/package-lock.json
-*.json
-backend/package-lock.json
-backend/package-lock.json
-frontend/package-lock.json
+package-lock.json
