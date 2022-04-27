@@ -33,6 +33,9 @@
 
 .task {
     text-align: left;
+    &.completed {
+        text-decoration: line-through;
+    }
 }
 
 .task:hover {
