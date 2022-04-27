@@ -10,11 +10,15 @@
     border-radius: 0;
 }
 
-.checkbox {
+.ToDoListCloseButton {
     position: absolute;
-    top: 0;
-    right: 0;
-    padding: 8px 16px;
+    top: 0.75rem;
+    height: 0.5rem;
+    width: 0.5rem;
+    right: 0.25rem;
+    &:hover {
+        background-color: red;
+    }
 }
 
 .ToDoInputGroup {
