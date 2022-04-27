@@ -3,12 +3,14 @@ import ToDoListTile from "./ToDoListTile";
 import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
 import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
-import TwitchTile from "./TwitchTile";
 import RandomImageTile from "./RandomImageTile";
 import React from "react";
 import GradesTile from "./GradesTile";
 import axios from "axios";
 import HoverDropdown from "../HoverDropdown";
+import TwitchTile from "./TwitchTile";
+import {backendURL} from "../../App.js";
+
 
 class Tile extends React.Component {
     constructor(props) {
@@ -30,7 +32,7 @@ class Tile extends React.Component {
 
     setWidth = async (newWidth) => {
         const res = await axios.post(
-            "http://localhost:5001/u/setTileFields",
+            `${backendURL}/u/setTileFields`,
             {
                 userId: this.props.userId,
                 tileId: this.props._id,
@@ -102,29 +104,44 @@ class Tile extends React.Component {
                         >
                             Full
                         </HoverDropdown.Item>
+
                         <HoverDropdown.Item
-                            onClick={() => this.moveTop()}
+                            onClick={() =>
+                                this.props.moveTileMobile(this.props._id, "top")
+                            }
                             className="TileEditOrder"
                         >
-                            Small
+                            Move Top
                         </HoverDropdown.Item>
                         <HoverDropdown.Item
-                            onClick={() => this.moveUp()}
+                            onClick={() =>
+                                this.props.moveTileMobile(this.props._id, "up")
+                            }
                             className="TileEditOrder"
                         >
-                            Medium
+                            Move Up
                         </HoverDropdown.Item>
                         <HoverDropdown.Item
-                            onClick={() => this.moveDown()}
+                            onClick={() =>
+                                this.props.moveTileMobile(
+                                    this.props._id,
+                                    "down"
+                                )
+                            }
                             className="TileEditOrder"
                         >
-                            Large
+                            Move Down
                         </HoverDropdown.Item>
                         <HoverDropdown.Item
-                            onClick={() => this.moveBottom()}
+                            onClick={() =>
+                                this.props.moveTileMobile(
+                                    this.props._id,
+                                    "bottom"
+                                )
+                            }
                             className="TileEditOrder"
                         >
-                            Full
+                            Move Bottom
                         </HoverDropdown.Item>
                         <HoverDropdown.Div />
                         <HoverDropdown.Item
@@ -154,10 +171,10 @@ function getTileType(props) {
             return <GradesTile {...props} />;
         case "UpcomingAssignmentsTile":
             return <UpcomingAssignmentsTile {...props} />;
-        case "TwitchTile":
-            return <TwitchTile {...props} />;
         case "RandomImageTile":
             return <RandomImageTile {...props} />;
+        case "TwitchTile":
+            return <TwitchTile {...props} />;
         default:
             return <DefaultTile {...props} />;
     }

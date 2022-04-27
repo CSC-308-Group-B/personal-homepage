@@ -4,6 +4,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import React from "react";
 import ToDoListItem from "./ToDoListItem";
 import axios from "axios";
+import {backendURL} from "../../App.js";
 
 class ToDoListTile extends React.Component {
     constructor(props) {
@@ -36,7 +37,7 @@ class ToDoListTile extends React.Component {
         if (newTask.text === "") return;
         //and try adding it to the backed
         const response = await axios.post(
-            `http://localhost:5001/addToDoItem`,
+            `${backendURL}/addToDoItem`,
             {
                 userId: this.props.userId,
                 tileId: this.props._id,
@@ -62,7 +63,7 @@ class ToDoListTile extends React.Component {
     deleteTask = async (itemId) => {
         //send the delete request
         const response = await axios.delete(
-            "http://localhost:5001/removeToDoItem",
+            `${backendURL}/removeToDoItem`,
             {
                 data: {
                     userId: this.props.userId,
@@ -88,7 +89,7 @@ class ToDoListTile extends React.Component {
     updateTask = async (itemId) => {
         //send the delete request
         const response = await axios.post(
-            "http://localhost:5001/updateToDoItem",
+            `${backendURL}/updateToDoItem`,
             {
                 userId: this.props.userId,
                 tileId: this.props._id,

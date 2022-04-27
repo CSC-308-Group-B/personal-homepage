@@ -6,6 +6,7 @@ import BootstrapSwitchButton from "bootstrap-switch-button-react";
 class EditHeader extends React.Component {
     constructor(props) {
         super(props);
+        this.maxPageHeight = 0;
         this.state = {
             color: this.props.color,
             backgroundImage: this.props.backgroundImage,
@@ -19,10 +20,12 @@ class EditHeader extends React.Component {
     };
 
     updateBackground = () => {
-        const updatedBackground = document.getElementById("inputBackgroundImageURL").value;
+        const updatedBackground = document.getElementById(
+            "inputBackgroundImageURL"
+        ).value;
         this.props.updateBackgroundImage(updatedBackground);
         this.setState({ backgroundImage: updatedBackground });
-    }
+    };
 
     toggleSnapping = () => {
         this.setState({ snapping: !this.state.snapping });
@@ -47,7 +50,7 @@ class EditHeader extends React.Component {
                     </HoverDropdown.Item>
                     <HoverDropdown.Item
                         onClick={() =>
-                            this.props.addTile("BookmarksTile", { width: 2 })
+                            this.props.addTile("BookmarksTile")
                         }
                     >
                         Bookmarks
@@ -77,12 +80,12 @@ class EditHeader extends React.Component {
                         Cat Gifs
                     </HoverDropdown.Item>
                     <HoverDropdown.Item
-                        onClick={() => this.props.addTile("TwitchTile")}
+                        onClick={() => this.props.addTile("TwitchTile", { width: 2 })}
                     >
                         Twitch
                     </HoverDropdown.Item>
                     <HoverDropdown.Item
-                        onClick={() => this.props.addTile("OtherTileString")}
+                        onClick={() => this.props.addTile("OtherTileString",)}
                     >
                         (Other type)
                     </HoverDropdown.Item>
