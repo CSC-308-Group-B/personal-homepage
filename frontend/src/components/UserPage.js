@@ -3,7 +3,7 @@ import Tile from "./tiles/TileContainer";
 import SignIn from "./SignIn";
 import axios from "axios";
 import EditHeader from "./EditHeader";
-import {backendURL} from "../App.js";
+import { backendURL } from "../App.js";
 
 class UserPage extends React.Component {
     constructor(props) {

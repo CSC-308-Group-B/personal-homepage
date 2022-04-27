@@ -9,8 +9,7 @@ import GradesTile from "./GradesTile";
 import axios from "axios";
 import HoverDropdown from "../HoverDropdown";
 import TwitchTile from "./TwitchTile";
-import {backendURL} from "../../App.js";
-
+import { backendURL } from "../../App.js";
 
 class Tile extends React.Component {
     constructor(props) {
