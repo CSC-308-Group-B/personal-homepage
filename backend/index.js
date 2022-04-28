@@ -92,7 +92,7 @@ app.get(
 //3) on success/error, return to our homepage. Now that the session is initialized, the user will be signed in immediately
 app.get(
     "/api/auth/google/callback",
-    passport.authenticate("google", { failureRedirect: "/" }),
+    passport.authenticate("google", { failureRedirect: "/?failed" }),
     (req, res) => {
         res.redirect(process.env.FE_URL);
     }
