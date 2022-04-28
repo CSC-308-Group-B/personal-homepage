@@ -22,7 +22,7 @@ const canvasAxios = axios.create({
 //create app
 const app = express();
 //misc config
-const port = process.env.PORT;
+const port = 5001;
 app.use(
     cors({
         origin: [process.env.FE_URL],

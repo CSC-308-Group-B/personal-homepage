@@ -3,7 +3,7 @@ import Tile from "./tiles/TileContainer";
 import SignIn from "./SignIn";
 import axios from "axios";
 import EditHeader from "./EditHeader";
-import {backendURL} from "../App.js";
+import { backendURL } from "../App.js";
 
 class UserPage extends React.Component {
     constructor(props) {
@@ -44,7 +44,7 @@ class UserPage extends React.Component {
 
     moveTileMobile = async (tileId, direction) => {
         const response = await axios.post(
-            `http://localhost:5001/moveTileMobile`,
+            `${backendURL}/moveTileMobile`,
             {
                 tiles: this.props.user.tiles,
                 tileId: tileId,

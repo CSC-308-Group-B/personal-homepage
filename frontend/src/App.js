@@ -6,7 +6,10 @@ import axios from "axios";
 import "./draggable.js";
 import Background from "./components/Background";
 
-export const backendURL = (process.env.NODE_ENV === "development" ? "http://localhost:5001" : "http://polypage-api.herokuapp.com");
+export const backendURL =
+    process.env.NODE_ENV === "development"
+        ? "http://localhost:5001"
+        : "http://localhost:5001";
 
 class App extends React.Component {
     constructor(props) {
