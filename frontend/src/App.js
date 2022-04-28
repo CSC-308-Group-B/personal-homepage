@@ -97,6 +97,7 @@ class App extends React.Component {
     };
 
     render() {
+        console.log(backendURL);
         return (
             <div className="App NoHorizontalScroll">
                 <UserPage
