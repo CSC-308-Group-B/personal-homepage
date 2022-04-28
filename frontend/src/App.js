@@ -7,8 +7,8 @@ import "./draggable.js";
 import Background from "./components/Background";
 
 export const backendURL =
-    process.env.NODE_ENV === "development"
-        ? "http://localhost:5001"
+    process.env.REACT_APP_BE_URL
+        ? process.env.REACT_APP_BE_URL
         : "http://polypage.herokuapp.com";
 
 class App extends React.Component {
@@ -103,12 +103,6 @@ class App extends React.Component {
     };
 
     render() {
-        console.log(
-            "Render page with " +
-                process.env.NODE_ENV +
-                " and URL " +
-                backendURL
-        );
         return (
             <div className="App NoHorizontalScroll">
                 <UserPage
