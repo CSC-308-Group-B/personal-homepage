@@ -4,7 +4,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import React from "react";
 import BookmarksItem from "./BookmarksItem";
 import axios from "axios";
-import {backendURL} from "../../App.js";
+import { backendURL } from "../../App.js";
 
 class BookmarksTile extends React.Component {
     constructor(props) {
@@ -39,7 +39,6 @@ class BookmarksTile extends React.Component {
         this.urlInputRef.current.value = "";
     }
 
-
     addBookmark = async () => {
         //create the new bookmarks object
         const newBookmark = this.getTextInput();
@@ -71,17 +70,14 @@ class BookmarksTile extends React.Component {
 
     deleteBookmark = async (itemId) => {
         //send the delete request
-        const response = await axios.delete(
-            `${backendURL}/removeBookmark`,
-            {
-                data: {
-                    userId: this.props.userId,
-                    tileId: this.props._id,
-                    itemId: itemId,
-                },
-                withCredentials: true,
-            }
-        );
+        const response = await axios.delete(`${backendURL}/removeBookmark`, {
+            data: {
+                userId: this.props.userId,
+                tileId: this.props._id,
+                itemId: itemId,
+            },
+            withCredentials: true,
+        });
         //if we get a response...
         if (response && response.status === 204) {
             //for a valid response, filter out the deleted item and update our state
