@@ -4,7 +4,7 @@
   "description": "backend",
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node index.js",
     "test": "jest --coverage",
     "format": "prettier --write ./model && prettier --write ./index.js",
     "checkFormat": "prettier --check ./model && prettier --write ./index.js",
@@ -31,7 +31,6 @@
     "passport": "^0.5.2",
     "passport-google-oauth20": "^2.0.0",
     "prettier": "^2.6.2",
-    "react-scripts": "^5.0.1",
     "request": "^2.88.2",
     "stealthy-require": "^1.1.1",
     "xtend": "^4.0.2"
