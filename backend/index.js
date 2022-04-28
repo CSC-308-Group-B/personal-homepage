@@ -22,7 +22,6 @@ const canvasAxios = axios.create({
 //create app
 const app = express();
 //misc config
-const port = 5001;
 app.use(
     cors({
         origin: [process.env.FE_URL],
@@ -140,7 +139,6 @@ app.get("/canvas/upcomingassignments", async (req, res) => {
     OTHER ENDPOINTS
 
 */
-//We'll eventually update these to require credentials
 
 app.get("/", (req, res) => {
     res.send("Hello, world!");
@@ -346,6 +344,6 @@ app.post("/moveTileMobile", async (req, res) => {
 });
 
 //Begin listening
-app.listen(port, () => {
-    console.log(`Now listening at port ${port}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Now listening at port ${process.env.PORT}`);
 });
