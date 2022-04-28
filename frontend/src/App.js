@@ -37,10 +37,6 @@ class App extends React.Component {
         });
     }
     //returns a user object
-    //The "withCredentials" field set to true tells axios to send cookies along with the get request
-    //This sends the session id cookie, and the backend will parse that to authenticate the user, if everything checks out
-    //Upon successful authentication, the backend will return a user, and the frontend will re-render
-    //This "withCredentials: true" will need to be added to any REST api calls that need authentication (so most if not all of them)
     getUser = async () => {
         const result = await axios.get(`${backendURL}/getUser`, {
             withCredentials: true,
