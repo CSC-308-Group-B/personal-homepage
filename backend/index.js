@@ -35,11 +35,16 @@ app.use(express.json());
     SESSIONS / USER AUTHENTICATION
 
 */
+app.set("trust proxy", 1);
 app.use(
     session({
         secret: process.env.LOGIN_SESSION_SECRET,
         resave: true,
         saveUninitialized: true,
+        cookie: {
+            sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax', // must be 'none' to enable cross-site delivery
+            secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
+        }
     })
 );
 app.use(passport.initialize());
