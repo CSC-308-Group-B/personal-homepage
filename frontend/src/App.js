@@ -7,9 +7,8 @@ import "./draggable.js";
 import Background from "./components/Background";
 
 export const backendURL =
-    process.env.REACT_APP_BE_URL
-        ? process.env.REACT_APP_BE_URL
-        : "http://polypage.herokuapp.com";
+    process.env.REACT_APP_FE_URL
+        | "http://polypage.herokuapp.com";
 
 class App extends React.Component {
     constructor(props) {
