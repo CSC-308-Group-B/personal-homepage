@@ -39,7 +39,6 @@ class BookmarksTile extends React.Component {
         this.urlInputRef.current.value = "";
     }
 
-
     addBookmark = async () => {
         //create the new bookmarks object
         const newBookmark = this.getTextInput();
