@@ -9,7 +9,7 @@ import Background from "./components/Background";
 export const backendURL =
     process.env.REACT_APP_FE_URL !== 0
         ? process.env.REACT_APP_FE_URL
-        : "http://polypage.herokuapp.com";
+        : "http://polypage-api.herokuapp.com";
 
 class App extends React.Component {
     constructor(props) {
@@ -103,6 +103,8 @@ class App extends React.Component {
     };
 
     render() {
+        console.log(backendURL);
+        console.log(process.env.REACT_APP_FE_URL);
         return (
             <div className="App NoHorizontalScroll">
                 <UserPage
