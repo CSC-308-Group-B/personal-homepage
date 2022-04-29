@@ -11,7 +11,7 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const canvasAPI = require("node-canvas-api");
 
-const canvasAxios = process.env.CANVAS_API_DOMAIN
+const canvasAxios = process.env.CANVAS_API_TOKEN
     ? axios.create({
           withCredentials: true,
           baseURL: process.env.CANVAS_API_DOMAIN,
