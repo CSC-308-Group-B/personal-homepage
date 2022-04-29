@@ -96,7 +96,12 @@ class BookmarksTile extends React.Component {
         if (this.props.canEdit) inputGroupClassName += " canEdit";
 
         return (
-            <Card className="Card">
+            <Card
+                className="Card"
+                style={{
+                    backgroundColor: `rgba(${this.props.tileColor.r}, ${this.props.tileColor.g}, ${this.props.tileColor.b}, ${this.props.tileColor.a})`,
+                }}
+            >
                 <Card.Body>
                     <Card.Title>Bookmarks</Card.Title>
                     <ListGroup className="bookmarkItems">

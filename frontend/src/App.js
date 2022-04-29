@@ -90,6 +90,7 @@ class App extends React.Component {
             width: 1,
             x: 0,
             y: 0,
+            color: { r: 255, g: 255, b: 255, a: 1 },
             ...defaultFields,
         };
         //Try adding tile to backend

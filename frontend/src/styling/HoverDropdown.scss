@@ -3,24 +3,29 @@
     overflow: none;
     width: 100%;
     z-index: 100;
-    & > .dropdown > .dropdown-toggle,
+
+    & > .dropend > .dropdown-toggle,
     & > .dropdown-toggle {
         background: none;
         border: none;
         width: 100%;
         margin: auto;
         padding: 0;
+
         &:after {
             content: "";
             display: none;
         }
+
         & img {
             width: 2rem;
+
             &:hover {
                 transform: scale(1.1);
             }
         }
     }
+
     & > .dropdown-menu {
         margin: auto;
         padding: 0;
@@ -42,10 +47,12 @@
 
 .NestedHoverDropdown {
     padding: 0.25rem 0.6rem;
+
     &:hover {
         background-color: #ddd;
     }
-    & > .dropdown > .dropdown-toggle {
+
+    & > .dropend > .dropdown-toggle {
         color: #222;
         text-align: left;
         background: none;

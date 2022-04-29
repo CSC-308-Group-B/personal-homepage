@@ -8,7 +8,6 @@ interact(".draggable").draggable({
     modifiers: [
         interact.modifiers.restrictRect({
             restriction: "parent",
-            endOnly: true,
         }),
     ],
     listeners: {
@@ -52,17 +51,19 @@ interact(".draggable").draggable({
 });
 
 function dragMoveListener(event) {
-    //calculate new x and y
-    const x =
-        (parseFloat(event.target.getAttribute("data-x")) || 0) +
-        (event.dx / window.innerWidth) * 100;
-    const y =
-        (parseFloat(event.target.getAttribute("data-y")) || 0) +
-        event.dy /
-            parseFloat(getComputedStyle(document.documentElement).fontSize);
-    //move to new x and y
-    moveTile(event.target, x, y);
-    snapTile(event.target, true);
+    if (!inDropdown()) {
+        //calculate new x and y
+        const x =
+            (parseFloat(event.target.getAttribute("data-x")) || 0) +
+            (event.dx / window.innerWidth) * 100;
+        const y =
+            (parseFloat(event.target.getAttribute("data-y")) || 0) +
+            event.dy /
+                parseFloat(getComputedStyle(document.documentElement).fontSize);
+        //move to new x and y
+        moveTile(event.target, x, y);
+        snapTile(event.target, true);
+    }
 }
 
 function moveTile(target, x, y) {
@@ -96,6 +97,24 @@ function snapTile(x, y) {
         x: roundedX,
         y: roundedY,
     };
+}
+
+function inDropdown() {
+    let list = document.querySelectorAll(":hover");
+
+    //Check the parent element for any of there values.
+    //The fact that its the parent element of the last rendered value is important.
+    //The minus 2 value represents the parent.
+    for (let className of list[list.length - 2].classList.values()) {
+        if (
+            className.includes("react-colorful") ||
+            className.includes("dropdown") ||
+            className.includes("dropend") ||
+            className.includes("HoverDropdown")
+        )
+            return true;
+    }
+    return false;
 }
 
 // this function is used later in the resizing and gesture demos

@@ -51,6 +51,9 @@ class HoverDropdown extends React.Component {
                 <DropdownButton
                     show={this.state.visible}
                     title={this.props.toggleContent}
+                    key="end"
+                    id={`dropdown-button-drop-end`}
+                    drop="end"
                 >
                     {this.props.children}
                 </DropdownButton>
