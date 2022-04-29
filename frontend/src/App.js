@@ -44,7 +44,6 @@ class App extends React.Component {
         const result = await axios.get(`${backendURL}/getUser`, {
             withCredentials: true,
         });
-        console.log(result);
         return result.data;
     };
 
