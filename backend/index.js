@@ -11,18 +11,19 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const canvasAPI = require("node-canvas-api");
 
-const canvasAxios = axios.create({
-    withCredentials: true,
-    baseURL: process.env.CANVAS_API_DOMAIN,
-    headers: {
-        Authorization: `Bearer ${process.env.CANVAS_API_TOKEN}`,
-    },
-});
+const canvasAxios = process.env.CANVAS_API_TOKEN
+    ? axios.create({
+          withCredentials: true,
+          baseURL: process.env.CANVAS_API_DOMAIN,
+          headers: {
+              Authorization: `Bearer ${process.env.CANVAS_API_TOKEN}`,
+          },
+      })
+    : null;
 
 //create app
 const app = express();
 //misc config
-const port = process.env.PORT;
 app.use(
     cors({
         origin: [process.env.FE_URL],
@@ -36,11 +37,16 @@ app.use(express.json());
     SESSIONS / USER AUTHENTICATION
 
 */
+app.set("trust proxy", 1);
 app.use(
     session({
         secret: process.env.LOGIN_SESSION_SECRET,
         resave: true,
         saveUninitialized: true,
+        cookie: {
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // must be 'none' to enable cross-site delivery
+            secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
+        },
     })
 );
 app.use(passport.initialize());
@@ -93,7 +99,7 @@ app.get(
 //3) on success/error, return to our homepage. Now that the session is initialized, the user will be signed in immediately
 app.get(
     "/api/auth/google/callback",
-    passport.authenticate("google", { failureRedirect: "/" }),
+    passport.authenticate("google", { failureRedirect: "/failure" }),
     (req, res) => {
         res.redirect(process.env.FE_URL);
     }
@@ -111,10 +117,18 @@ app.get("/getUser", async (req, res) => {
 
 //For a valid result, it should return an id and name
 app.get("/canvas/self", async (req, res, next) => {
+    if (!canvasAxios) {
+        res.status(404).send();
+        return;
+    }
     canvasAPI.getSelf().then((self) => res.send(self));
 });
 
 app.get("/canvas/activecourses", async (req, res) => {
+    if (!canvasAxios) {
+        res.status(404).send();
+        return;
+    }
     canvasAxios
         .get(`/users/self/favorites/courses?include=total_scores`)
         .then((response) => res.send(response.data))
@@ -122,6 +136,10 @@ app.get("/canvas/activecourses", async (req, res) => {
 });
 
 app.get("/canvas/enrollments", async (req, res) => {
+    if (!canvasAxios) {
+        res.status(404).send();
+        return;
+    }
     canvasAxios
         .get(`users/self/enrollments?include=uuid`)
         .then((response) => res.send(response.data))
@@ -129,6 +147,10 @@ app.get("/canvas/enrollments", async (req, res) => {
 });
 
 app.get("/canvas/upcomingassignments", async (req, res) => {
+    if (!canvasAxios) {
+        res.status(404).send();
+        return;
+    }
     canvasAxios
         .get(`users/self/todo`)
         .then((response) => res.send(response.data))
@@ -140,7 +162,6 @@ app.get("/canvas/upcomingassignments", async (req, res) => {
     OTHER ENDPOINTS
 
 */
-//We'll eventually update these to require credentials
 
 app.get("/", (req, res) => {
     res.send("Hello, world!");
@@ -335,7 +356,6 @@ app.post("/moveTileMobile", async (req, res) => {
         req.body.tileId,
         req.body.direction
     );
-
     if (result) {
         res.status(200).send(result);
     } else if (result == undefined) {
@@ -346,6 +366,6 @@ app.post("/moveTileMobile", async (req, res) => {
 });
 
 //Begin listening
-app.listen(port, () => {
-    console.log(`Now listening at port ${port}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Now listening at port ${process.env.PORT}`);
 });

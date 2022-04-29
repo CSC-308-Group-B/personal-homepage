@@ -44,7 +44,7 @@ class UserPage extends React.Component {
 
     moveTileMobile = async (tileId, direction) => {
         const response = await axios.post(
-            `http://localhost:5001/moveTileMobile`,
+            `${backendURL}/moveTileMobile`,
             {
                 tiles: this.props.user.tiles,
                 tileId: tileId,

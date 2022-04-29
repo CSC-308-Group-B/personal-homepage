@@ -4,6 +4,7 @@
   "description": "backend",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "jest --coverage",
     "format": "prettier --write ./model && prettier --write ./index.js",
     "checkFormat": "prettier --check ./model && prettier --write ./index.js",

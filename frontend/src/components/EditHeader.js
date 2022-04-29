@@ -49,9 +49,7 @@ class EditHeader extends React.Component {
                         Todo List
                     </HoverDropdown.Item>
                     <HoverDropdown.Item
-                        onClick={() =>
-                            this.props.addTile("BookmarksTile", { width: 2 })
-                        }
+                        onClick={() => this.props.addTile("BookmarksTile")}
                     >
                         Bookmarks
                     </HoverDropdown.Item>
@@ -80,7 +78,9 @@ class EditHeader extends React.Component {
                         Cat Gifs
                     </HoverDropdown.Item>
                     <HoverDropdown.Item
-                        onClick={() => this.props.addTile("TwitchTile")}
+                        onClick={() =>
+                            this.props.addTile("TwitchTile", { width: 2 })
+                        }
                     >
                         Twitch
                     </HoverDropdown.Item>
