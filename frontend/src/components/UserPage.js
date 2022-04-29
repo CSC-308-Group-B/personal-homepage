@@ -53,7 +53,7 @@ class UserPage extends React.Component {
             { withCredentials: true }
         );
 
-        if (response.status == 200) {
+        if (response.status === 200) {
             this.props.updateUser(response.data);
         }
     };
