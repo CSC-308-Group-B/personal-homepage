@@ -11,13 +11,15 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const canvasAPI = require("node-canvas-api");
 
-const canvasAxios = axios.create({
-    withCredentials: true,
-    baseURL: process.env.CANVAS_API_DOMAIN,
-    headers: {
-        Authorization: `Bearer ${process.env.CANVAS_API_TOKEN}`,
-    },
-});
+const canvasAxios = process.env.CANVAS_API_DOMAIN
+    ? axios.create({
+          withCredentials: true,
+          baseURL: process.env.CANVAS_API_DOMAIN,
+          headers: {
+              Authorization: `Bearer ${process.env.CANVAS_API_TOKEN}`,
+          },
+      })
+    : null;
 
 //create app
 const app = express();
@@ -117,10 +119,18 @@ app.get("/getUser", async (req, res) => {
 
 //For a valid result, it should return an id and name
 app.get("/canvas/self", async (req, res, next) => {
+    if (!canvasAxios) {
+        res.status(404).send();
+        return;
+    }
     canvasAPI.getSelf().then((self) => res.send(self));
 });
 
 app.get("/canvas/activecourses", async (req, res) => {
+    if (!canvasAxios) {
+        res.status(404).send();
+        return;
+    }
     canvasAxios
         .get(`/users/self/favorites/courses?include=total_scores`)
         .then((response) => res.send(response.data))
@@ -128,6 +138,10 @@ app.get("/canvas/activecourses", async (req, res) => {
 });
 
 app.get("/canvas/enrollments", async (req, res) => {
+    if (!canvasAxios) {
+        res.status(404).send();
+        return;
+    }
     canvasAxios
         .get(`users/self/enrollments?include=uuid`)
         .then((response) => res.send(response.data))
@@ -135,6 +149,10 @@ app.get("/canvas/enrollments", async (req, res) => {
 });
 
 app.get("/canvas/upcomingassignments", async (req, res) => {
+    if (!canvasAxios) {
+        res.status(404).send();
+        return;
+    }
     canvasAxios
         .get(`users/self/todo`)
         .then((response) => res.send(response.data))
