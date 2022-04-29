@@ -6,9 +6,7 @@ import axios from "axios";
 import "./draggable.js";
 import Background from "./components/Background";
 
-
-export const backendURL = process.env.REACT_APP_FE_URL;
-
+export const backendURL = process.env.REACT_APP_BE_URL;
 
 class App extends React.Component {
     constructor(props) {
