@@ -340,7 +340,6 @@ app.post("/moveTileMobile", async (req, res) => {
         req.body.tileId,
         req.body.direction
     );
-
     if (result) {
         res.status(200).send(result);
     } else if (result == undefined) {
