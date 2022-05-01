@@ -68,9 +68,10 @@ class UserPage extends React.Component {
 
     updateTileAreaHeight = (y) => {
         this.maxPageHeight = Math.max(this.maxPageHeight, y);
-        let dragArea = document.getElementById("tileDragArea");
-        if (dragArea) {
-            dragArea.style.paddingTop = this.maxPageHeight + "vw";
+        let extraDragSpace = document.getElementById("extraDragSpace");
+        if (extraDragSpace) {
+            console.log(this.maxPageHeight)
+            extraDragSpace.style.transform = `translate(0, ${this.maxPageHeight}rem)`;
         }
     };
 
@@ -102,7 +103,7 @@ class UserPage extends React.Component {
                     onClick={() => this.toggleEdit()}
                 ></input>
 
-                <div id="tileDragArea">
+                <div id={"tileDragArea"} className={(this.state.canEdit ? "canEdit" : "")}>
                     {this.props.user.tiles.map((tile) => {
                         this.updateTileAreaHeight(tile.y);
                         return (
@@ -119,8 +120,12 @@ class UserPage extends React.Component {
                         );
                     })}
                     <div
+                        id="editModeStatus"
+                        className={(this.state.canEdit) && "extraDragSpaceVisible"}
+                    />
+                    <div
                         id="extraDragSpace"
-                        className={this.state.canEdit ? "extraDragSpace" : ""}
+                        className={(this.state.canEdit) && "extraDragSpaceVisible"}
                     />
                 </div>
             </div>
