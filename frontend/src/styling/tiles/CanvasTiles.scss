@@ -1,0 +1,11 @@
+.CanvasIcon {
+    position: relative;
+    bottom: 0.2rem;
+    height: 2rem;
+    width: 2rem;
+    transform: translate(0, 0);
+    transition: 0.3s;
+    &.Editing {
+        transform: translate(-2rem, 0);
+    }
+}

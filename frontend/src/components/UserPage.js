@@ -70,7 +70,6 @@ class UserPage extends React.Component {
         this.maxPageHeight = Math.max(this.maxPageHeight, y);
         let extraDragSpace = document.getElementById("extraDragSpace");
         if (extraDragSpace) {
-            console.log(this.maxPageHeight);
             extraDragSpace.style.transform = `translate(0, ${this.maxPageHeight}rem)`;
         }
     };
