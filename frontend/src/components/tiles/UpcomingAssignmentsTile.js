@@ -47,9 +47,12 @@ class UpcomingAssignmentsTile extends React.Component {
                         ) + "'s Assignments"}
                         {!this.props.canEdit && (
                             <img
-                            className={"CanvasIcon" + (this.props.canEdit ? " Editing" : "")}
-                            alt="C"
-                            src={require("../../styling/img/Canvas_Bug_Color_RGB.png")}
+                                className={
+                                    "CanvasIcon" +
+                                    (this.props.canEdit ? " Editing" : "")
+                                }
+                                alt="C"
+                                src={require("../../styling/img/Canvas_Bug_Color_RGB.png")}
                             />
                         )}
                     </Card.Title>

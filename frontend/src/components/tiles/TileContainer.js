@@ -75,7 +75,10 @@ class Tile extends React.Component {
                         toggleContent={
                             <img
                                 alt="#"
-                                src={require("../../styling/img/Ellipsis.svg").default}
+                                src={
+                                    require("../../styling/img/Ellipsis.svg")
+                                        .default
+                                }
                             />
                         }
                     >

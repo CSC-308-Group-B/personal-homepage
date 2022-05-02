@@ -46,7 +46,10 @@ class GradesTile extends React.Component {
                             this.state.student.name.indexOf(" ")
                         ) + "'s Grades"}
                         <img
-                            className={"CanvasIcon" + (this.props.canEdit ? " Editing" : "")}
+                            className={
+                                "CanvasIcon" +
+                                (this.props.canEdit ? " Editing" : "")
+                            }
                             alt="C"
                             src={require("../../styling/img/Canvas_Bug_Color_RGB.png")}
                         />
