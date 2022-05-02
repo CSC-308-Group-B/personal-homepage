@@ -70,7 +70,7 @@ class UserPage extends React.Component {
         this.maxPageHeight = Math.max(this.maxPageHeight, y);
         let extraDragSpace = document.getElementById("extraDragSpace");
         if (extraDragSpace) {
-            console.log(this.maxPageHeight)
+            console.log(this.maxPageHeight);
             extraDragSpace.style.transform = `translate(0, ${this.maxPageHeight}rem)`;
         }
     };
@@ -83,7 +83,7 @@ class UserPage extends React.Component {
         document.title = `${this.props.user.name}'s Personal Homepage`;
 
         return (
-            <div>
+            <div className="UserPage">
                 <EditHeader
                     color={this.props.color}
                     backgroundImage={this.props.backgroundImage}
@@ -94,16 +94,17 @@ class UserPage extends React.Component {
                     canEdit={this.state.canEdit}
                     canPick={this.state.canPick}
                 />
-
-                <input
+                <img
                     className="EditModeToggler"
-                    type="image"
                     alt="#"
                     src="https://icon-library.com/images/white-menu-icon-png/white-menu-icon-png-18.jpg"
                     onClick={() => this.toggleEdit()}
-                ></input>
+                ></img>
 
-                <div id={"tileDragArea"} className={(this.state.canEdit ? "canEdit" : "")}>
+                <div
+                    id={"tileDragArea"}
+                    className={this.state.canEdit && "canEdit"}
+                >
                     {this.props.user.tiles.map((tile) => {
                         this.updateTileAreaHeight(tile.y);
                         return (
@@ -119,14 +120,10 @@ class UserPage extends React.Component {
                             />
                         );
                     })}
-                    <div
-                        id="editModeStatus"
-                        className={(this.state.canEdit) && "extraDragSpaceVisible"}
-                    />
-                    <div
-                        id="extraDragSpace"
-                        className={(this.state.canEdit) && "extraDragSpaceVisible"}
-                    />
+                    <div id="editModeStatus">
+                        <div>EDITING</div>
+                    </div>
+                    <div id="extraDragSpace" />
                 </div>
             </div>
         );

@@ -101,7 +101,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="App NoHorizontalScroll">
+            <div className="App">
                 <UserPage
                     user={this.state.user}
                     color={this.state.color}
