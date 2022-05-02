@@ -1,4 +1,7 @@
 @import "variables.scss";
+
+$editModeStatusColor: #00FFFF;
+
 .UserPage {
     overflow: hidden;
     width: 100vw;
@@ -12,7 +15,7 @@
     position: relative;
     &.canEdit {
         & > #editModeStatus {
-            border-color: red;
+            border-color: $editModeStatusColor;
             top: 3rem;
             height: calc(100vh - 3rem);
             & > div {
@@ -37,7 +40,7 @@
     & > div {
         font-size: 2rem;
         text-align: right;
-        color: red;
+        color: $editModeStatusColor;
         font-weight: bold;
         position: fixed;
         left: calc(100vw - 11rem);
