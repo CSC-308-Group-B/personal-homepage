@@ -74,6 +74,7 @@ class UserPage extends React.Component {
         }
     };
 
+
     render() {
         if (!this.props.user || !this.props.user.tiles) return <SignIn />;
 
@@ -84,6 +85,8 @@ class UserPage extends React.Component {
         return (
             <div>
                 <EditHeader
+                    streamerName={this.props.streamerName}
+                    updateStreamerName={this.props.updateStreamerName}
                     color={this.props.color}
                     backgroundImage={this.props.backgroundImage}
                     updateBackgroundImage={this.props.updateBackgroundImage}

@@ -226,6 +226,17 @@ app.post("/setBackgroundImage", async (req, res) => {
     }
 });
 
+app.post("/setSteamerName", async (req, res) => {
+    const result = await userServices.setUserFields(req.user._id, {
+        streamerName: req.body.streamerName,
+    });
+    if (result) {
+        res.status(200).send("Updated Streamer Name");
+    } else {
+        res.status(500).send("Unable to update Streamer Name.");
+    }
+});
+
 app.post("/u/moveTile", async (req, res) => {
     const result = await userServices.updateTileFields(
         req.user._id,

@@ -40,7 +40,7 @@ class TwitchTile extends React.Component {
                         url={`https://www.twitch.tv/${this.state.streamer}`}
                         width="100%"
                         height="100%"
-                        playing = {true}
+                        playing={true}
                     />
                 </Card.Body>
             </Card>
