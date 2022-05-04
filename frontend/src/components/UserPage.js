@@ -75,6 +75,7 @@ class UserPage extends React.Component {
         }
     };
 
+
     render() {
         if (!this.props.user || !this.props.user.tiles) return <SignIn />;
 

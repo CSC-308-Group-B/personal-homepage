@@ -1,25 +1,37 @@
 import Card from "react-bootstrap/Card";
 import React from "react";
 import ReactPlayer from "react-player";
+import axios from "axios";
+import { backendURL } from "../../App.js";
 
 class TwitchTile extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            streamer: "",
+            streamer: (this.props.data && this.props.data.streamerName) || "",
         };
     }
 
-    updateStreamer = () => {
-        const updatedStreamer = document.getElementById("streamer").value;
-        this.setState({ streamer: updatedStreamer });
+    updateStreamer = async (streamer) => {
+        const response = await axios.post(
+            `${backendURL}/setStreamerName`,
+            {tileId: this.props._id, streamerName: streamer },
+            { withCredentials: true }
+        );
+
+        if (response) {
+            this.setState({ streamer: streamer });
+        }
+        
     };
 
     handleKeyPress = (event) => {
         if (event.key === "Enter") {
-            this.updateStreamer(this.value);
+            this.updateStreamer(event.target.value);
         }
     };
+
+    
 
     render() {
         return (
@@ -28,17 +40,20 @@ class TwitchTile extends React.Component {
                     <Card.Title style={{ color: "black" }}>
                         Twitch&ensp;
                         <input
+                            defaultValue={this.state.streamer}
                             size="15"
                             id="streamer"
                             placeholder="Streamer"
                             onKeyPress={this.handleKeyPress}
                         />
                     </Card.Title>
+
                     <ReactPlayer
                         className="TwitchPlayer"
                         url={`https://www.twitch.tv/${this.state.streamer}`}
-                        width="100%"
-                        height="100%"
+                        // width="100%"
+                        // height="100%"
+                        playing={true}
                     />
                 </Card.Body>
             </Card>
