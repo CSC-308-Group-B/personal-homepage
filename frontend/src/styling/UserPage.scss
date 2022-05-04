@@ -1,6 +1,6 @@
 @import "variables.scss";
 
-$editModeStatusColor: #00FFFF;
+$editModeStatusColor: #00ffff;
 
 .UserPage {
     overflow: hidden;
@@ -74,4 +74,5 @@ $editModeStatusColor: #00FFFF;
     height: 200vh;
     max-height: 0;
     transition: 1s ease;
+    z-index: -10;
 }

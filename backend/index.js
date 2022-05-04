@@ -360,6 +360,19 @@ app.delete("/removeBookmark", async (req, res) => {
     }
 });
 
+app.post("/updateNoteText", async (req, res) => {
+    const result = await userServices.updateTileDataFields(
+        req.user._id,
+        req.body.tileId,
+        { text: req.body.text } //passes to user services
+    );
+    if (result) {
+        res.status(200).send("Updated note.");
+    } else {
+        res.status(500).send("Unable to update note.");
+    }
+});
+
 app.post("/moveTileMobile", async (req, res) => {
     const result = await userServices.moveTileMobile(
         req.user._id,

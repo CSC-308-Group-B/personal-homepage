@@ -1,0 +1,14 @@
+.noteTile{
+    & > textarea {
+        background-color: rgb(255, 255, 140);
+        width: 100%;
+        min-height: 10rem;
+        max-height: 40rem;
+        padding: 1.5rem;
+        font-family: cursive;
+        font-size: 1.5rem;
+        border: none;
+        overflow: auto;
+        outline: none;
+    }
+}
