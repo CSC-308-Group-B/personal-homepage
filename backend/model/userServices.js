@@ -11,7 +11,7 @@ function setDbConnection(conn) {
 
 function getDbConnection() {
     if (!dbConnection) {
-        const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.9qzfh.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+        const uri = process.env.DB_URL;
         dbConnection = mongoose.createConnection(uri, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
@@ -147,6 +147,35 @@ async function updateTileFields(userId, tileId, updatedFields) {
     }
 }
 
+async function updateTileDataFields(userId, tileId, updatedFields) {
+    const userModel = getDbConnection().model("User", UserSchema);
+    let newFields = {};
+    for (key of Object.keys(updatedFields)) {
+        newFields[`tiles.$.data.${key}`] = updatedFields[key];
+    }
+    try {
+        return (
+            (await userModel.findOneAndUpdate(
+                {
+                    _id: userId,
+                    "tiles._id": tileId,
+                },
+                {
+                    $set: newFields,
+                },
+                {
+                    upsert: true,
+                    new: true,
+                    safe: true,
+                }
+            )) || undefined
+        );
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
+}
+
 async function addTileListItem(userId, tileId, newItem) {
     const userModel = getDbConnection().model("User", UserSchema);
     try {
@@ -255,6 +284,74 @@ async function updateTileListItem(userId, tileId, itemId, updatedFields) {
     }
 }
 
+function swapTiles(tiles, tileIndex1, tileIndex2) {
+    temp = tiles[tileIndex2];
+    tiles[tileIndex2] = tiles[tileIndex1];
+    tiles[tileIndex1] = temp;
+    return tiles;
+}
+async function moveTileMobile(userId, tiles, tileId, direction) {
+    const userModel = getDbConnection().model("User", UserSchema);
+
+    var tileIndex = 0;
+
+    for (tile of tiles) {
+        //If we find the tile we want to move up
+        if (tile._id.toString() == tileId.toString()) {
+            //Edge Cases
+            if (direction === "up" && tileIndex == 0) {
+                return undefined;
+            } else if (direction === "down" && tileIndex == tiles.length - 1) {
+                return undefined;
+            } else if (direction === "top" && tileIndex == 0) {
+                return undefined;
+            } else if (
+                direction === "bottom" &&
+                tileIndex == tiles.length - 1
+            ) {
+                return undefined;
+            } else {
+                //Swap previous tile with the identified tile
+                if (direction === "up")
+                    swappedTiles = swapTiles(tiles, tileIndex, tileIndex - 1);
+                else if (direction === "down")
+                    swappedTiles = swapTiles(tiles, tileIndex, tileIndex + 1);
+                else if (direction === "top")
+                    swappedTiles = swapTiles(tiles, tileIndex, 0);
+                else if (direction === "bottom")
+                    swappedTiles = swapTiles(
+                        tiles,
+                        tileIndex,
+                        tiles.length - 1
+                    );
+
+                //Update backend to new tile array
+                try {
+                    return (
+                        (await userModel.findOneAndUpdate(
+                            {
+                                _id: userId,
+                            },
+                            {
+                                $set: { tiles: swappedTiles },
+                            },
+                            {
+                                upsert: true,
+                                new: true,
+                                safe: true,
+                            }
+                        )) || undefined
+                    );
+                } catch (error) {
+                    console.log(error);
+                    return undefined;
+                }
+            }
+        }
+        tileIndex++;
+    }
+}
+
 exports.setDbConnection = setDbConnection;
 exports.getUserById = getUserById;
 exports.getUsers = getUsers;
@@ -265,7 +362,9 @@ exports.addTileToUserById = addTileToUserById;
 exports.removeTileFromUserByIds = removeTileFromUserByIds;
 exports.getUserByEmail = getUserByEmail;
 exports.updateTileFields = updateTileFields;
+exports.updateTileDataFields = updateTileDataFields;
 exports.updateTileListItem = updateTileListItem;
 exports.addTileListItem = addTileListItem;
 exports.deleteTileListItem = deleteTileListItem;
 exports.getTileListItem = getTileListItem;
+exports.moveTileMobile = moveTileMobile;

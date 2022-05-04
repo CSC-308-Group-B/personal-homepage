@@ -2,6 +2,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import axios from "axios";
+import { backendURL } from "../../App.js";
 
 class UpcomingAssignmentsTile extends React.Component {
     constructor(props) {
@@ -15,11 +16,11 @@ class UpcomingAssignmentsTile extends React.Component {
 
     componentDidMount() {
         axios
-            .get("http://localhost:5001/canvas/self")
+            .get(`${backendURL}/canvas/self`)
             .then((response) => this.setStudent(response.data));
 
         axios
-            .get("http://localhost:5001/canvas/upcomingassignments")
+            .get(`${backendURL}/canvas/upcomingassignments`)
             .then((response) => this.setAssignments(response.data));
     }
 
@@ -32,7 +33,7 @@ class UpcomingAssignmentsTile extends React.Component {
     };
 
     getCanvasUser = async () => {
-        return await axios.get(`http://localhost:5001/canvas/self`);
+        return await axios.get(`${backendURL}/canvas/self`);
     };
 
     render() {
@@ -46,7 +47,11 @@ class UpcomingAssignmentsTile extends React.Component {
                         ) + "'s Assignments"}
                         {!this.props.canEdit && (
                             <img
-                                className="small-icon"
+                                className={
+                                    "CanvasIcon" +
+                                    (this.props.canEdit ? " Editing" : "")
+                                }
+                                alt="C"
                                 src={require("../../styling/img/Canvas_Bug_Color_RGB.png")}
                             />
                         )}

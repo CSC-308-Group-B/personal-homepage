@@ -2,6 +2,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import axios from "axios";
+import { backendURL } from "../../App.js";
 
 class GradesTile extends React.Component {
     constructor(props) {
@@ -15,11 +16,11 @@ class GradesTile extends React.Component {
 
     componentDidMount() {
         axios
-            .get("http://localhost:5001/canvas/self")
+            .get(`${backendURL}/canvas/self`)
             .then((response) => this.setStudent(response.data));
 
         axios
-            .get("http://localhost:5001/canvas/activecourses")
+            .get(`${backendURL}/canvas/activecourses`)
             .then((response) => this.setCourses(response.data));
     }
 
@@ -32,7 +33,7 @@ class GradesTile extends React.Component {
     };
 
     getCanvasUser = async () => {
-        return await axios.get(`http://localhost:5001/canvas/self`);
+        return await axios.get(`${backendURL}/canvas/self`);
     };
 
     render() {
@@ -44,12 +45,14 @@ class GradesTile extends React.Component {
                             0,
                             this.state.student.name.indexOf(" ")
                         ) + "'s Grades"}
-                        {!this.props.canEdit && (
-                            <img
-                                className="small-icon"
-                                src={require("../../styling/img/Canvas_Bug_Color_RGB.png")}
-                            />
-                        )}
+                        <img
+                            className={
+                                "CanvasIcon" +
+                                (this.props.canEdit ? " Editing" : "")
+                            }
+                            alt="C"
+                            src={require("../../styling/img/Canvas_Bug_Color_RGB.png")}
+                        />
                     </Card.Title>
                     <ListGroup>
                         {this.state.courses.map((course) => {

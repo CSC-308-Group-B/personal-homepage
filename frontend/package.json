@@ -11,6 +11,7 @@
     "bootstrap-colorpicker": "^3.4.0",
     "bootstrap-icons": "^1.8.1",
     "bootstrap-switch-button-react": "^1.2.0",
+    "dotenv": "^16.0.0",
     "interactjs": "^1.10.11",
     "prettier": "^2.6.2",
     "react": "^17.0.2",
@@ -27,7 +28,8 @@
   "scripts": {
     "format": "prettier --write ./src",
     "checkFormat": "prettier --check ./src",
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [

@@ -3,6 +3,7 @@ import Tile from "./tiles/TileContainer";
 import SignIn from "./SignIn";
 import axios from "axios";
 import EditHeader from "./EditHeader";
+import { backendURL } from "../App.js";
 
 //bro thats crazy
 
@@ -18,7 +19,7 @@ class UserPage extends React.Component {
 
     moveTile = async (tileId, x, y) => {
         await axios.post(
-            "http://localhost:5001/u/moveTile",
+            `${backendURL}/u/moveTile`,
             {
                 userId: this.props.user._id,
                 tileId: tileId,
@@ -32,7 +33,7 @@ class UserPage extends React.Component {
 
     removeTile = async (tileId) => {
         const response = await axios.delete(
-            `http://localhost:5001/u/${this.props.user._id}/${tileId}`,
+            `${backendURL}/u/${this.props.user._id}/${tileId}`,
             { withCredentials: true }
         );
         if (response) {
@@ -40,6 +41,22 @@ class UserPage extends React.Component {
                 return tile._id !== tileId;
             });
             this.props.updateUser(this.props.user);
+        }
+    };
+
+    moveTileMobile = async (tileId, direction) => {
+        const response = await axios.post(
+            `${backendURL}/moveTileMobile`,
+            {
+                tiles: this.props.user.tiles,
+                tileId: tileId,
+                direction: direction,
+            },
+            { withCredentials: true }
+        );
+
+        if (response.status === 200) {
+            this.props.updateUser(response.data);
         }
     };
 
@@ -53,9 +70,9 @@ class UserPage extends React.Component {
 
     updateTileAreaHeight = (y) => {
         this.maxPageHeight = Math.max(this.maxPageHeight, y);
-        let dragArea = document.getElementById("tileDragArea");
-        if (dragArea) {
-            dragArea.style.paddingTop = this.maxPageHeight + "vw";
+        let extraDragSpace = document.getElementById("extraDragSpace");
+        if (extraDragSpace) {
+            extraDragSpace.style.transform = `translate(0, ${this.maxPageHeight}rem)`;
         }
     };
 
@@ -67,7 +84,7 @@ class UserPage extends React.Component {
         document.title = `${this.props.user.name}'s Personal Homepage`;
 
         return (
-            <div>
+            <div className="UserPage">
                 <EditHeader
                     color={this.props.color}
                     backgroundImage={this.props.backgroundImage}
@@ -78,16 +95,17 @@ class UserPage extends React.Component {
                     canEdit={this.state.canEdit}
                     canPick={this.state.canPick}
                 />
-
-                <input
+                <img
                     className="EditModeToggler"
-                    type="image"
                     alt="#"
                     src="https://icon-library.com/images/white-menu-icon-png/white-menu-icon-png-18.jpg"
                     onClick={() => this.toggleEdit()}
-                ></input>
+                ></img>
 
-                <div id="tileDragArea">
+                <div
+                    id={"tileDragArea"}
+                    className={this.state.canEdit && "canEdit"}
+                >
                     {this.props.user.tiles.map((tile) => {
                         this.updateTileAreaHeight(tile.y);
                         return (
@@ -97,15 +115,16 @@ class UserPage extends React.Component {
                                 userId={this.props.user._id}
                                 deleteTile={this.removeTile}
                                 moveTile={this.moveTile}
+                                moveTileMobile={this.moveTileMobile}
                                 canEdit={this.state.canEdit}
                                 snapToGrid={this.state.snapToGrid}
                             />
                         );
                     })}
-                    <div
-                        id="extraDragSpace"
-                        className={this.state.canEdit ? "extraDragSpace" : ""}
-                    />
+                    <div id="editModeStatus">
+                        <div>EDITING</div>
+                    </div>
+                    <div id="extraDragSpace" />
                 </div>
             </div>
         );
