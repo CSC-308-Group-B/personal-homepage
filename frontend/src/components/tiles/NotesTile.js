@@ -1,6 +1,7 @@
 import Card from "react-bootstrap/Card";
 import React from "react";
 import axios from "axios";
+import { backendURL } from "../../App.js";
 
 class NotesTile extends React.Component {
     constructor(props) {
@@ -11,20 +12,18 @@ class NotesTile extends React.Component {
         console.log(this.props);
         //state. json object no equals
         this.state = {
-            
             // text: this.props.tile.data.text || ''
         };
     }
 
-     handleChange = async (event) => {
+    handleChange = async (event) => {
         let string = event.target.value;
-        if(string === this.state.text)
-        {
+        if (string === this.state.text) {
             return;
         }
-        
+
         const response = await axios.post(
-            `http://localhost:5001/updateNoteText`,
+            `${backendURL}/updateNoteText`,
             {
                 tileId: this.props._id,
                 text: string,
@@ -32,26 +31,23 @@ class NotesTile extends React.Component {
             { withCredentials: true }
         );
 
-
-
-        if(response)
-          this.setState({text: string});
+        if (response) this.setState({ text: string });
         // console.log(event.target.value);
-    }
+    };
 
-//   handleSubmit(event) {
-//     alert('You said this: ' + this.state.value);
-//     const{field1} = this.state;
-//     const output = [{field1}];
+    //   handleSubmit(event) {
+    //     alert('You said this: ' + this.state.value);
+    //     const{field1} = this.state;
+    //     const output = [{field1}];
 
-//     this.setState({
-//         credentials: true
-//     });
+    //     this.setState({
+    //         credentials: true
+    //     });
 
-//     event.preventDefault();
-//   }
+    //     event.preventDefault();
+    //   }
 
-  //Tile will have on and off triggger by click
+    //Tile will have on and off triggger by click
 
     render() {
         return (
@@ -59,11 +55,14 @@ class NotesTile extends React.Component {
                 <Card.Body className="noteBody">
                     <Card.Title>Note</Card.Title>
 
-                    <textarea classname="noteTextarea" name="field1"
-                         placeholdervalue={this.state.value} onBlur={this.handleChange} />
+                    <textarea
+                        classname="noteTextarea"
+                        name="field1"
+                        placeholdervalue={this.state.value}
+                        onBlur={this.handleChange}
+                    />
 
-                         
-                {/* <form onSubmit={this.handleSubmit} className = "bruhNote">
+                    {/* <form onSubmit={this.handleSubmit} className = "bruhNote">
                     <label className = "noteLabel">
                         Your Note:
                         <textarea classname="noteTextarea" name="field1"
@@ -72,15 +71,11 @@ class NotesTile extends React.Component {
                     <input className="ipadKid" type="submit" value="enter" />
                 </form> */}
 
-                <Card.Text>
-                    pulled from array
-                </Card.Text>
+                    <Card.Text>pulled from array</Card.Text>
                 </Card.Body>
-                
             </Card>
         );
     }
-
 
     //font size, font bold
 }
