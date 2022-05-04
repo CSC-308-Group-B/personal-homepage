@@ -62,11 +62,6 @@ const UserSchema = new mongoose.Schema(
             required: false,
             default: "",
         },
-        streamerName: {
-            type: String,
-            required: false,
-            default: "",
-        },
     },
     {
         collection: "users",

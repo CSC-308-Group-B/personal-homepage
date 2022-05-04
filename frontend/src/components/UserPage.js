@@ -85,8 +85,6 @@ class UserPage extends React.Component {
         return (
             <div className="UserPage">
                 <EditHeader
-                    streamerName={this.props.streamerName}
-                    updateStreamerName={this.props.updateStreamerName}
                     color={this.props.color}
                     backgroundImage={this.props.backgroundImage}
                     updateBackgroundImage={this.props.updateBackgroundImage}
