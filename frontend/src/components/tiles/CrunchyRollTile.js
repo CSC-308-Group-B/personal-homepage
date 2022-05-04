@@ -1,32 +1,23 @@
 import Card from "react-bootstrap/Card";
 import React from "react";
 import ReactPlayer from "react-player";
-import axios from "axios";
-import { backendURL } from "../../App.js";
 
-class TwitchTile extends React.Component {
-    constructor(props) {
-        super(props);
+class  extends React.Component {
+    constructor() {
+        super();
         this.state = {
-            streamer: (this.props.data && this.props.data.streamerName) || "",
+            streamer: "",
         };
     }
 
-    updateStreamer = async (streamer) => {
-        const response = await axios.post(
-            `${backendURL}/setStreamerName`,
-            { tileId: this.props._id, streamerName: streamer },
-            { withCredentials: true }
-        );
-
-        if (response) {
-            this.setState({ streamer: streamer });
-        }
+    updateStreamer = () => {
+        const updatedStreamer = document.getElementById("streamer").value;
+        this.setState({ streamer: updatedStreamer });
     };
 
     handleKeyPress = (event) => {
         if (event.key === "Enter") {
-            this.updateStreamer(event.target.value);
+            this.updateStreamer(this.value);
         }
     };
 
@@ -37,20 +28,17 @@ class TwitchTile extends React.Component {
                     <Card.Title style={{ color: "black" }}>
                         Twitch&ensp;
                         <input
-                            defaultValue={this.state.streamer}
                             size="15"
                             id="streamer"
                             placeholder="Streamer"
                             onKeyPress={this.handleKeyPress}
                         />
                     </Card.Title>
-
                     <ReactPlayer
                         className="TwitchPlayer"
-                        url={`https://www.twitch.tv/${this.state.streamer}`}
-                        // width="100%"
-                        // height="100%"
-                        playing={true}
+                        url={`https://www.crunchyroll.com/hunter-x-hunter/episode-21-some-x-brother-x-trouble-586874}`}
+                        width="100%"
+                        height="100%"
                     />
                 </Card.Body>
             </Card>
@@ -58,4 +46,4 @@ class TwitchTile extends React.Component {
     }
 }
 
-export default TwitchTile;
+export default CrunchyRollTile;

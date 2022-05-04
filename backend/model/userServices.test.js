@@ -279,6 +279,37 @@ test("Update tile fields (bad tileId)", async () => {
     expect(updatedUser).toBeUndefined();
 });
 
+//updateTileDataFields()
+test("Update tile data fields", async () => {
+    const newFields = { dataField: 1, something: "hello world" };
+    const updatedUser = await userServices.updateTileDataFields(
+        userBolas._id,
+        userBolas.tiles[1]._id,
+        newFields
+    );
+    expect(updatedUser).toBeDefined();
+    expect(updatedUser.tiles.length).toBe(userBolas.tiles.length);
+    for (key of Object.keys(newFields)) {
+        expect(updatedUser.tiles[1].data[key]).toBe(newFields[key]);
+    }
+});
+test("Update tile fields (bad userId)", async () => {
+    const updatedUser = await userServices.updateTileDataFields(
+        fakeId,
+        userBolas.tiles[1]._id,
+        {}
+    );
+    expect(updatedUser).toBeUndefined();
+});
+test("Update tile fields (bad tileId)", async () => {
+    const updatedUser = await userServices.updateTileDataFields(
+        userBolas._id,
+        fakeId,
+        {}
+    );
+    expect(updatedUser).toBeUndefined();
+});
+
 //addTileListItem()
 test("Add tile list item", async () => {
     const newItem = { text: "I'm a new item!", status: 200 };

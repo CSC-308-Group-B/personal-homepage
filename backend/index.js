@@ -247,6 +247,21 @@ app.post("/setBackgroundImage", async (req, res) => {
     }
 });
 
+app.post("/setStreamerName", async (req, res) => {
+    const result = await userServices.updateTileDataFields(
+        req.user._id,
+        req.body.tileId,
+        {
+            streamerName: req.body.streamerName,
+        }
+    );
+    if (result) {
+        res.status(200).send("Updated Streamer Name");
+    } else {
+        res.status(500).send("Unable to update Streamer Name.");
+    }
+});
+
 app.post("/u/moveTile", async (req, res) => {
     const result = await userServices.updateTileFields(
         req.user._id,
@@ -346,6 +361,19 @@ app.delete("/removeBookmark", async (req, res) => {
         res.status(204).send("Deleted item.");
     } else {
         res.status(404).send();
+    }
+});
+
+app.post("/updateNoteText", async (req, res) => {
+    const result = await userServices.updateTileDataFields(
+        req.user._id,
+        req.body.tileId,
+        { text: req.body.text } //passes to user services
+    );
+    if (result) {
+        res.status(200).send("Updated note.");
+    } else {
+        res.status(500).send("Unable to update note.");
     }
 });
 

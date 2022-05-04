@@ -2,6 +2,7 @@ import DefaultTile from "./DefaultTile";
 import ToDoListTile from "./ToDoListTile";
 import SearchBarTile from "./SearchBarTile";
 import BookmarksTile from "./BookmarksTile";
+import NotesTile from "./NotesTile";
 import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
 import RandomImageTile from "./RandomImageTile";
 import React from "react";
@@ -75,7 +76,10 @@ class Tile extends React.Component {
                         toggleContent={
                             <img
                                 alt="#"
-                                src="https://miro.medium.com/max/512/1*Js0Y20MwjcTnVAe7KjDXNg.png"
+                                src={
+                                    require("../../styling/img/Ellipsis.svg")
+                                        .default
+                                }
                             />
                         }
                     >
@@ -177,6 +181,8 @@ function getTileType(props) {
             return <SearchBarTile {...props} />;
         case "GradesTile":
             return <GradesTile {...props} />;
+        case "NotesTile":
+            return <NotesTile {...props} />;
         case "UpcomingAssignmentsTile":
             return <UpcomingAssignmentsTile {...props} />;
         case "RandomImageTile":
