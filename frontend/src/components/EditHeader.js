@@ -11,7 +11,6 @@ class EditHeader extends React.Component {
             color: this.props.color,
             backgroundImage: this.props.backgroundImage,
             snapping: true,
-            streamerName: this.props.streamerName
         };
     }
 
@@ -26,14 +25,6 @@ class EditHeader extends React.Component {
         ).value;
         this.props.updateBackgroundImage(updatedBackground);
         this.setState({ backgroundImage: updatedBackground });
-    };
-
-    updateStreamerName = () => {
-        const updatedStreamer = document.getElementById(
-            "inputStreamerName"
-        ).value;
-        this.props.updateStreamerName(updatedStreamer);
-        this.setState({ streamerName: updatedStreamer });
     };
 
     toggleSnapping = () => {
@@ -87,7 +78,6 @@ class EditHeader extends React.Component {
                         Cat Gifs
                     </HoverDropdown.Item>
                     <HoverDropdown.Item
-                        id="inputStreamerName"
                         onClick={() =>
                             this.props.addTile("TwitchTile", { width: 2 })
                         }
@@ -128,30 +118,6 @@ class EditHeader extends React.Component {
                         </button>
                     </div>
                 </HoverDropdown>
-                <HoverDropdown
-                    toggleContent={<div>TWITCH</div>}
-                    className="EditHeaderDropdown"
-                >
-                    <div className="">
-                        <input
-                            className="streamerName"
-                            id="inputStreamerName"
-                            value={this.props.streamerName}
-                            onChange={() => this.updateStreamerName(this.value)}
-                        />
-                        {/* <button
-                            onClick={() => {
-                                document.getElementById(
-                                    "inputBackgroundImageURL"
-                                ).value = "";
-                                this.updateBackground("");
-                            }}
-                        >
-                            Remove Image
-                        </button> */}
-                    </div>
-                </HoverDropdown>
-
                 <div className="HeaderToggleSnap">
                     <label>TILE SNAPPING: </label>
                     <BootstrapSwitchButton
