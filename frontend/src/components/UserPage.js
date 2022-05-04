@@ -5,7 +5,6 @@ import axios from "axios";
 import EditHeader from "./EditHeader";
 import { backendURL } from "../App.js";
 
-
 class UserPage extends React.Component {
     constructor(props) {
         super(props);
@@ -74,7 +73,6 @@ class UserPage extends React.Component {
             extraDragSpace.style.transform = `translate(0, ${this.maxPageHeight}rem)`;
         }
     };
-
 
     render() {
         if (!this.props.user || !this.props.user.tiles) return <SignIn />;

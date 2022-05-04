@@ -15,14 +15,13 @@ class TwitchTile extends React.Component {
     updateStreamer = async (streamer) => {
         const response = await axios.post(
             `${backendURL}/setStreamerName`,
-            {tileId: this.props._id, streamerName: streamer },
+            { tileId: this.props._id, streamerName: streamer },
             { withCredentials: true }
         );
 
         if (response) {
             this.setState({ streamer: streamer });
         }
-        
     };
 
     handleKeyPress = (event) => {
@@ -30,8 +29,6 @@ class TwitchTile extends React.Component {
             this.updateStreamer(event.target.value);
         }
     };
-
-    
 
     render() {
         return (
