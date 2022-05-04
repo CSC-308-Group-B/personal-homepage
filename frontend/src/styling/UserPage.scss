@@ -74,4 +74,5 @@ $editModeStatusColor: #00ffff;
     height: 200vh;
     max-height: 0;
     transition: 1s ease;
+    z-index: -10;
 }

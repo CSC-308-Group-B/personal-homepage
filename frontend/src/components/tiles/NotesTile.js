@@ -12,7 +12,7 @@ class NotesTile extends React.Component {
         console.log(this.props);
         //state. json object no equals
         this.state = {
-            text: (this.props.data && this.props.data.text) || ''
+            text: (this.props.data && this.props.data.text) || "",
         };
     }
 
@@ -51,18 +51,17 @@ class NotesTile extends React.Component {
 
     render() {
         return (
-            <div className = "noteTile">
-            
-            {/* // <Card className="Card">
+            <div className="noteTile">
+                {/* // <Card className="Card">
             //     <Card.Body className="noteBody">
             //         <Card.Title>Note</Card.Title> */}
 
-                    <textarea
-                        defaultValue={this.state.text}
-                        onBlur={this.handleChange}
-                    />
+                <textarea
+                    defaultValue={this.state.text}
+                    onBlur={this.handleChange}
+                />
 
-                    {/* <form onSubmit={this.handleSubmit} className = "bruhNote">
+                {/* <form onSubmit={this.handleSubmit} className = "bruhNote">
                     <label className = "noteLabel">
                         Your Note:
                         <textarea classname="noteTextarea" name="field1"
