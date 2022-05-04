@@ -56,7 +56,7 @@ class Tile extends React.Component {
         }
 
         return (
-            //These data parameters are so interact.js knows the initial position of the tiles.
+            //These data parameters are so interact.js knows the initial position of the tiles
             <div
                 className={`TileContainer ${
                     this.props.canEdit ? "draggable" : ""
