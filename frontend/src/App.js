@@ -71,7 +71,6 @@ class App extends React.Component {
         }
     };
 
-
     addTile = async (tileType = "DefaultTile", defaultFields = {}) => {
         //create base tile object
         const newTile = {
