@@ -12,7 +12,7 @@ class NotesTile extends React.Component {
         console.log(this.props);
         //state. json object no equals
         this.state = {
-            // text: this.props.tile.data.text || ''
+            text: (this.props.data && this.props.data.text) || ''
         };
     }
 
@@ -45,20 +45,20 @@ class NotesTile extends React.Component {
     //     });
 
     //     event.preventDefault();
-    //   }
+    //   } no dont do it you fool
 
     //Tile will have on and off triggger by click
 
     render() {
         return (
-            <Card className="Card">
-                <Card.Body className="noteBody">
-                    <Card.Title>Note</Card.Title>
+            <div className = "noteTile">
+            
+            {/* // <Card className="Card">
+            //     <Card.Body className="noteBody">
+            //         <Card.Title>Note</Card.Title> */}
 
                     <textarea
-                        classname="noteTextarea"
-                        name="field1"
-                        placeholdervalue={this.state.value}
+                        defaultValue={this.state.text}
                         onBlur={this.handleChange}
                     />
 
@@ -69,11 +69,12 @@ class NotesTile extends React.Component {
                          placeholdervalue={this.state.value} onBlur={this.handleChange} />
                     </label>
                     <input className="ipadKid" type="submit" value="enter" />
-                </form> */}
+                     </form> 
 
                     <Card.Text>pulled from array</Card.Text>
                 </Card.Body>
-            </Card>
+            </Card> */}
+            </div>
         );
     }
 
