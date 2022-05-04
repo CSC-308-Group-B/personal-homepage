@@ -5,10 +5,10 @@ import axios from "axios";
 import { backendURL } from "../../App.js";
 
 class TwitchTile extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            streamer: "",
+            streamer: (this.props.data && this.props.data.streamerName) || "",
         };
     }
 
@@ -40,6 +40,7 @@ class TwitchTile extends React.Component {
                     <Card.Title style={{ color: "black" }}>
                         Twitch&ensp;
                         <input
+                            defaultValue={this.state.streamer}
                             size="15"
                             id="streamer"
                             placeholder="Streamer"
@@ -50,8 +51,8 @@ class TwitchTile extends React.Component {
                     <ReactPlayer
                         className="TwitchPlayer"
                         url={`https://www.twitch.tv/${this.state.streamer}`}
-                        width="100%"
-                        height="100%"
+                        // width="100%"
+                        // height="100%"
                         playing={true}
                     />
                 </Card.Body>
