@@ -5,7 +5,6 @@ import axios from "axios";
 import EditHeader from "./EditHeader";
 import { backendURL } from "../App.js";
 
-//bro thats crazy
 
 class UserPage extends React.Component {
     constructor(props) {

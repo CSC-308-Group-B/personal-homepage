@@ -1,8 +1,3 @@
-// @import "../variables.scss";
-// @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
-// @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
-
-
 .noteTile{
     & > textarea {
 
@@ -20,36 +15,4 @@
 
     }
 
-}
-
-
-
-
-
-
-
-
-.ipadKid {
-    background-color: #e428ac;
-    border: none;
-    color: white;
-    padding: 15 px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
-.noteBody {
-    color: blue;
-}
-
-.noteTextarea {
-    color: red;
-}
-
-.bruhNote {
-    color: red;
 }
