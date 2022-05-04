@@ -328,7 +328,37 @@ app.delete("/removeBookmark", async (req, res) => {
     }
 });
 
+//reference for note tile
+// app.post("/u/moveTile", async (req, res) => {
+//     const result = await userServices.updateTileFields(
+//         req.user._id,
+//         req.body.tileId,
+//         { x: req.body.x, y: req.body.y }
+//     );
+//     if (result) {
+//         res.status(200).send("Updated tile.");
+//     } else {
+//         res.status(500).send("Unable to update tile.");
+//     }
+// });
+
+app.post("/updateNoteText", async (req, res) => {
+    const result = await userServices.updateTileFields(
+        req.user._id,
+        req.body.tileId,
+        { data: {text:req.body.text} } //passes to user services
+
+    );
+    if (result) {
+        res.status(200).send("Updated note.");
+    } else {
+        res.status(500).send("Unable to update note.");
+    }
+});
+
 //Begin listening
 app.listen(port, () => {
     console.log(`Now listening at http://localhost:${port}`);
 });
+
+
