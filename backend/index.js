@@ -365,8 +365,7 @@ app.post("/updateNoteText", async (req, res) => {
     const result = await userServices.updateTileDataFields(
         req.user._id,
         req.body.tileId,
-        {text:req.body.text}  //passes to user services
-
+        { text: req.body.text } //passes to user services
     );
     if (result) {
         res.status(200).send("Updated note.");
@@ -395,5 +394,3 @@ app.post("/moveTileMobile", async (req, res) => {
 app.listen(process.env.PORT, () => {
     console.log(`Now listening at port ${process.env.PORT}`);
 });
-
-

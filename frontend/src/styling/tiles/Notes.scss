@@ -2,11 +2,9 @@
 // @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 // @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
-
-.noteTile{
+.noteTile {
     & > textarea {
-
-        background-color: rgb(255,255,140);
+        background-color: rgb(255, 255, 140);
         width: 100%;
         min-height: 10rem;
         max-height: 40rem;
@@ -16,18 +14,8 @@
         border: none;
         overflow: auto;
         outline: none;
-
-
     }
-
 }
-
-
-
-
-
-
-
 
 .ipadKid {
     background-color: #e428ac;
