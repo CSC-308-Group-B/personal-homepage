@@ -2,7 +2,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import axios from "axios";
-import {backendURL} from "../../App.js";
+import { backendURL } from "../../App.js";
 
 class UpcomingAssignmentsTile extends React.Component {
     constructor(props) {
@@ -47,7 +47,11 @@ class UpcomingAssignmentsTile extends React.Component {
                         ) + "'s Assignments"}
                         {!this.props.canEdit && (
                             <img
-                                className="small-icon"
+                                className={
+                                    "CanvasIcon" +
+                                    (this.props.canEdit ? " Editing" : "")
+                                }
+                                alt="C"
                                 src={require("../../styling/img/Canvas_Bug_Color_RGB.png")}
                             />
                         )}
