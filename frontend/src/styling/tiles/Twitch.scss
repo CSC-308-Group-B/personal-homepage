@@ -1,5 +1,6 @@
 .TwitchPlayer {
-    width: 100%;
+    width: 100% !important;
+    height: auto !important;
     aspect-ratio: 16 / 9;
 }
 .BackgroundColor {

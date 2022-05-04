@@ -15,7 +15,6 @@ class App extends React.Component {
             user: undefined,
             color: "",
             backgroundImage: "",
-            streamerName: "",
         };
     }
 
@@ -72,17 +71,6 @@ class App extends React.Component {
         }
     };
 
-    updateStreamerName = async (streamer) => {
-        const response = await axios.post(
-            `${backendURL}/setStreamerName`,
-            { streamerName: streamer },
-            { withCredentials: true }
-        );
-
-        if (response) {
-            this.setState({ streamerName: streamer });
-        }
-    };
 
     addTile = async (tileType = "DefaultTile", defaultFields = {}) => {
         //create base tile object
@@ -119,8 +107,6 @@ class App extends React.Component {
                     user={this.state.user}
                     color={this.state.color}
                     backgroundImage={this.state.backgroundImage}
-                    streamerName={this.state.streamerName}
-                    updateStreamerName={this.updateStreamerName}
                     updateUser={this.updateUser}
                     addTile={this.addTile}
                     updateColor={this.updateColor}
