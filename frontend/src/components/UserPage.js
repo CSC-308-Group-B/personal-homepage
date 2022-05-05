@@ -20,7 +20,6 @@ class UserPage extends React.Component {
         await axios.post(
             `${backendURL}/u/moveTile`,
             {
-                userId: this.props.user._id,
                 tileId: tileId,
                 x: x,
                 y: y,
@@ -69,9 +68,9 @@ class UserPage extends React.Component {
 
     updateTileAreaHeight = (y) => {
         this.maxPageHeight = Math.max(this.maxPageHeight, y);
-        let extraDragSpace = document.getElementById("extraDragSpace");
-        if (extraDragSpace) {
-            extraDragSpace.style.transform = `translate(0, ${this.maxPageHeight}rem)`;
+        let dragSpace = document.getElementById("dragSpace");
+        if (dragSpace) {
+            dragSpace.style.height = `${this.maxPageHeight}rem`;
         }
     };
 
@@ -101,30 +100,38 @@ class UserPage extends React.Component {
                     src="https://icon-library.com/images/white-menu-icon-png/white-menu-icon-png-18.jpg"
                     onClick={() => this.toggleEdit()}
                 ></img>
-
                 <div
-                    id={"tileDragArea"}
-                    className={this.state.canEdit && "canEdit"}
+                    className={"tileScrollArea" + (this.state.canEdit ? " canEdit" : "")}
                 >
-                    {this.props.user.tiles.map((tile) => {
-                        this.updateTileAreaHeight(tile.y);
-                        return (
-                            <Tile
-                                key={tile._id}
-                                {...tile}
-                                userId={this.props.user._id}
-                                deleteTile={this.removeTile}
-                                moveTile={this.moveTile}
-                                moveTileMobile={this.moveTileMobile}
-                                canEdit={this.state.canEdit}
-                                snapToGrid={this.state.snapToGrid}
-                            />
-                        );
-                    })}
                     <div id="editModeStatus">
                         <div>EDITING</div>
                     </div>
-                    <div id="extraDragSpace" />
+                    <div
+                        id={"tileDragArea"}
+                        className={this.state.canEdit ? "canEdit" : ""}
+                    >
+                        {this.props.user.tiles.map((tile) => {
+                            this.updateTileAreaHeight(tile.y);
+                            return (
+                                <Tile
+                                    key={tile._id}
+                                    {...tile}
+                                    userId={this.props.user._id}
+                                    deleteTile={this.removeTile}
+                                    moveTile={this.moveTile}
+                                    moveTileMobile={this.moveTileMobile}
+                                    canEdit={this.state.canEdit}
+                                    snapToGrid={this.state.snapToGrid}
+                                />
+                            );
+                        })}
+                        <div
+                            id="dragSpace"
+                        />
+                        <div
+                            className={"extraDragSpace" + (this.state.canEdit ? " canEdit" : "")}
+                        />
+                    </div>
                 </div>
             </div>
         );
