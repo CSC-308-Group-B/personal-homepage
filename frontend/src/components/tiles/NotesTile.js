@@ -9,7 +9,7 @@ class NotesTile extends React.Component {
         super(props);
 
         this.handleChange = this.handleChange.bind(this);
-        console.log(this.props);
+        // console.log(this.props);
         //state. json object no equals
         this.state = {
             text: (this.props.data && this.props.data.text) || "",
