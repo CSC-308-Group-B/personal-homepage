@@ -53,9 +53,8 @@ class App extends React.Component {
         //Frontend throttling
         if (!this.backgroundColorThrottler) {
             this.backgroundColorThrottler = setTimeout(() => {
-                console.log("frontend")
                 this.backgroundColorThrottler = null;
-                this.setState({color: color});
+                this.setState({ color: color });
             }, 50);
         }
         //Backend debouncing
@@ -63,25 +62,14 @@ class App extends React.Component {
             clearTimeout(this.backgroundColorDebouncer);
         }
         this.backgroundColorDebouncer = setTimeout(async () => {
-            console.log("backend")
             const response = await axios.post(
-                `${backendURL}/setColor`,
+                `${backendURL}/setBackgroundColor`,
                 { color: this.state.color },
                 { withCredentials: true }
             );
             if (response.status == 200) this.setState({ color: color });
         }, 250);
     };
-
-    throttleBackgroundColor = async (color) => {
-        console.log("updating background color")
-        const response = await axios.post(
-            `${backendURL}/setColor`,
-            { color: this.state.color },
-            { withCredentials: true }
-        );
-        if (response.status == 200) this.setState({ color: color });
-    }
 
     updateBackgroundImage = async (image) => {
         const response = await axios.post(
@@ -94,7 +82,6 @@ class App extends React.Component {
             this.setState({ backgroundImage: image });
         }
     };
-
 
     addTile = async (tileType = "DefaultTile", defaultFields = {}) => {
         //create base tile object

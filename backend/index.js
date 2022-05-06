@@ -225,7 +225,7 @@ app.delete("/u/:id/:tileid", async (req, res) => {
     }
 });
 
-app.post("/setColor", async (req, res) => {
+app.post("/setBackgroundColor", async (req, res) => {
     const result = await userServices.setUserFields(req.user._id, {
         backgroundColor: req.body.color,
     });
