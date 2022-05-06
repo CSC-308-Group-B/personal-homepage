@@ -11,6 +11,8 @@ export const backendURL = process.env.REACT_APP_BE_URL;
 class App extends React.Component {
     constructor(props) {
         super(props);
+        this.backgroundColorThrottler = null;
+        this.backgroundColorDebouncer = null;
         this.state = {
             user: undefined,
             color: "",
@@ -47,17 +49,39 @@ class App extends React.Component {
         return result.data;
     };
 
-    updateColor = async (color) => {
+    updateBackgroundColor = async (color) => {
+        //Frontend throttling
+        if (!this.backgroundColorThrottler) {
+            this.backgroundColorThrottler = setTimeout(() => {
+                console.log("frontend")
+                this.backgroundColorThrottler = null;
+                this.setState({color: color});
+            }, 50);
+        }
+        //Backend debouncing
+        if (this.backgroundColorDebouncer) {
+            clearTimeout(this.backgroundColorDebouncer);
+        }
+        this.backgroundColorDebouncer = setTimeout(async () => {
+            console.log("backend")
+            const response = await axios.post(
+                `${backendURL}/setColor`,
+                { color: this.state.color },
+                { withCredentials: true }
+            );
+            if (response.status == 200) this.setState({ color: color });
+        }, 250);
+    };
+
+    throttleBackgroundColor = async (color) => {
+        console.log("updating background color")
         const response = await axios.post(
             `${backendURL}/setColor`,
-            { color: color },
+            { color: this.state.color },
             { withCredentials: true }
         );
-
-        if (response) {
-            this.setState({ color: color });
-        }
-    };
+        if (response.status == 200) this.setState({ color: color });
+    }
 
     updateBackgroundImage = async (image) => {
         const response = await axios.post(
@@ -109,7 +133,7 @@ class App extends React.Component {
                     backgroundImage={this.state.backgroundImage}
                     updateUser={this.updateUser}
                     addTile={this.addTile}
-                    updateColor={this.updateColor}
+                    updateColor={this.updateBackgroundColor}
                     updateBackgroundImage={this.updateBackgroundImage}
                 />
                 <Background
