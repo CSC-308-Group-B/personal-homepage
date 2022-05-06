@@ -2,7 +2,6 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { backendURL } from "../App.js";
 
-
 function SignIn(props) {
     //To login via google, we redirect the user to our sign in endpoint, which redirects to google's login, which eventually brings the user back to our homepage.
     //if the login was successful, the user will have a session cookie (see App.js for how that's handled)

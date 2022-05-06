@@ -248,9 +248,13 @@ app.post("/setBackgroundImage", async (req, res) => {
 });
 
 app.post("/setStreamerName", async (req, res) => {
-    const result = await userServices.updateTileDataFields(req.user._id, req.body.tileId, {
-        streamerName: req.body.streamerName,
-    });
+    const result = await userServices.updateTileDataFields(
+        req.user._id,
+        req.body.tileId,
+        {
+            streamerName: req.body.streamerName,
+        }
+    );
     if (result) {
         res.status(200).send("Updated Streamer Name");
     } else {

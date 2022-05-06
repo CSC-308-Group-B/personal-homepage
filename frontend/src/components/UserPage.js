@@ -5,7 +5,6 @@ import axios from "axios";
 import EditHeader from "./EditHeader";
 import { backendURL } from "../App.js";
 
-
 class UserPage extends React.Component {
     constructor(props) {
         super(props);
@@ -74,7 +73,6 @@ class UserPage extends React.Component {
         }
     };
 
-
     render() {
         if (!this.props.user || !this.props.user.tiles) return <SignIn />;
 
@@ -101,7 +99,10 @@ class UserPage extends React.Component {
                     onClick={() => this.toggleEdit()}
                 ></img>
                 <div
-                    className={"tileScrollArea" + (this.state.canEdit ? " canEdit" : "")}
+                    className={
+                        "tileScrollArea" +
+                        (this.state.canEdit ? " canEdit" : "")
+                    }
                 >
                     <div id="editModeStatus">
                         <div>EDITING</div>
@@ -125,11 +126,12 @@ class UserPage extends React.Component {
                                 />
                             );
                         })}
+                        <div id="dragSpace" />
                         <div
-                            id="dragSpace"
-                        />
-                        <div
-                            className={"extraDragSpace" + (this.state.canEdit ? " canEdit" : "")}
+                            className={
+                                "extraDragSpace" +
+                                (this.state.canEdit ? " canEdit" : "")
+                            }
                         />
                     </div>
                 </div>

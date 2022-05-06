@@ -27,7 +27,7 @@ $editModeStatusColor: #00ffff;
                 opacity: 1;
             }
         }
-    } 
+    }
     & > #tileDragArea.canEdit > #extraDragSpace {
         max-height: calc(100vw + 100vh);
     }
@@ -75,7 +75,8 @@ $editModeStatusColor: #00ffff;
         content: "";
     }
 }
-#dragSpace, .extraDragSpace {
+#dragSpace,
+.extraDragSpace {
     width: 100%;
     transition: 1s ease;
     z-index: -10;
