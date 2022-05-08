@@ -70,7 +70,12 @@ class SearchBarTile extends React.Component {
 
     render() {
         return (
-            <Card className="Card">
+            <Card
+                className="Card"
+                style={{
+                    backgroundColor: `rgba(${this.props.tileColor.r}, ${this.props.tileColor.g}, ${this.props.tileColor.b}, ${this.props.tileColor.a})`,
+                }}
+            >
                 <Card.Body>
                     <InputGroup className="SearchBarInputGroup">
                         <HoverDropdown

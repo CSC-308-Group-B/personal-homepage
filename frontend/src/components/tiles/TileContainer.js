@@ -6,6 +6,7 @@ import NotesTile from "./NotesTile";
 import UpcomingAssignmentsTile from "./UpcomingAssignmentsTile";
 import RandomImageTile from "./RandomImageTile";
 import React from "react";
+import { RgbaColorPicker } from "react-colorful";
 import GradesTile from "./GradesTile";
 import axios from "axios";
 import HoverDropdown from "../HoverDropdown";
@@ -17,7 +18,14 @@ class Tile extends React.Component {
         super(props);
         this.state = {
             width: this.props.width,
+            color:
+                typeof this.props.color == undefined
+                    ? { r: 255, g: 255, b: 255, a: 1 }
+                    : this.props.color,
         };
+
+        this.tileColorDebouncer = null;
+        this.tileColorThrottler = null;
     }
 
     componentDidMount() {
@@ -45,6 +53,88 @@ class Tile extends React.Component {
         }
     };
 
+    setTileColor = async (newColor) => {
+        if (!this.tileColorThrottler) {
+            this.tileColorThrottler = setTimeout(() => {
+                this.tileColorThrottler = null;
+                this.setState({ color: newColor });
+            }, 250);
+        }
+        if (this.tileColorDebouncer) {
+            clearTimeout(this.tileColorDebouncer);
+        }
+
+        this.tileColorDebouncer = setTimeout(async () => {
+            this.tileColorDebouncer = null;
+            const res = await axios.post(
+                `${backendURL}/u/setTileFields`,
+                {
+                    tileId: this.props._id,
+                    color: newColor,
+                },
+                { withCredentials: true }
+            );
+
+            if (res) {
+                this.setState({ color: newColor });
+            }
+        }, 500);
+    };
+
+    getTileType = () => {
+        switch (this.props.tileType) {
+            case "ToDoListTile":
+                return (
+                    <ToDoListTile
+                        {...this.props}
+                        tileColor={this.state.color}
+                    />
+                );
+            case "BookmarksTile":
+                return (
+                    <BookmarksTile
+                        {...this.props}
+                        tileColor={this.state.color}
+                    />
+                );
+            case "SearchBarTile":
+                return (
+                    <SearchBarTile
+                        {...this.props}
+                        tileColor={this.state.color}
+                    />
+                );
+            case "GradesTile":
+                return (
+                    <GradesTile {...this.props} tileColor={this.state.color} />
+                );
+            case "UpcomingAssignmentsTile":
+                return (
+                    <UpcomingAssignmentsTile
+                        {...this.props}
+                        tileColor={this.state.color}
+                    />
+                );
+            case "RandomImageTile":
+                return (
+                    <RandomImageTile
+                        {...this.props}
+                        tileColor={this.state.color}
+                    />
+                );
+            case "TwitchTile":
+                return (
+                    <TwitchTile {...this.props} tileColor={this.state.color} />
+                );
+            case "NotesTile":
+                return <NotesTile {...this.props} />;
+            default:
+                return (
+                    <DefaultTile {...this.props} tileColor={this.state.color} />
+                );
+        }
+    };
+
     render() {
         //Translates the tile to the coordinates specified in the x and y properties of the tile.
         let transform = {
@@ -55,7 +145,6 @@ class Tile extends React.Component {
         if (window.innerWidth < 720) {
             transform = { width: "94vw", position: "static", margin: "3vw" };
         }
-
         return (
             //These data parameters are so interact.js knows the initial position of the tiles
             <div
@@ -68,7 +157,7 @@ class Tile extends React.Component {
                 data-y={this.props.y}
                 data-snaptogrid={this.props.snapToGrid}
             >
-                {getTileType(this.props)}
+                {this.getTileType()}
 
                 {this.props.canEdit && (
                     <HoverDropdown
@@ -107,6 +196,19 @@ class Tile extends React.Component {
                             >
                                 Full
                             </HoverDropdown.Item>
+                        </HoverDropdown>
+
+                        <HoverDropdown
+                            className="NestedHoverDropdown TileEditWidth"
+                            toggleContent={<div>Color</div>}
+                        >
+                            <div className="p-2 pb-0">
+                                <RgbaColorPicker
+                                    className="ColorPicker"
+                                    color={this.state.color}
+                                    onChange={this.setTileColor}
+                                />
+                            </div>
                         </HoverDropdown>
 
                         <HoverDropdown
@@ -168,29 +270,6 @@ class Tile extends React.Component {
                 )}
             </div>
         );
-    }
-}
-
-function getTileType(props) {
-    switch (props.tileType) {
-        case "ToDoListTile":
-            return <ToDoListTile {...props} />;
-        case "BookmarksTile":
-            return <BookmarksTile {...props} />;
-        case "SearchBarTile":
-            return <SearchBarTile {...props} />;
-        case "GradesTile":
-            return <GradesTile {...props} />;
-        case "NotesTile":
-            return <NotesTile {...props} />;
-        case "UpcomingAssignmentsTile":
-            return <UpcomingAssignmentsTile {...props} />;
-        case "RandomImageTile":
-            return <RandomImageTile {...props} />;
-        case "TwitchTile":
-            return <TwitchTile {...props} />;
-        default:
-            return <DefaultTile {...props} />;
     }
 }
 

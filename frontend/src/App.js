@@ -11,6 +11,8 @@ export const backendURL = process.env.REACT_APP_BE_URL;
 class App extends React.Component {
     constructor(props) {
         super(props);
+        this.backgroundColorThrottler = null;
+        this.backgroundColorDebouncer = null;
         this.state = {
             user: undefined,
             color: "",
@@ -47,16 +49,26 @@ class App extends React.Component {
         return result.data;
     };
 
-    updateColor = async (color) => {
-        const response = await axios.post(
-            `${backendURL}/setColor`,
-            { color: color },
-            { withCredentials: true }
-        );
-
-        if (response) {
-            this.setState({ color: color });
+    updateBackgroundColor = async (color) => {
+        //Frontend throttling
+        if (!this.backgroundColorThrottler) {
+            this.backgroundColorThrottler = setTimeout(() => {
+                this.backgroundColorThrottler = null;
+                this.setState({ color: color });
+            }, 50);
         }
+        //Backend debouncing
+        if (this.backgroundColorDebouncer) {
+            clearTimeout(this.backgroundColorDebouncer);
+        }
+        this.backgroundColorDebouncer = setTimeout(async () => {
+            const response = await axios.post(
+                `${backendURL}/setBackgroundColor`,
+                { color: this.state.color },
+                { withCredentials: true }
+            );
+            if (response.status == 200) this.setState({ color: color });
+        }, 250);
     };
 
     updateBackgroundImage = async (image) => {
@@ -78,6 +90,7 @@ class App extends React.Component {
             width: 1,
             x: 0,
             y: 0,
+            color: { r: 255, g: 255, b: 255, a: 1 },
             ...defaultFields,
         };
         //Try adding tile to backend
@@ -108,7 +121,7 @@ class App extends React.Component {
                     backgroundImage={this.state.backgroundImage}
                     updateUser={this.updateUser}
                     addTile={this.addTile}
-                    updateColor={this.updateColor}
+                    updateColor={this.updateBackgroundColor}
                     updateBackgroundImage={this.updateBackgroundImage}
                 />
                 <Background

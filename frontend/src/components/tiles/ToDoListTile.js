@@ -135,31 +135,37 @@ class ToDoListTile extends React.Component {
 
     render() {
         return (
-            <Card className="Card">
+            <Card
+                className="Card"
+                style={{
+                    backgroundColor: `rgba(${this.props.tileColor.r}, ${this.props.tileColor.g}, ${this.props.tileColor.b}, ${this.props.tileColor.a})`,
+                }}
+            >
                 <Card.Body>
-                    <Card.Title>To Do</Card.Title>
-                    <InputGroup className="ToDoInputGroup">
-                        <input
-                            className="input"
-                            placeholder="  new task"
-                            ref={this.textInputRef}
-                        ></input>
-                        <button onClick={() => this.addTask()}>Add</button>
-                    </InputGroup>
-                    <ListGroup className="taskItems">
-                        {this.state.tasks &&
-                            this.state.tasks.map((task) => {
-                                return (
-                                    <ToDoListItem
-                                        key={task._id}
-                                        {...task}
-                                        deleteTask={this.deleteTask}
-                                        finishTask={this.finishTask}
-                                        redoTask={this.redoTask}
-                                    />
-                                );
-                            })}
-                    </ListGroup>
+                    <div>
+                        <Card.Title>To Do</Card.Title>
+                        <InputGroup className="ToDoInputGroup">
+                            <input
+                                className="input"
+                                placeholder="  new task"
+                                ref={this.textInputRef}
+                            ></input>
+                            <button onClick={() => this.addTask()}>Add</button>
+                        </InputGroup>
+                        <ListGroup className="taskItems">
+                            {this.state.tasks &&
+                                this.state.tasks.map((task) => {
+                                    return (
+                                        <ToDoListItem
+                                            key={task._id}
+                                            {...task}
+                                            deleteTask={this.deleteTask}
+                                            updateTask={this.updateTask}
+                                        />
+                                    );
+                                })}
+                        </ListGroup>
+                    </div>
                 </Card.Body>
             </Card>
         );
