@@ -1,5 +1,5 @@
 import React from "react";
-import Tile from "./tiles/TileContainer";
+import TileContainer from "./tiles/TileContainer";
 import SignIn from "./SignIn";
 import axios from "axios";
 import EditHeader from "./EditHeader";
@@ -73,6 +73,14 @@ class UserPage extends React.Component {
         }
     };
 
+    updateAllTileColors = (newColor) => {
+        console.log("setting all tiles to " + newColor);
+        const updateAllTileColorsEvent = new CustomEvent('updateAllTileColors', {
+            color: newColor
+        });
+        window.dispatchEvent(updateAllTileColorsEvent);
+    }
+
     render() {
         if (!this.props.user || !this.props.user.tiles) return <SignIn />;
 
@@ -114,7 +122,7 @@ class UserPage extends React.Component {
                         {this.props.user.tiles.map((tile) => {
                             this.updateTileAreaHeight(tile.y);
                             return (
-                                <Tile
+                                <TileContainer
                                     key={tile._id}
                                     {...tile}
                                     userId={this.props.user._id}
@@ -123,6 +131,7 @@ class UserPage extends React.Component {
                                     moveTileMobile={this.moveTileMobile}
                                     canEdit={this.state.canEdit}
                                     snapToGrid={this.state.snapToGrid}
+                                    updateAllTileColors={this.updateAllTileColors}
                                 />
                             );
                         })}

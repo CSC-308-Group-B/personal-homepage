@@ -288,6 +288,22 @@ app.post("/u/setTileFields", async (req, res) => {
     }
 });
 
+app.post("/applyBackgroundColorToAllTiles", async (req, res) => {
+    let result = true;
+    for (let tile of req.user.tiles) {
+        result = result && await userServices.updateTileFields(
+            req.user._id,
+            tile._id,
+            req.body
+        );
+    }
+    if (result) {
+        res.status(200).send("Updated tiles.");
+    } else {
+        res.status(500).send("Unable to update tiles.");
+    }
+});
+
 app.post("/addToDoItem", async (req, res) => {
     const result = await userServices.addTileListItem(
         req.user._id,
