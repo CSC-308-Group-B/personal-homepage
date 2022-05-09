@@ -1,7 +1,7 @@
 .RandomImageTile {
     aspect-ratio: 16 / 9;
     overflow: hidden;
-    background: black;
+    // background: black;
     & > img {
         object-fit: contain;
         width: 100%;

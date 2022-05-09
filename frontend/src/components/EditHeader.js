@@ -73,18 +73,29 @@ class EditHeader extends React.Component {
                         Assignments
                     </HoverDropdown.Item>
                     <HoverDropdown.Item
-                        onClick={() => this.props.addTile("NotesTile")}
+                        onClick={() =>
+                            this.props.addTile("NotesTile", {
+                                color: { r: 255, g: 255, b: 140, a: 1 },
+                            })
+                        }
                     >
                         Note
                     </HoverDropdown.Item>
                     <HoverDropdown.Item
-                        onClick={() => this.props.addTile("RandomImageTile")}
+                        onClick={() =>
+                            this.props.addTile("RandomImageTile", {
+                                color: { r: 0, g: 0, b: 0, a: 0 },
+                            })
+                        }
                     >
                         Cat Gifs
                     </HoverDropdown.Item>
                     <HoverDropdown.Item
                         onClick={() =>
-                            this.props.addTile("TwitchTile", { width: 2 })
+                            this.props.addTile("TwitchTile", {
+                                width: 2,
+                                color: { r: 136, g: 56, b: 255, a: 1 },
+                            })
                         }
                     >
                         Twitch

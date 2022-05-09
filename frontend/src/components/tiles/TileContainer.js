@@ -19,11 +19,10 @@ class Tile extends React.Component {
         this.state = {
             width: this.props.width,
             color:
-                typeof this.props.color == undefined
+                this.props.color == undefined
                     ? { r: 255, g: 255, b: 255, a: 1 }
                     : this.props.color,
         };
-
         this.tileColorDebouncer = null;
         this.tileColorThrottler = null;
     }
@@ -127,7 +126,9 @@ class Tile extends React.Component {
                     <TwitchTile {...this.props} tileColor={this.state.color} />
                 );
             case "NotesTile":
-                return <NotesTile {...this.props} />;
+                return (
+                    <NotesTile {...this.props} tileColor={this.state.color} />
+                );
             default:
                 return (
                     <DefaultTile {...this.props} tileColor={this.state.color} />
