@@ -32,7 +32,12 @@ class TwitchTile extends React.Component {
 
     render() {
         return (
-            <Card className="Card" style={{ backgroundColor: "#8838ff" }}>
+            <Card
+                className="Card"
+                style={{
+                    backgroundColor: `rgba(${this.props.tileColor.r}, ${this.props.tileColor.g}, ${this.props.tileColor.b}, ${this.props.tileColor.a})`,
+                }}
+            >
                 <Card.Body>
                     <Card.Title style={{ color: "black" }}>
                         Twitch&ensp;

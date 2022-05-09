@@ -51,7 +51,12 @@ class NotesTile extends React.Component {
 
     render() {
         return (
-            <div className="noteTile">
+            <div
+                className="noteTile"
+                style={{
+                    backgroundColor: `rgba(${this.props.tileColor.r}, ${this.props.tileColor.g}, ${this.props.tileColor.b}, ${this.props.tileColor.a})`,
+                }}
+            >
                 {/* // <Card className="Card">
             //     <Card.Body className="noteBody">
             //         <Card.Title>Note</Card.Title> */}

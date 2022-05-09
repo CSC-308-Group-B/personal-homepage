@@ -73,7 +73,11 @@ class EditHeader extends React.Component {
                         Assignments
                     </HoverDropdown.Item>
                     <HoverDropdown.Item
-                        onClick={() => this.props.addTile("NotesTile")}
+                        onClick={() =>
+                            this.props.addTile("NotesTile", {
+                                color: { r: 255, g: 255, b: 140, a: 1 },
+                            })
+                        }
                     >
                         Note
                     </HoverDropdown.Item>
@@ -90,7 +94,11 @@ class EditHeader extends React.Component {
                         Twitch
                     </HoverDropdown.Item>
                     <HoverDropdown.Item
-                        onClick={() => this.props.addTile("OtherTileString")}
+                        onClick={() =>
+                            this.props.addTile("OtherTileString", {
+                                color: { r: 136, g: 56, b: 255, a: 1 },
+                            })
+                        }
                     >
                         (Other type)
                     </HoverDropdown.Item>
