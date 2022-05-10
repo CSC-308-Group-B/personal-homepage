@@ -94,7 +94,7 @@ passport.use(
 //1) User makes a get request to sign in, so we try to authenticate via passport (See above for step "2")
 app.get(
     "/api/auth/google",
-    passport.authenticate("google", { scope: ["profile", "email"] })
+    passport.authenticate("google", { scope: ["https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"] })
 );
 //3) on success/error, return to our homepage. Now that the session is initialized, the user will be signed in immediately
 app.get(
