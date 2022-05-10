@@ -26,6 +26,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "dev": "react-scripts start",
     "format": "prettier --write ./src",
     "checkFormat": "prettier --check ./src",
     "start": "react-scripts start",
