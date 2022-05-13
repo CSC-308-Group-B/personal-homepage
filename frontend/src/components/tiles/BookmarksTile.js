@@ -4,7 +4,6 @@ import InputGroup from "react-bootstrap/InputGroup";
 import React from "react";
 import BookmarksItem from "./BookmarksItem";
 import axios from "axios";
-import { backendURL } from "../../App.js";
 
 class BookmarksTile extends React.Component {
     constructor(props) {
@@ -45,7 +44,7 @@ class BookmarksTile extends React.Component {
         if (newBookmark.text === "" || newBookmark.url === "") return;
         //and try adding it to the backed
         const response = await axios.post(
-            `${backendURL}/addBookmark`,
+            `${process.env.REACT_APP_BE_URL}/addBookmark`,
             {
                 userId: this.props.userId,
                 tileId: this.props._id,
@@ -70,7 +69,7 @@ class BookmarksTile extends React.Component {
 
     deleteBookmark = async (itemId) => {
         //send the delete request
-        const response = await axios.delete(`${backendURL}/removeBookmark`, {
+        const response = await axios.delete(`${process.env.REACT_APP_BE_URL}/removeBookmark`, {
             data: {
                 userId: this.props.userId,
                 tileId: this.props._id,

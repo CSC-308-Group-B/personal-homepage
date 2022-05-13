@@ -6,7 +6,7 @@ class Background extends React.Component {
             <div
                 className="Background"
                 style={{
-                    backgroundColor: this.props.color,
+                    backgroundColor: this.props.backgroundColor,
                     backgroundImage: `url(${this.props.backgroundImage})`,
                 }}
             />

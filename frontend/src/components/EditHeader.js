@@ -8,22 +8,22 @@ class EditHeader extends React.Component {
         super(props);
         this.maxPageHeight = 0;
         this.state = {
-            color: this.props.color,
+            backgroundColor: this.props.backgroundColor,
             backgroundImage: this.props.backgroundImage,
             snapping: true,
         };
     }
 
-    updateColor = (updatedColor) => {
-        this.props.updateColor(updatedColor);
-        this.setState({ color: updatedColor });
+    updateColor = (newBackgroundColor) => {
+        this.props.setBackgroundColor(newBackgroundColor);
+        this.setState({ backgroundColor: newBackgroundColor });
     };
 
     updateBackground = () => {
         const updatedBackground = document.getElementById(
             "inputBackgroundImageURL"
         ).value;
-        this.props.updateBackgroundImage(updatedBackground);
+        this.props.setBackgroundImage(updatedBackground);
         this.setState({ backgroundImage: updatedBackground });
     };
 
@@ -113,7 +113,7 @@ class EditHeader extends React.Component {
                     <div className="BackgroundPicker">
                         <HexColorPicker
                             className="ColorPicker"
-                            color={this.state.color}
+                            color={this.state.backgroundColor}
                             onChange={this.updateColor}
                         />
                         <input
