@@ -21,11 +21,14 @@
     "react-dom": "^17.0.2",
     "react-google-login": "^5.2.2",
     "react-player": "^2.10.0",
+    "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.0",
     "sass": "^1.49.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "dev": "react-scripts start",
     "format": "prettier --write ./src",
     "checkFormat": "prettier --check ./src",
     "start": "react-scripts start",

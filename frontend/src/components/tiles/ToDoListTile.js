@@ -4,7 +4,6 @@ import InputGroup from "react-bootstrap/InputGroup";
 import React from "react";
 import ToDoListItem from "./ToDoListItem";
 import axios from "axios";
-import { backendURL } from "../../App.js";
 
 class ToDoListTile extends React.Component {
     constructor(props) {
@@ -37,7 +36,7 @@ class ToDoListTile extends React.Component {
         if (newTask.text === "") return;
         //and try adding it to the backed
         const response = await axios.post(
-            `${backendURL}/addToDoItem`,
+            `${process.env.REACT_APP_BE_URL}/addToDoItem`,
             {
                 userId: this.props.userId,
                 tileId: this.props._id,
@@ -62,7 +61,7 @@ class ToDoListTile extends React.Component {
 
     deleteTask = async (itemId) => {
         //send the delete request
-        const response = await axios.delete(`${backendURL}/removeToDoItem`, {
+        const response = await axios.delete(`${process.env.REACT_APP_BE_URL}/removeToDoItem`, {
             data: {
                 userId: this.props.userId,
                 tileId: this.props._id,
@@ -83,15 +82,15 @@ class ToDoListTile extends React.Component {
         }
     };
 
-    finishTask = async (itemId) => {
+    updateTaskStatus = async (itemId, newTaskStatus) => {
         //send the delete request
         const response = await axios.post(
-            `${backendURL}/updateToDoItem`,
+            `${process.env.REACT_APP_BE_URL}/updateToDoItem`,
             {
                 userId: this.props.userId,
                 tileId: this.props._id,
                 itemId: itemId,
-                status: 1,
+                status: newTaskStatus,
             },
             { withCredentials: true }
         );
@@ -99,34 +98,9 @@ class ToDoListTile extends React.Component {
         if (response && response.status === 200) {
             //for a valid response, update the item and update our state
             for (let task of this.state.tasks) {
-                if (task._id === itemId) task.status = 1;
+                if (task._id === itemId) task.status = newTaskStatus;
             }
-            await this.setState({ tasks: this.state.tasks });
-        } else {
-            //otherwise, log the error to the console
-            console.log("Failed to update task.");
-        }
-    };
-
-    redoTask = async (itemId) => {
-        //send the delete request
-        const response = await axios.post(
-            `${backendURL}/updateToDoItem`,
-            {
-                userId: this.props.userId,
-                tileId: this.props._id,
-                itemId: itemId,
-                status: 0,
-            },
-            { withCredentials: true }
-        );
-        //if we get a response...
-        if (response && response.status === 200) {
-            //for a valid response, update the item and update our state
-            for (let task of this.state.tasks) {
-                if (task._id === itemId) task.status = 0;
-            }
-            await this.setState({ tasks: this.state.tasks });
+            this.setState({ tasks: this.state.tasks });
         } else {
             //otherwise, log the error to the console
             console.log("Failed to update task.");
@@ -160,7 +134,7 @@ class ToDoListTile extends React.Component {
                                             key={task._id}
                                             {...task}
                                             deleteTask={this.deleteTask}
-                                            updateTask={this.updateTask}
+                                            updateTaskStatus={this.updateTaskStatus}
                                         />
                                     );
                                 })}

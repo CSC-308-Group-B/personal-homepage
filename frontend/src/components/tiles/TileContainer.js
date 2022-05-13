@@ -11,7 +11,6 @@ import GradesTile from "./GradesTile";
 import axios from "axios";
 import HoverDropdown from "../HoverDropdown";
 import TwitchTile from "./TwitchTile";
-import { backendURL } from "../../App.js";
 
 class Tile extends React.Component {
     constructor(props) {
@@ -39,7 +38,7 @@ class Tile extends React.Component {
 
     setWidth = async (newWidth) => {
         const res = await axios.post(
-            `${backendURL}/u/setTileFields`,
+            `${process.env.REACT_APP_BE_URL}/u/setTileFields`,
             {
                 userId: this.props.userId,
                 tileId: this.props._id,
@@ -66,7 +65,7 @@ class Tile extends React.Component {
         this.tileColorDebouncer = setTimeout(async () => {
             this.tileColorDebouncer = null;
             const res = await axios.post(
-                `${backendURL}/u/setTileFields`,
+                `${process.env.REACT_APP_BE_URL}/u/setTileFields`,
                 {
                     tileId: this.props._id,
                     color: newColor,
