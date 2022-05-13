@@ -4,15 +4,15 @@ class PrivacyPolicyPage extends React.Component {
     render() {
         return (
             <div>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pretium neque sed vestibulum venenatis. Donec feugiat non augue vitae malesuada. Duis suscipit tortor quam, luctus lacinia ante maximus nec. Quisque ullamcorper rutrum risus, et lobortis leo sagittis ut. Aenean rutrum diam sit amet imperdiet varius. Nullam rutrum euismod faucibus. Cras tortor mi, porta et faucibus ut, tempus non mauris. Fusce porttitor ante ac purus rutrum scelerisque. Phasellus a euismod nisl. Vivamus sapien orci, facilisis ut porttitor a, egestas sit amet neque. Sed hendrerit, leo et volutpat posuere, arcu dolor rutrum orci, vel pellentesque dui velit eget quam. Nam sit amet tempor magna. Proin sit amet pharetra odio. Donec id luctus arcu, sed ullamcorper nunc.
-
-                Vivamus interdum justo et nisl ultricies, non sollicitudin leo feugiat. Phasellus fermentum, libero eu auctor varius, quam nisl auctor odio, in porta purus dolor sed augue. Duis sed condimentum lectus. Sed orci leo, lobortis a feugiat in, ultricies non sapien. Praesent vel tincidunt diam. Pellentesque in consectetur nunc. Cras non auctor justo. Proin dui mi, tincidunt a pharetra ut, elementum vel nisi. Integer lobortis fermentum est vitae lacinia. Maecenas tortor libero, cursus et ex at, aliquet consectetur dolor. Nam ac vestibulum nibh. Maecenas in orci hendrerit, dignissim orci eget, commodo magna. Etiam congue dignissim leo. Donec lacinia vulputate lacus, a scelerisque arcu posuere a. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse porta leo sit amet nunc lacinia, sed porta orci accumsan.
-
-                Morbi ut gravida lacus, dictum bibendum lacus. Suspendisse viverra quam enim, vitae pellentesque magna feugiat quis. Aenean nec augue posuere, venenatis tellus vel, lobortis ante. Donec massa nibh, tincidunt sed tempor vel, tristique at ipsum. Phasellus nulla erat, lobortis quis dictum et, condimentum non erat. Ut semper dictum massa ut tincidunt. Suspendisse porta venenatis tellus, at posuere leo sodales sit amet. Duis sit amet leo sed tortor dictum molestie ut in velit. Duis eu quam aliquet, facilisis sapien vel, efficitur nunc. Duis congue vestibulum lacinia. Integer vel lacinia ipsum, sed volutpat ante. Fusce hendrerit rutrum nibh, suscipit elementum leo vehicula ac. Vestibulum at urna ut arcu blandit varius nec vel leo. Praesent ornare lorem nec congue fringilla. Nullam interdum tincidunt urna et accumsan. Vestibulum id sapien ac orci dignissim mollis.
-
-                Pellentesque congue quam in placerat consectetur. Sed fringilla fermentum metus, quis feugiat justo luctus vitae. Nam iaculis, magna eget ultrices pulvinar, turpis diam sollicitudin diam, vehicula dapibus est elit a massa. Curabitur vel feugiat lorem. Nunc fringilla, mauris sit amet commodo convallis, massa enim gravida magna, nec pretium lacus quam ut nibh. Curabitur vestibulum, odio at molestie tristique, nisl eros aliquet lacus, vitae mollis enim quam in purus. Ut euismod, augue at pharetra rhoncus, dolor justo consectetur quam, eget convallis ex lectus non mauris. Etiam imperdiet vestibulum augue. Integer scelerisque, urna sed tempus finibus, eros neque consectetur lacus, id consectetur tortor mi in velit. Quisque nec turpis eget metus eleifend finibus at vitae libero. Duis eu magna tortor. Praesent accumsan, augue quis placerat luctus, lacus mauris cursus tortor, nec pulvinar turpis leo ut odio. In iaculis at ligula id mollis. Nunc luctus felis lectus, et blandit mi tempus vitae.
-
-                Donec porta luctus felis semper aliquam. Donec porttitor sem enim, vitae luctus eros rutrum id. Pellentesque ut venenatis orci, ac tristique tortor. Morbi vitae metus in ante volutpat congue sed in nisi. Praesent rutrum suscipit sem, vitae tempus lorem ullamcorper ac. Donec pharetra orci a ex posuere, a rutrum nibh tristique. Nullam pharetra velit sed diam convallis, id auctor magna feugiat. Aliquam ultricies sollicitudin velit, in maximus risus hendrerit non. Ut ut nulla a justo vestibulum maximus. Pellentesque vulputate orci a libero gravida placerat. Nullam eu est id enim varius consequat.
+                <div>
+                    In this Privacy Policy ("Privacy Policy") "we", "us", or "our" will refer to the Develebros, and this site will be referred to as "Service".
+                </div>
+                <div>
+                    By signing in with Google, we will collect and store your gmail address and name. We will neither access nor store any other data from Google.
+                </div>
+                <div>
+                    We will store any data you input on the site itself.
+                </div>
             </div>
         );
     }
