@@ -32,7 +32,8 @@ class UserPage extends React.Component {
     updateUser = (updatedUser) => {
         this.setState({
             user: updatedUser,
-            backgroundColor: this.state.backgroundColor || updatedUser.backgroundColor,
+            backgroundColor:
+                this.state.backgroundColor || updatedUser.backgroundColor,
             backgroundImage:
                 this.state.backgroundImage || updatedUser.backgroundImage,
         });
@@ -40,9 +41,12 @@ class UserPage extends React.Component {
 
     //fetches a user object based on the signin
     getUser = async () => {
-        const result = await axios.get(`${process.env.REACT_APP_BE_URL}/getUser`, {
-            withCredentials: true,
-        });
+        const result = await axios.get(
+            `${process.env.REACT_APP_BE_URL}/getUser`,
+            {
+                withCredentials: true,
+            }
+        );
         return result.data;
     };
 
@@ -64,7 +68,8 @@ class UserPage extends React.Component {
                 { backgroundColor: newBackgroundColor },
                 { withCredentials: true }
             );
-            if (response.status === 200) this.setState({ backgroundColor: newBackgroundColor });
+            if (response.status === 200)
+                this.setState({ backgroundColor: newBackgroundColor });
         }, 250);
     };
 

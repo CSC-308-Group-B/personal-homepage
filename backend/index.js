@@ -94,7 +94,12 @@ passport.use(
 //1) User makes a get request to sign in, so we try to authenticate via passport (See above for step "2")
 app.get(
     "/api/auth/google",
-    passport.authenticate("google", { scope: ["https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"] })
+    passport.authenticate("google", {
+        scope: [
+            "https://www.googleapis.com/auth/userinfo.email",
+            "https://www.googleapis.com/auth/userinfo.profile",
+        ],
+    })
 );
 //3) on success/error, return to our homepage. Now that the session is initialized, the user will be signed in immediately
 app.get(
@@ -106,7 +111,7 @@ app.get(
 );
 //If the get request on the frontend sends the session cookie, passport will automatically add a "user" field to "req", via the serialization methods (above)
 app.get("/getUser", async (req, res) => {
-    res.send((await getUser(req)));
+    res.send(await getUser(req));
 });
 
 /*
@@ -205,7 +210,12 @@ app.delete("/u/:id", async (req, res) => {
 });
 
 app.post("/u/:id/tiles", async (req, res) => {
-    const result = await userServices.addTileToUserById((await getUser(req))._id, req.body);
+    const result = await userServices.addTileToUserById(
+        (
+            await getUser(req)
+        )._id,
+        req.body
+    );
     if (result) {
         res.status(201).send(result);
     } else {
@@ -215,7 +225,9 @@ app.post("/u/:id/tiles", async (req, res) => {
 
 app.delete("/u/:id/:tileid", async (req, res) => {
     const result = await userServices.removeTileFromUserByIds(
-        (await getUser(req))._id,
+        (
+            await getUser(req)
+        )._id,
         req.params.tileid
     );
     if (result) {
@@ -249,7 +261,9 @@ app.post("/setBackgroundImage", async (req, res) => {
 
 app.post("/setStreamerName", async (req, res) => {
     const result = await userServices.updateTileDataFields(
-        (await getUser(req))._id,
+        (
+            await getUser(req)
+        )._id,
         req.body.tileId,
         {
             streamerName: req.body.streamerName,
@@ -264,7 +278,9 @@ app.post("/setStreamerName", async (req, res) => {
 
 app.post("/u/moveTile", async (req, res) => {
     const result = await userServices.updateTileFields(
-        (await getUser(req))._id,
+        (
+            await getUser(req)
+        )._id,
         req.body.tileId,
         { x: req.body.x, y: req.body.y }
     );
@@ -277,7 +293,9 @@ app.post("/u/moveTile", async (req, res) => {
 
 app.post("/u/setTileFields", async (req, res) => {
     const result = await userServices.updateTileFields(
-        (await getUser(req))._id,
+        (
+            await getUser(req)
+        )._id,
         req.body.tileId,
         req.body
     );
@@ -290,7 +308,9 @@ app.post("/u/setTileFields", async (req, res) => {
 
 app.post("/addToDoItem", async (req, res) => {
     const result = await userServices.addTileListItem(
-        (await getUser(req))._id,
+        (
+            await getUser(req)
+        )._id,
         req.body.tileId,
         req.body.tile
     );
@@ -308,7 +328,9 @@ app.post("/addToDoItem", async (req, res) => {
 
 app.delete("/removeToDoItem", async (req, res) => {
     const result = await userServices.deleteTileListItem(
-        (await getUser(req))._id,
+        (
+            await getUser(req)
+        )._id,
         req.body.tileId,
         req.body.itemId
     );
@@ -321,7 +343,9 @@ app.delete("/removeToDoItem", async (req, res) => {
 
 app.post("/updateToDoItem", async (req, res) => {
     const result = await userServices.updateTileListItem(
-        (await getUser(req))._id,
+        (
+            await getUser(req)
+        )._id,
         req.body.tileId,
         req.body.itemId,
         { status: req.body.status }
@@ -335,7 +359,9 @@ app.post("/updateToDoItem", async (req, res) => {
 
 app.post("/addBookmark", async (req, res) => {
     const result = await userServices.addTileListItem(
-        (await getUser(req))._id,
+        (
+            await getUser(req)
+        )._id,
         req.body.tileId,
         req.body.tile
     );
@@ -353,7 +379,9 @@ app.post("/addBookmark", async (req, res) => {
 
 app.delete("/removeBookmark", async (req, res) => {
     const result = await userServices.deleteTileListItem(
-        (await getUser(req))._id,
+        (
+            await getUser(req)
+        )._id,
         req.body.tileId,
         req.body.itemId
     );
@@ -366,7 +394,9 @@ app.delete("/removeBookmark", async (req, res) => {
 
 app.post("/updateNoteText", async (req, res) => {
     const result = await userServices.updateTileDataFields(
-        (await getUser(req))._id,
+        (
+            await getUser(req)
+        )._id,
         req.body.tileId,
         { text: req.body.text } //passes to user services
     );
@@ -379,7 +409,9 @@ app.post("/updateNoteText", async (req, res) => {
 
 app.post("/moveTileMobile", async (req, res) => {
     const result = await userServices.moveTileMobile(
-        (await getUser(req))._id,
+        (
+            await getUser(req)
+        )._id,
         req.body.tiles,
         req.body.tileId,
         req.body.direction
@@ -400,5 +432,10 @@ app.listen(process.env.PORT, () => {
 
 //static dev user
 getUser = async (request) => {
-    return request.user || (process.env.DEV_USER_EMAIL ? await userServices.getUserByEmail(process.env.DEV_USER_EMAIL) : null);
-}
+    return (
+        request.user ||
+        (process.env.DEV_USER_EMAIL
+            ? await userServices.getUserByEmail(process.env.DEV_USER_EMAIL)
+            : null)
+    );
+};

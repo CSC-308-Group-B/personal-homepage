@@ -69,14 +69,17 @@ class BookmarksTile extends React.Component {
 
     deleteBookmark = async (itemId) => {
         //send the delete request
-        const response = await axios.delete(`${process.env.REACT_APP_BE_URL}/removeBookmark`, {
-            data: {
-                userId: this.props.userId,
-                tileId: this.props._id,
-                itemId: itemId,
-            },
-            withCredentials: true,
-        });
+        const response = await axios.delete(
+            `${process.env.REACT_APP_BE_URL}/removeBookmark`,
+            {
+                data: {
+                    userId: this.props.userId,
+                    tileId: this.props._id,
+                    itemId: itemId,
+                },
+                withCredentials: true,
+            }
+        );
         //if we get a response...
         if (response && response.status === 204) {
             //for a valid response, filter out the deleted item and update our state

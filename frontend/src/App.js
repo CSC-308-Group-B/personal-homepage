@@ -1,16 +1,11 @@
 import React from "react";
-import {
-    BrowserRouter,
-    Routes,
-    Route,
-  } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserPage from "./components/UserPage";
 import TermsOfUsePage from "./components/TermsOfUsePage";
 import PrivacyPolicyPage from "./components/PrivacyPolicyPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styling/App.scss";
 import "./draggable.js";
-
 
 class App extends React.Component {
     render() {
