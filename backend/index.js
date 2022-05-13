@@ -238,7 +238,7 @@ app.delete("/u/:id/:tileid", async (req, res) => {
 });
 
 app.post("/setBackgroundColor", async (req, res) => {
-    const result = await userServices.setUserFields((await getUser(req))._id, {
+    const result = await userServices.setUserFields((await getUser(req)._id), {
         backgroundColor: req.body.color,
     });
     if (result) {
@@ -249,7 +249,7 @@ app.post("/setBackgroundColor", async (req, res) => {
 });
 
 app.post("/setBackgroundImage", async (req, res) => {
-    const result = await userServices.setUserFields((await getUser(req))._id, {
+    const result = await userServices.setUserFields((await getUser(req)._id), {
         backgroundImage: req.body.backgroundImage,
     });
     if (result) {
