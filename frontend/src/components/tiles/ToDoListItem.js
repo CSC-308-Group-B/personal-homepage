@@ -1,9 +1,16 @@
 import ListGroup from "react-bootstrap/ListGroup";
-import FormCheck from "react-bootstrap/FormCheck";
 import React from "react";
 import CloseButton from "react-bootstrap/esm/CloseButton";
 
 class ToDoListItem extends React.Component {
+    // constructor(props) {
+    //     //props
+    //     super(props);
+    //     this.state = {
+    //         status: this.props.status || 0,
+    //     };
+    // }
+
     itemClosed = (event) => {
         if (event.target.className.includes("ToDoListCloseButton"))
             this.props.deleteTask(this.props._id);
@@ -11,8 +18,7 @@ class ToDoListItem extends React.Component {
 
     itemClicked = (event) => {
         if (event.target.className.includes("ToDoListCloseButton")) return;
-        if (this.props.status === 0) this.props.finishTask(this.props._id);
-        if (this.props.status === 1) this.props.redoTask(this.props._id);
+        this.props.updateTaskStatus(this.props._id, 1 - this.props.status);
     };
 
     render() {

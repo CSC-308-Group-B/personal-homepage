@@ -2,7 +2,6 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import axios from "axios";
-import { backendURL } from "../../App.js";
 
 class UpcomingAssignmentsTile extends React.Component {
     constructor(props) {
@@ -16,11 +15,11 @@ class UpcomingAssignmentsTile extends React.Component {
 
     componentDidMount() {
         axios
-            .get(`${backendURL}/canvas/self`)
+            .get(`${process.env.REACT_APP_BE_URL}/canvas/self`)
             .then((response) => this.setStudent(response.data));
 
         axios
-            .get(`${backendURL}/canvas/upcomingassignments`)
+            .get(`${process.env.REACT_APP_BE_URL}/canvas/upcomingassignments`)
             .then((response) => this.setAssignments(response.data));
     }
 
@@ -33,7 +32,7 @@ class UpcomingAssignmentsTile extends React.Component {
     };
 
     getCanvasUser = async () => {
-        return await axios.get(`${backendURL}/canvas/self`);
+        return await axios.get(`${process.env.REACT_APP_BE_URL}/canvas/self`);
     };
 
     render() {
