@@ -5,6 +5,7 @@ const session = require("express-session");
 const cors = require("cors");
 const userServices = require("./model/userServices");
 const axios = require("axios");
+const path = require("path");
 
 //External APIs
 const passport = require("passport");
@@ -164,10 +165,18 @@ app.get("/canvas/upcomingassignments", async (req, res) => {
 
 /*
 
+    GOOGLE VERIFICATION
+
+*/
+app.get("/googlecf8bbac0c83fafc7.html", async (req, res) => {
+    res.sendFile(path.join(__dirname, '/googlecf8bbac0c83fafc7.html'));
+});
+
+/*
+
     OTHER ENDPOINTS
 
 */
-
 app.get("/", (req, res) => {
     res.send("Hello, world!");
 });
