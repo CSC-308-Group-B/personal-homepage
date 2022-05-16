@@ -11,7 +11,6 @@ import GradesTile from "./GradesTile";
 import axios from "axios";
 import HoverDropdown from "../HoverDropdown";
 import TwitchTile from "./TwitchTile";
-import { backendURL } from "../../App.js";
 import Button from "react-bootstrap/Button";
 
 class TileContainer extends React.Component {
@@ -45,7 +44,7 @@ class TileContainer extends React.Component {
 
     setWidth = async (newWidth) => {
         const res = await axios.post(
-            `${backendURL}/u/setTileFields`,
+            `${process.env.REACT_APP_BE_URL}/u/setTileFields`,
             {
                 userId: this.props.userId,
                 tileId: this.props._id,
@@ -72,7 +71,7 @@ class TileContainer extends React.Component {
         this.tileColorDebouncer = setTimeout(async () => {
             this.tileColorDebouncer = null;
             const res = await axios.post(
-                `${backendURL}/u/setTileFields`,
+                `${process.env.REACT_APP_BE_URL}/u/setTileFields`,
                 {
                     tileId: this.props._id,
                     color: newColor,
@@ -88,7 +87,7 @@ class TileContainer extends React.Component {
 
     applyBackgroundColorToAllTiles = async () => {
         const result = await axios.post(
-            `${backendURL}/applyBackgroundColorToAllTiles`,
+            `${process.env.REACT_APP_BE_URL}/applyBackgroundColorToAllTiles`,
             {
                 color: this.state.color,
             },
@@ -168,7 +167,7 @@ class TileContainer extends React.Component {
             transform = { width: "94vw", position: "static", margin: "3vw" };
         }
         return (
-            //These data parameters are so interact.js knows the initial position of the tiles.
+            //These data parameters are so interact.js knows the initial position of the tiles
             <div
                 className={`TileContainer ${
                     this.props.canEdit ? "draggable" : ""

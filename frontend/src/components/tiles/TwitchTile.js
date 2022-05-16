@@ -2,7 +2,6 @@ import Card from "react-bootstrap/Card";
 import React from "react";
 import ReactPlayer from "react-player";
 import axios from "axios";
-import { backendURL } from "../../App.js";
 
 class TwitchTile extends React.Component {
     constructor(props) {
@@ -14,7 +13,7 @@ class TwitchTile extends React.Component {
 
     updateStreamer = async (streamer) => {
         const response = await axios.post(
-            `${backendURL}/setStreamerName`,
+            `${process.env.REACT_APP_BE_URL}/setStreamerName`,
             { tileId: this.props._id, streamerName: streamer },
             { withCredentials: true }
         );

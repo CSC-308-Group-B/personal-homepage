@@ -3,21 +3,119 @@ import TileContainer from "./tiles/TileContainer";
 import SignIn from "./SignIn";
 import axios from "axios";
 import EditHeader from "./EditHeader";
-import { backendURL } from "../App.js";
+import Background from "./Background";
 
 class UserPage extends React.Component {
     constructor(props) {
         super(props);
         this.maxPageHeight = 0;
+        this.backgroundColorThrottler = null;
+        this.backgroundColorDebouncer = null;
         this.state = {
+            user: undefined,
+            backgroundColor: "",
+            backgroundImage: "",
             canEdit: false,
             snapToGrid: true,
         };
     }
 
+    //Runs immediately as the page begins rendering
+    componentDidMount() {
+        //if getUser returns a user, set the state
+        this.getUser().then((result) => {
+            if (result) this.updateUser(result);
+        });
+    }
+
+    //updates the user object; re-renders the page
+    updateUser = (updatedUser) => {
+        this.setState({
+            user: updatedUser,
+            backgroundColor:
+                this.state.backgroundColor || updatedUser.backgroundColor,
+            backgroundImage:
+                this.state.backgroundImage || updatedUser.backgroundImage,
+        });
+    };
+
+    //fetches a user object based on the signin
+    getUser = async () => {
+        const result = await axios.get(
+            `${process.env.REACT_APP_BE_URL}/getUser`,
+            {
+                withCredentials: true,
+            }
+        );
+        return result.data;
+    };
+
+    updateBackgroundColor = async (newBackgroundColor) => {
+        //Frontend throttling
+        if (!this.backgroundColorThrottler) {
+            this.backgroundColorThrottler = setTimeout(() => {
+                this.backgroundColorThrottler = null;
+                this.setState({ backgroundColor: newBackgroundColor });
+            }, 50);
+        }
+        //Backend debouncing
+        if (this.backgroundColorDebouncer) {
+            clearTimeout(this.backgroundColorDebouncer);
+        }
+        this.backgroundColorDebouncer = setTimeout(async () => {
+            const response = await axios.post(
+                `${process.env.REACT_APP_BE_URL}/setBackgroundColor`,
+                { backgroundColor: newBackgroundColor },
+                { withCredentials: true }
+            );
+            if (response.status === 200)
+                this.setState({ backgroundColor: newBackgroundColor });
+        }, 250);
+    };
+
+    updateBackgroundImage = async (newBackgroundImage) => {
+        const response = await axios.post(
+            `${process.env.REACT_APP_BE_URL}/setBackgroundImage`,
+            { backgroundImage: newBackgroundImage },
+            { withCredentials: true }
+        );
+        if (response) {
+            this.setState({ backgroundImage: newBackgroundImage });
+        }
+    };
+
+    addTile = async (tileType = "DefaultTile", defaultFields = {}) => {
+        //create base tile object
+        const newTile = {
+            tileType: tileType,
+            width: 1,
+            x: 0,
+            y: 0,
+            color: { r: 255, g: 255, b: 255, a: 1 },
+            ...defaultFields,
+        };
+        //Try adding tile to backend
+        const response = await axios.post(
+            `${process.env.REACT_APP_BE_URL}/u/${this.state.user._id}/tiles`,
+            newTile,
+            { withCredentials: true }
+        );
+        if (response) {
+            //if we get a successful response, add it to the frontend
+            if (this.state.user.tiles) {
+                newTile._id =
+                    response.data.tiles[response.data.tiles.length - 1]._id;
+                this.state.user.tiles.push(newTile);
+            }
+            this.updateUser(this.state.user);
+        } else {
+            console.log("Failed to add tile.");
+        }
+    };
+
     moveTile = async (tileId, x, y) => {
         await axios.post(
-            `${backendURL}/u/moveTile`,
+            `${process.env.REACT_APP_BE_URL}/u/moveTile`,
             {
                 tileId: tileId,
                 x: x,
@@ -30,22 +128,22 @@ class UserPage extends React.Component {
 
     removeTile = async (tileId) => {
         const response = await axios.delete(
-            `${backendURL}/u/${this.props.user._id}/${tileId}`,
+            `${process.env.REACT_APP_BE_URL}/u/${this.state.user._id}/${tileId}`,
             { withCredentials: true }
         );
         if (response) {
-            this.props.user.tiles = this.props.user.tiles.filter((tile) => {
+            this.state.user.tiles = this.state.user.tiles.filter((tile) => {
                 return tile._id !== tileId;
             });
-            this.props.updateUser(this.props.user);
+            this.updateUser(this.state.user);
         }
     };
 
     moveTileMobile = async (tileId, direction) => {
         const response = await axios.post(
-            `${backendURL}/moveTileMobile`,
+            `${process.env.REACT_APP_BE_URL}/moveTileMobile`,
             {
-                tiles: this.props.user.tiles,
+                tiles: this.state.user.tiles,
                 tileId: tileId,
                 direction: direction,
             },
@@ -53,7 +151,7 @@ class UserPage extends React.Component {
         );
 
         if (response.status === 200) {
-            this.props.updateUser(response.data);
+            this.updateUser(response.data);
         }
     };
 
@@ -82,68 +180,74 @@ class UserPage extends React.Component {
     }
 
     render() {
-        if (!this.props.user || !this.props.user.tiles) return <SignIn />;
+        if (!this.state.user || !this.state.user.tiles) return <SignIn />;
 
         this.maxPageHeight = 0;
 
-        document.title = `${this.props.user.name}'s Personal Homepage`;
+        document.title = `${this.state.user.name}'s Personal Homepage`;
 
         return (
-            <div className="UserPage">
-                <EditHeader
-                    color={this.props.color}
-                    backgroundImage={this.props.backgroundImage}
-                    updateBackgroundImage={this.props.updateBackgroundImage}
-                    updateColor={this.props.updateColor}
-                    addTile={this.props.addTile}
-                    toggleSnap={this.toggleSnap}
-                    canEdit={this.state.canEdit}
-                    canPick={this.state.canPick}
-                />
-                <img
-                    className="EditModeToggler"
-                    alt="#"
-                    src="https://icon-library.com/images/white-menu-icon-png/white-menu-icon-png-18.jpg"
-                    onClick={() => this.toggleEdit()}
-                ></img>
-                <div
-                    className={
-                        "tileScrollArea" +
-                        (this.state.canEdit ? " canEdit" : "")
-                    }
-                >
-                    <div id="editModeStatus">
-                        <div>EDITING</div>
-                    </div>
+            <div>
+                <div className="UserPage">
+                    <EditHeader
+                        backgroundColor={this.state.backgroundColor}
+                        backgroundImage={this.state.backgroundImage}
+                        setBackgroundImage={this.updateBackgroundImage}
+                        setBackgroundColor={this.updateBackgroundColor}
+                        addTile={this.addTile}
+                        toggleSnap={this.toggleSnap}
+                        canEdit={this.state.canEdit}
+                        canPick={this.state.canPick}
+                    />
+                    <img
+                        className="EditModeToggler"
+                        alt="#"
+                        src="https://icon-library.com/images/white-menu-icon-png/white-menu-icon-png-18.jpg"
+                        onClick={() => this.toggleEdit()}
+                    ></img>
                     <div
-                        id={"tileDragArea"}
-                        className={this.state.canEdit ? "canEdit" : ""}
+                        className={
+                            "tileScrollArea" +
+                            (this.state.canEdit ? " canEdit" : "")
+                        }
                     >
-                        {this.props.user.tiles.map((tile) => {
-                            this.updateTileAreaHeight(tile.y);
-                            return (
-                                <TileContainer
-                                    key={tile._id}
-                                    {...tile}
-                                    userId={this.props.user._id}
-                                    deleteTile={this.removeTile}
-                                    moveTile={this.moveTile}
-                                    moveTileMobile={this.moveTileMobile}
-                                    canEdit={this.state.canEdit}
-                                    snapToGrid={this.state.snapToGrid}
-                                    updateAllTileColors={this.updateAllTileColors}
-                                />
-                            );
-                        })}
-                        <div id="dragSpace" />
+                        <div id="editModeStatus">
+                            <div>EDITING</div>
+                        </div>
                         <div
-                            className={
-                                "extraDragSpace" +
-                                (this.state.canEdit ? " canEdit" : "")
-                            }
-                        />
+                            id={"tileDragArea"}
+                            className={this.state.canEdit ? "canEdit" : ""}
+                        >
+                            {this.state.user.tiles.map((tile) => {
+                                this.updateTileAreaHeight(tile.y);
+                                return (
+                                    <TileContainer
+                                        key={tile._id}
+                                        {...tile}
+                                        userId={this.state.user._id}
+                                        deleteTile={this.removeTile}
+                                        moveTile={this.moveTile}
+                                        moveTileMobile={this.moveTileMobile}
+                                        updateAllTileColors={this.updateAllTileColors}
+                                        canEdit={this.state.canEdit}
+                                        snapToGrid={this.state.snapToGrid}
+                                    />
+                                );
+                            })}
+                            <div id="dragSpace" />
+                            <div
+                                className={
+                                    "extraDragSpace" +
+                                    (this.state.canEdit ? " canEdit" : "")
+                                }
+                            />
+                        </div>
                     </div>
                 </div>
+                <Background
+                    backgroundColor={this.state.backgroundColor}
+                    backgroundImage={this.state.backgroundImage}
+                />
             </div>
         );
     }

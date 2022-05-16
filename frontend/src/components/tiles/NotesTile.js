@@ -1,7 +1,6 @@
 import Card from "react-bootstrap/Card";
 import React from "react";
 import axios from "axios";
-import { backendURL } from "../../App.js";
 
 class NotesTile extends React.Component {
     constructor(props) {
@@ -23,7 +22,7 @@ class NotesTile extends React.Component {
         }
 
         const response = await axios.post(
-            `${backendURL}/updateNoteText`,
+            `${process.env.REACT_APP_BE_URL}/updateNoteText`,
             {
                 tileId: this.props._id,
                 text: string,
