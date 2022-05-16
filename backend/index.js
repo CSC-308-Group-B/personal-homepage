@@ -308,9 +308,9 @@ app.post("/u/setTileFields", async (req, res) => {
 
 app.post("/applyBackgroundColorToAllTiles", async (req, res) => {
     let result = true;
-    for (let tile of req.user.tiles) {
+    for (let tile of (await getUser(req)).tiles) {
         result = result && await userServices.updateTileFields(
-            req.user._id,
+            (await getUser(req))._id,
             tile._id,
             req.body
         );
