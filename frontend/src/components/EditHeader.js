@@ -141,8 +141,8 @@ class EditHeader extends React.Component {
                         onChange={() => this.props.toggleSnap()}
                         onstyle="secondary"
                         offstyle="dark"
-                        onlabel="On"
-                        offlabel="Off"
+                        onlabel="ON"
+                        offlabel="OFF"
                         size="sm"
                     />
                 </div>
