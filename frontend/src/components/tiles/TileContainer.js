@@ -16,7 +16,6 @@ import Button from "react-bootstrap/Button";
 class TileContainer extends React.Component {
     constructor(props) {
         super(props);
-        this.selfRef = React.createRef();
         this.state = {
             width: this.props.width,
             color:
@@ -35,11 +34,11 @@ class TileContainer extends React.Component {
             .addEventListener("onTileMove", (e) => {
                 this.props.moveTile(this.props._id, e.detail.x, e.detail.y);
             });
-        console.log(this.selfRef.current);
-        this.selfRef.current.addEventListener("updateAllTileColors", (e) => {
-            console.log("hello");
-            // this.setState({color: e.detail.color});
-        });
+        window.addEventListener('updateAllTileColors', this.handleUpdateAllTileColors);
+    }
+
+    handleUpdateAllTileColors = ({ detail }) => {
+        this.setState({ color: detail });
     }
 
     setWidth = async (newWidth) => {
@@ -86,14 +85,7 @@ class TileContainer extends React.Component {
     };
 
     applyBackgroundColorToAllTiles = async () => {
-        const result = await axios.post(
-            `${process.env.REACT_APP_BE_URL}/applyBackgroundColorToAllTiles`,
-            {
-                color: this.state.color,
-            },
-            { withCredentials: true }
-        );
-        if (result) this.props.updateAllTileColors(this.state.color);
+        this.props.updateAllTileColors(this.state.color);
     }
 
     getTileType = () => {
@@ -177,7 +169,6 @@ class TileContainer extends React.Component {
                 data-x={this.props.x}
                 data-y={this.props.y}
                 data-snaptogrid={this.props.snapToGrid}
-                ref={this.selfRef}
             >
                 {this.getTileType()}
 

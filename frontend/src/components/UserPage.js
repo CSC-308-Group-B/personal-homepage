@@ -171,12 +171,21 @@ class UserPage extends React.Component {
         }
     };
 
-    updateAllTileColors = (newColor) => {
-        console.log("setting all tiles to " + newColor);
-        const updateAllTileColorsEvent = new CustomEvent('updateAllTileColors', {
-            color: newColor
-        });
-        window.dispatchEvent(updateAllTileColorsEvent);
+    updateAllTileColors = async (newColor) => {
+        const result = await axios.post(
+            `${process.env.REACT_APP_BE_URL}/applyBackgroundColorToAllTiles`,
+            {
+                color: newColor,
+            },
+            { withCredentials: true }
+        );
+        if (result && result.status === 200) {
+            const updateAllTileColorsEvent = new CustomEvent('updateAllTileColors', {
+                detail: newColor
+            });
+            window.dispatchEvent(updateAllTileColorsEvent);
+        }
+        
     }
 
     render() {
