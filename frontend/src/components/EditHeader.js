@@ -119,7 +119,7 @@ class EditHeader extends React.Component {
                         <input
                             className="backgroundPicker"
                             id="inputBackgroundImageURL"
-                            value={this.props.backgroundImage}
+                            defaultValue={this.props.backgroundImage}
                             onChange={() => this.updateBackground(this.value)}
                         />
                         <button

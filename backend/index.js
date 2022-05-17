@@ -238,7 +238,7 @@ app.delete("/u/:id/:tileid", async (req, res) => {
 });
 
 app.post("/setBackgroundColor", async (req, res) => {
-    const result = await userServices.setUserFields((await getUser(req)._id), {
+    const result = await userServices.setUserFields((await getUser(req))._id, {
         backgroundColor: req.body.color,
     });
     if (result) {
@@ -249,7 +249,7 @@ app.post("/setBackgroundColor", async (req, res) => {
 });
 
 app.post("/setBackgroundImage", async (req, res) => {
-    const result = await userServices.setUserFields((await getUser(req)._id), {
+    const result = await userServices.setUserFields((await getUser(req))._id, {
         backgroundImage: req.body.backgroundImage,
     });
     if (result) {
@@ -303,6 +303,22 @@ app.post("/u/setTileFields", async (req, res) => {
         res.status(200).send("Updated tile.");
     } else {
         res.status(500).send("Unable to update tile.");
+    }
+});
+
+app.post("/applyBackgroundColorToAllTiles", async (req, res) => {
+    let result = true;
+    for (let tile of (await getUser(req)).tiles) {
+        result = result && await userServices.updateTileFields(
+            (await getUser(req))._id,
+            tile._id,
+            req.body
+        );
+    }
+    if (result) {
+        res.status(200).send("Updated tiles.");
+    } else {
+        res.status(500).send("Unable to update tiles.");
     }
 });
 
