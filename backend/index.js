@@ -249,7 +249,6 @@ app.post("/setBackgroundColor", async (req, res) => {
 });
 
 app.post("/setBackgroundImage", async (req, res) => {
-    console.log(req.body.backgroundImage);
     const result = await userServices.setUserFields((await getUser(req))._id, {
         backgroundImage: req.body.backgroundImage,
     });
