@@ -50,6 +50,16 @@ class UserPage extends React.Component {
         return result.data;
     };
 
+    logout = async () => {
+        const response = await axios.get(
+            `${process.env.REACT_APP_BE_URL}/logout`,
+            { withCredentials: true }
+        );
+        if (response) {
+            this.updateUser(null);
+        }
+    };
+
     updateBackgroundColor = async (newBackgroundColor) => {
         //Frontend throttling
         if (!this.backgroundColorThrottler) {
@@ -171,22 +181,6 @@ class UserPage extends React.Component {
         }
     };
 
-    toggleEdit = () => {
-        this.setState({ canEdit: !this.state.canEdit });
-    };
-
-    toggleSnap = () => {
-        this.setState({ snapToGrid: !this.state.snapToGrid });
-    };
-
-    updateTileAreaHeight = (y) => {
-        this.maxPageHeight = Math.max(this.maxPageHeight, y);
-        let dragSpace = document.getElementById("dragSpace");
-        if (dragSpace) {
-            dragSpace.style.height = `${this.maxPageHeight}rem`;
-        }
-    };
-
     updateAllTileColors = async (newColor) => {
         const result = await axios.post(
             `${process.env.REACT_APP_BE_URL}/applyBackgroundColorToAllTiles`,
@@ -203,6 +197,22 @@ class UserPage extends React.Component {
                 }
             );
             window.dispatchEvent(updateAllTileColorsEvent);
+        }
+    };
+
+    toggleEdit = () => {
+        this.setState({ canEdit: !this.state.canEdit });
+    };
+
+    toggleSnap = () => {
+        this.setState({ snapToGrid: !this.state.snapToGrid });
+    };
+
+    updateTileAreaHeight = (y) => {
+        this.maxPageHeight = Math.max(this.maxPageHeight, y);
+        let dragSpace = document.getElementById("dragSpace");
+        if (dragSpace) {
+            dragSpace.style.height = `${this.maxPageHeight}rem`;
         }
     };
 
@@ -226,6 +236,7 @@ class UserPage extends React.Component {
                         deleteAllTiles={this.deleteAllTiles}
                         canEdit={this.state.canEdit}
                         canPick={this.state.canPick}
+                        logout={this.logout}
                     />
                     <img
                         className="EditModeToggler"
@@ -272,9 +283,7 @@ class UserPage extends React.Component {
                                         deleteTile={this.removeTile}
                                         moveTile={this.moveTile}
                                         moveTileMobile={this.moveTileMobile}
-                                        updateAllTileColors={
-                                            this.updateAllTileColors
-                                        }
+                                        updateAllTileColors={this.updateAllTileColors}
                                         canEdit={this.state.canEdit}
                                         snapToGrid={this.state.snapToGrid}
                                     />
