@@ -131,7 +131,7 @@ class UserPage extends React.Component {
             `${process.env.REACT_APP_BE_URL}/u/${this.state.user._id}/${tileId}`,
             { withCredentials: true }
         );
-        if (response.status == 204) {
+        if (response.status === 204) {
             this.state.user.tiles = this.state.user.tiles.filter((tile) => {
                 return tile._id !== tileId;
             });
@@ -149,7 +149,7 @@ class UserPage extends React.Component {
                 withCredentials: true,
             }
         );
-        if (response.status == 204) {
+        if (response.status === 204) {
             this.state.user.tiles = [];
             this.updateUser(this.state.user);
         }
@@ -234,7 +234,7 @@ class UserPage extends React.Component {
                         onClick={() => this.toggleEdit()}
                     ></img>
                     {!this.state.canEdit &&
-                        this.state.user.tiles.length == 0 && (
+                        this.state.user.tiles.length === 0 && (
                             <img
                                 className={"EditModeTogglerPointer"}
                                 alt="^"
@@ -242,7 +242,7 @@ class UserPage extends React.Component {
                             />
                         )}
                     {this.state.canEdit &&
-                        this.state.user.tiles.length == 0 && (
+                        this.state.user.tiles.length === 0 && (
                             <img
                                 className={"EditModeAddTilesPointer"}
                                 alt="^"
