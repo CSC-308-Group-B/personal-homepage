@@ -24,6 +24,7 @@ class Tile extends React.Component {
         };
         this.tileColorDebouncer = null;
         this.tileColorThrottler = null;
+        this.fontWhite = false;
     }
 
     componentDidMount() {
@@ -78,6 +79,11 @@ class Tile extends React.Component {
             }
         }, 500);
     };
+
+    fontColorWhite = () => {
+        // if ((this.color.r + this.color.g + this.color.b) / 3 <= 128)
+        //     this.setState({ fontWhite: true });
+    }
 
     getTileType = () => {
         switch (this.props.tileType) {
@@ -150,7 +156,11 @@ class Tile extends React.Component {
             <div
                 className={`TileContainer ${
                     this.props.canEdit ? "draggable" : ""
-                }`}
+                }
+                ${
+                    ((this.state.color.r + this.state.color.g + this.state.color.b) / 3 <= 128) ? "fontWhite" : ""
+                }`
+            }
                 id={this.props._id}
                 style={transform}
                 data-x={this.props.x}
