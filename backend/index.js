@@ -5,6 +5,7 @@ const session = require("express-session");
 const cors = require("cors");
 const userServices = require("./model/userServices");
 const axios = require("axios");
+const testingEnvironment = require("./model/configureTestingEnvironment");
 
 //External APIs
 const passport = require("passport");
@@ -453,6 +454,11 @@ app.post("/moveTileMobile", async (req, res) => {
         res.status(500).send();
     }
 });
+
+//config testing environment
+if (process.env.TESTING) {
+    testingEnvironment.init();
+}
 
 //Begin listening
 app.listen(process.env.PORT, () => {
