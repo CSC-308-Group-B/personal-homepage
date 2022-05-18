@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
 class HoverDropdownItem extends React.Component {
@@ -42,6 +42,8 @@ class HoverDropdown extends React.Component {
     };
 
     render() {
+        var dropdownType = this.props.dropType == "Down" ? "down" : "end";
+
         return (
             <div
                 className={"HoverDropdown " + this.props.className}
@@ -51,9 +53,9 @@ class HoverDropdown extends React.Component {
                 <DropdownButton
                     show={this.state.visible}
                     title={this.props.toggleContent}
-                    key="end"
+                    key={dropdownType}
                     id={`dropdown-button-drop-end`}
-                    drop="end"
+                    drop={dropdownType}
                 >
                     {this.props.children}
                 </DropdownButton>

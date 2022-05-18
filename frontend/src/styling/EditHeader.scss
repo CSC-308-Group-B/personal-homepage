@@ -1,27 +1,31 @@
 .EditHeader {
     transition: max-height 0.3s ease;
-    background-color: rgb(75, 75, 75);
+    background-color: $black;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     overflow: hidden;
-    height: 3rem;
     max-height: 0;
+    display: flex;
+    justify-content: flex-start;
+    
     & > * {
         transition: opacity 0.3s ease;
         opacity: 0;
     }
+
     &.canEdit {
         overflow: visible;
         max-height: 3rem;
+
         & > * {
             opacity: 1;
         }
     }
+
     & > * {
-        display: inline-block;
-        width: auto;
         height: 100%;
-        margin: auto;
         padding: 0.6rem 1rem;
         color: white;
+        width: auto;
         font-size: 1.25rem;
     }
 }
@@ -63,9 +67,7 @@
     cursor: pointer;
 }
 
-.EditHeaderDropdown > div > button > div {
-    font-size: 1.25rem;
-}
+
 
 .EditModeTogglerPointer {
     position: fixed;
@@ -83,6 +85,40 @@
     top: 2.5rem;
     left: 3rem;
     z-index: 99;
+}
+
+.btn-OnStyle {
+    background-color: $turqoise;
+
+    color: $white; 
+
+}
+
+.btn-OffStyle {
+    background-color: $blue;
+    color: $white;
+
+    & > :hover {
+    }
+}
+
+.outline-white{
+    outline: $white
+}
+
+.switch-group {
+    & > .switch-handle {
+        background-color: #fff;
+        color: #fff;
+    }
+
+    & > .switch-on {
+        color: $white;
+    }
+
+    & > .switch-off {
+        color: $white;
+    }
 }
 
 .logout {
