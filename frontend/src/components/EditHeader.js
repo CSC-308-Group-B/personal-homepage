@@ -2,6 +2,7 @@ import React from "react";
 import { HexColorPicker } from "react-colorful";
 import HoverDropdown from "./HoverDropdown";
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
+import Button from 'react-bootstrap/Button'
 
 class EditHeader extends React.Component {
     constructor(props) {
@@ -148,6 +149,9 @@ class EditHeader extends React.Component {
                         size="sm"
                     />
                 </div>
+                <Button onClick={this.props.logout} className="logout">
+                    Logout
+                </Button>
             </div>
         );
     }

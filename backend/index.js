@@ -109,6 +109,14 @@ app.get(
         res.redirect(process.env.FE_URL);
     }
 );
+
+app.get("/logout", function (req, res) {
+    req.session.destroy(function (e) {
+        req.logout();
+        res.redirect("/");
+    });
+});
+
 //If the get request on the frontend sends the session cookie, passport will automatically add a "user" field to "req", via the serialization methods (above)
 app.get("/getUser", async (req, res) => {
     res.send(await getUser(req));
