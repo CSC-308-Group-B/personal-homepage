@@ -100,10 +100,12 @@ class EditHeader extends React.Component {
                     >
                         Twitch
                     </HoverDropdown.Item>
+                    <HoverDropdown.Div />
                     <HoverDropdown.Item
-                        onClick={() => this.props.addTile("OtherTileString")}
+                        className="Danger"
+                        onClick={() => this.props.deleteAllTiles()}
                     >
-                        (Other type)
+                        Delete All Tiles
                     </HoverDropdown.Item>
                 </HoverDropdown>
                 <HoverDropdown

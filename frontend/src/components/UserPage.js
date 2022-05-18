@@ -131,10 +131,26 @@ class UserPage extends React.Component {
             `${process.env.REACT_APP_BE_URL}/u/${this.state.user._id}/${tileId}`,
             { withCredentials: true }
         );
-        if (response) {
+        if (response.status == 204) {
             this.state.user.tiles = this.state.user.tiles.filter((tile) => {
                 return tile._id !== tileId;
             });
+            this.updateUser(this.state.user);
+        }
+    };
+
+    deleteAllTiles = async () => {
+        const response = await axios.delete(
+            `${process.env.REACT_APP_BE_URL}/deleteAllTiles`,
+            {
+                data: {
+                    userId: this.state.user._id,
+                },
+                withCredentials: true,
+            }
+        );
+        if (response.status == 204) {
+            this.state.user.tiles = [];
             this.updateUser(this.state.user);
         }
     };
@@ -180,13 +196,15 @@ class UserPage extends React.Component {
             { withCredentials: true }
         );
         if (result && result.status === 200) {
-            const updateAllTileColorsEvent = new CustomEvent('updateAllTileColors', {
-                detail: newColor
-            });
+            const updateAllTileColorsEvent = new CustomEvent(
+                "updateAllTileColors",
+                {
+                    detail: newColor,
+                }
+            );
             window.dispatchEvent(updateAllTileColorsEvent);
         }
-        
-    }
+    };
 
     render() {
         if (!this.state.user || !this.state.user.tiles) return <SignIn />;
@@ -205,6 +223,7 @@ class UserPage extends React.Component {
                         setBackgroundColor={this.updateBackgroundColor}
                         addTile={this.addTile}
                         toggleSnap={this.toggleSnap}
+                        deleteAllTiles={this.deleteAllTiles}
                         canEdit={this.state.canEdit}
                         canPick={this.state.canPick}
                     />
@@ -214,6 +233,22 @@ class UserPage extends React.Component {
                         src="https://icon-library.com/images/white-menu-icon-png/white-menu-icon-png-18.jpg"
                         onClick={() => this.toggleEdit()}
                     ></img>
+                    {!this.state.canEdit &&
+                        this.state.user.tiles.length == 0 && (
+                            <img
+                                className={"EditModeTogglerPointer"}
+                                alt="^"
+                                src={require("../styling/img/editHeaderTogglerPointer.png")}
+                            />
+                        )}
+                    {this.state.canEdit &&
+                        this.state.user.tiles.length == 0 && (
+                            <img
+                                className={"EditModeAddTilesPointer"}
+                                alt="^"
+                                src={require("../styling/img/editHeaderAddTilesPointer.png")}
+                            />
+                        )}
                     <div
                         className={
                             "tileScrollArea" +
@@ -237,7 +272,9 @@ class UserPage extends React.Component {
                                         deleteTile={this.removeTile}
                                         moveTile={this.moveTile}
                                         moveTileMobile={this.moveTileMobile}
-                                        updateAllTileColors={this.updateAllTileColors}
+                                        updateAllTileColors={
+                                            this.updateAllTileColors
+                                        }
                                         canEdit={this.state.canEdit}
                                         snapToGrid={this.state.snapToGrid}
                                     />

@@ -34,12 +34,15 @@ class TileContainer extends React.Component {
             .addEventListener("onTileMove", (e) => {
                 this.props.moveTile(this.props._id, e.detail.x, e.detail.y);
             });
-        window.addEventListener('updateAllTileColors', this.handleUpdateAllTileColors);
+        window.addEventListener(
+            "updateAllTileColors",
+            this.handleUpdateAllTileColors
+        );
     }
 
     handleUpdateAllTileColors = ({ detail }) => {
         this.setState({ color: detail });
-    }
+    };
 
     setWidth = async (newWidth) => {
         const res = await axios.post(
@@ -86,65 +89,34 @@ class TileContainer extends React.Component {
 
     applyBackgroundColorToAllTiles = async () => {
         this.props.updateAllTileColors(this.state.color);
-    }
+    };
 
     getTileType = () => {
         let extraProps = {
-            tileColor: this.state.color
+            tileColor: this.state.color,
         };
 
         switch (this.props.tileType) {
             case "ToDoListTile":
-                return (
-                    <ToDoListTile
-                        {...this.props}
-                        {...extraProps}
-                    />
-                );
+                return <ToDoListTile {...this.props} {...extraProps} />;
             case "BookmarksTile":
-                return (
-                    <BookmarksTile
-                        {...this.props}
-                        {...extraProps}
-                    />
-                );
+                return <BookmarksTile {...this.props} {...extraProps} />;
             case "SearchBarTile":
-                return (
-                    <SearchBarTile
-                        {...this.props}
-                        {...extraProps}
-                    />
-                );
+                return <SearchBarTile {...this.props} {...extraProps} />;
             case "GradesTile":
-                return (
-                    <GradesTile {...this.props} {...this.extraProps} />
-                );
+                return <GradesTile {...this.props} {...extraProps} />;
             case "UpcomingAssignmentsTile":
                 return (
-                    <UpcomingAssignmentsTile
-                        {...this.props}
-                        {...extraProps}
-                    />
+                    <UpcomingAssignmentsTile {...this.props} {...extraProps} />
                 );
             case "RandomImageTile":
-                return (
-                    <RandomImageTile
-                        {...this.props}
-                        {...extraProps}
-                    />
-                );
+                return <RandomImageTile {...this.props} {...extraProps} />;
             case "TwitchTile":
-                return (
-                    <TwitchTile {...this.props} {...extraProps} />
-                );
+                return <TwitchTile {...this.props} {...extraProps} />;
             case "NotesTile":
-                return (
-                    <NotesTile {...this.props} {...extraProps} />
-                );
+                return <NotesTile {...this.props} {...extraProps} />;
             default:
-                return (
-                    <DefaultTile {...this.props} {...extraProps} />
-                );
+                return <DefaultTile {...this.props} {...extraProps} />;
         }
     };
 
@@ -222,7 +194,12 @@ class TileContainer extends React.Component {
                                     onChange={this.setTileColor}
                                 />
                             </div>
-                            <Button className="mx-2" onClick={this.applyBackgroundColorToAllTiles}>Apply to All</Button>
+                            <Button
+                                className="mx-2"
+                                onClick={this.applyBackgroundColorToAllTiles}
+                            >
+                                Apply to All
+                            </Button>
                         </HoverDropdown>
 
                         <HoverDropdown
@@ -273,7 +250,7 @@ class TileContainer extends React.Component {
 
                         <HoverDropdown.Div />
                         <HoverDropdown.Item
-                            className="TileDeleteButton"
+                            className="Danger"
                             onClick={() =>
                                 this.props.deleteTile(this.props._id)
                             }
