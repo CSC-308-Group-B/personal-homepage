@@ -66,3 +66,21 @@
 .EditHeaderDropdown > div > button > div {
     font-size: 1.25rem;
 }
+
+.EditModeTogglerPointer {
+    position: fixed;
+    height: 3rem;
+    width: 3rem;
+    top: 3rem;
+    right: 3rem;
+    z-index: 99;
+}
+
+.EditModeAddTilesPointer {
+    position: fixed;
+    height: 3rem;
+    width: 3rem;
+    top: 3rem;
+    left: 3rem;
+    z-index: 99;
+}

@@ -11,14 +11,15 @@ import GradesTile from "./GradesTile";
 import axios from "axios";
 import HoverDropdown from "../HoverDropdown";
 import TwitchTile from "./TwitchTile";
+import Button from "react-bootstrap/Button";
 
-class Tile extends React.Component {
+class TileContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             width: this.props.width,
             color:
-                this.props.color == undefined
+                this.props.color === undefined
                     ? { r: 255, g: 255, b: 255, a: 1 }
                     : this.props.color,
         };
@@ -33,8 +34,15 @@ class Tile extends React.Component {
             .addEventListener("onTileMove", (e) => {
                 this.props.moveTile(this.props._id, e.detail.x, e.detail.y);
             });
-        //test
+        window.addEventListener(
+            "updateAllTileColors",
+            this.handleUpdateAllTileColors
+        );
     }
+
+    handleUpdateAllTileColors = ({ detail }) => {
+        this.setState({ color: detail });
+    };
 
     setWidth = async (newWidth) => {
         const res = await axios.post(
@@ -79,59 +87,36 @@ class Tile extends React.Component {
         }, 500);
     };
 
+    applyBackgroundColorToAllTiles = async () => {
+        this.props.updateAllTileColors(this.state.color);
+    };
+
     getTileType = () => {
+        let extraProps = {
+            tileColor: this.state.color,
+        };
+
         switch (this.props.tileType) {
             case "ToDoListTile":
-                return (
-                    <ToDoListTile
-                        {...this.props}
-                        tileColor={this.state.color}
-                    />
-                );
+                return <ToDoListTile {...this.props} {...extraProps} />;
             case "BookmarksTile":
-                return (
-                    <BookmarksTile
-                        {...this.props}
-                        tileColor={this.state.color}
-                    />
-                );
+                return <BookmarksTile {...this.props} {...extraProps} />;
             case "SearchBarTile":
-                return (
-                    <SearchBarTile
-                        {...this.props}
-                        tileColor={this.state.color}
-                    />
-                );
+                return <SearchBarTile {...this.props} {...extraProps} />;
             case "GradesTile":
-                return (
-                    <GradesTile {...this.props} tileColor={this.state.color} />
-                );
+                return <GradesTile {...this.props} {...extraProps} />;
             case "UpcomingAssignmentsTile":
                 return (
-                    <UpcomingAssignmentsTile
-                        {...this.props}
-                        tileColor={this.state.color}
-                    />
+                    <UpcomingAssignmentsTile {...this.props} {...extraProps} />
                 );
             case "RandomImageTile":
-                return (
-                    <RandomImageTile
-                        {...this.props}
-                        tileColor={this.state.color}
-                    />
-                );
+                return <RandomImageTile {...this.props} {...extraProps} />;
             case "TwitchTile":
-                return (
-                    <TwitchTile {...this.props} tileColor={this.state.color} />
-                );
+                return <TwitchTile {...this.props} {...extraProps} />;
             case "NotesTile":
-                return (
-                    <NotesTile {...this.props} tileColor={this.state.color} />
-                );
+                return <NotesTile {...this.props} {...extraProps} />;
             default:
-                return (
-                    <DefaultTile {...this.props} tileColor={this.state.color} />
-                );
+                return <DefaultTile {...this.props} {...extraProps} />;
         }
     };
 
@@ -209,6 +194,12 @@ class Tile extends React.Component {
                                     onChange={this.setTileColor}
                                 />
                             </div>
+                            <Button
+                                className="mx-2"
+                                onClick={this.applyBackgroundColorToAllTiles}
+                            >
+                                Apply to All
+                            </Button>
                         </HoverDropdown>
 
                         <HoverDropdown
@@ -259,7 +250,7 @@ class Tile extends React.Component {
 
                         <HoverDropdown.Div />
                         <HoverDropdown.Item
-                            className="TileDeleteButton"
+                            className="Danger"
                             onClick={() =>
                                 this.props.deleteTile(this.props._id)
                             }
@@ -273,4 +264,4 @@ class Tile extends React.Component {
     }
 }
 
-export default Tile;
+export default TileContainer;
