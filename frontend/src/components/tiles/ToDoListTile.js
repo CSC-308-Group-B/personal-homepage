@@ -127,7 +127,12 @@ class ToDoListTile extends React.Component {
                                 placeholder="  new task"
                                 ref={this.textInputRef}
                             ></input>
-                            <button className="addTaskButton" onClick={() => this.addTask()}>ADD</button>
+                            <button
+                                className="addTaskButton"
+                                onClick={() => this.addTask()}
+                            >
+                                ADD
+                            </button>
                         </InputGroup>
                         <ListGroup className="taskItems">
                             {this.state.tasks &&

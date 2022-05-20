@@ -20,9 +20,12 @@ function SignIn(props) {
                 <div className="pt-2 pb-2">
                     Create a personalized landing page for your web browser.
                 </div>
-                <img className="SignInButton" onClick={googleLogin} alt="Sign in with Google" src={
-                    require("../styling/img/btn_google_signin_light_normal_web@2x.png")
-                } />
+                <img
+                    className="SignInButton"
+                    onClick={googleLogin}
+                    alt="Sign in with Google"
+                    src={require("../styling/img/btn_google_signin_light_normal_web@2x.png")}
+                />
             </div>
         </div>
     );
