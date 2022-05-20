@@ -444,3 +444,10 @@ test("Get tile list item (bad input)", async () => {
     );
     expect(foundItem).toBeUndefined();
 });
+
+//deleteAllTiles()
+test("Delete all tilrs", async () => {
+    await userServices.deleteAllTiles(userRagavan._id);
+    const updatedUser = await userServices.getUserById(userRagavan._id);
+    expect(updatedUser.tiles.length).toBe(0);
+});

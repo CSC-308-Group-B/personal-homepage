@@ -78,7 +78,7 @@ class SearchBarTile extends React.Component {
             >
                 <Card.Body>
                     <InputGroup className="SearchBarInputGroup">
-                        <HoverDropdown
+                        <HoverDropdown className="searchEngineImg"
                             toggleContent={
                                 <img alt="#" src={this.state.searchImage} />
                             }

@@ -45,14 +45,18 @@ class RandomImageTile extends React.Component {
 
     render() {
         return (
-            <div
-                className="RandomImageTile"
+            <Card
+                className="Card"
                 style={{
                     backgroundColor: `rgba(${this.props.tileColor.r}, ${this.props.tileColor.g}, ${this.props.tileColor.b}, ${this.props.tileColor.a})`,
                 }}
             >
-                <img alt="..." src={this.state.imageURL} />
-            </div>
+                <Card.Img
+                        className="RandomImage"
+                        alt="..."
+                        src={this.state.imageURL}>
+                </Card.Img>
+            </Card>
         );
     }
 }

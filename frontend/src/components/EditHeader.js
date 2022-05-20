@@ -2,6 +2,7 @@ import React from "react";
 import { HexColorPicker } from "react-colorful";
 import HoverDropdown from "./HoverDropdown";
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
+import Button from 'react-bootstrap/Button'
 
 class EditHeader extends React.Component {
     constructor(props) {
@@ -100,10 +101,12 @@ class EditHeader extends React.Component {
                     >
                         Twitch
                     </HoverDropdown.Item>
+                    <HoverDropdown.Div />
                     <HoverDropdown.Item
-                        onClick={() => this.props.addTile("OtherTileString")}
+                        className="Danger"
+                        onClick={() => this.props.deleteAllTiles()}
                     >
-                        (Other type)
+                        Delete All Tiles
                     </HoverDropdown.Item>
                 </HoverDropdown>
                 <HoverDropdown
@@ -119,7 +122,7 @@ class EditHeader extends React.Component {
                         <input
                             className="backgroundPicker"
                             id="inputBackgroundImageURL"
-                            value={this.props.backgroundImage}
+                            defaultValue={this.props.backgroundImage}
                             onChange={() => this.updateBackground(this.value)}
                         />
                         <button
@@ -141,11 +144,14 @@ class EditHeader extends React.Component {
                         onChange={() => this.props.toggleSnap()}
                         onstyle="secondary"
                         offstyle="dark"
-                        onlabel="On"
-                        offlabel="Off"
+                        onlabel="ON"
+                        offlabel="OFF"
                         size="sm"
                     />
                 </div>
+                <Button onClick={this.props.logout} className="logout">
+                    Logout
+                </Button>
             </div>
         );
     }

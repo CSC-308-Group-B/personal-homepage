@@ -134,7 +134,7 @@ class BookmarksTile extends React.Component {
                             className="addBookmark"
                             onClick={() => this.addBookmark()}
                         >
-                            Add
+                            ADD
                         </button>
                     </InputGroup>
                 </Card.Body>

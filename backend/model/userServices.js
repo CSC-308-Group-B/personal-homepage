@@ -118,6 +118,22 @@ async function removeTileFromUserByIds(id, tileId) {
     }
 }
 
+async function deleteAllTiles(id) {
+    const userModel = getDbConnection().model("User", UserSchema);
+    try {
+        return (
+            (await userModel.findByIdAndUpdate(
+                id,
+                { tiles: [] },
+                { safe: true }
+            )) || undefined
+        );
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
+}
+
 async function updateTileFields(userId, tileId, updatedFields) {
     const userModel = getDbConnection().model("User", UserSchema);
     let newFields = {};
@@ -368,3 +384,4 @@ exports.addTileListItem = addTileListItem;
 exports.deleteTileListItem = deleteTileListItem;
 exports.getTileListItem = getTileListItem;
 exports.moveTileMobile = moveTileMobile;
+exports.deleteAllTiles = deleteAllTiles;

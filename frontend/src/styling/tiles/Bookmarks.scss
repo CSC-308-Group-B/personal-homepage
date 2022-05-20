@@ -14,8 +14,23 @@
     max-height: 0;
     overflow: hidden;
     transition: 0.3s ease;
+    padding-top: 0.5rem;
+    & > input {
+        margin-top: 0.5rem;
+        &:hover {
+            transition: 0.3s ease;
+            background: rgb(228, 228, 228);
+        }
+    }
+    & > button {
+        margin-top: 0.5rem;
+        &:hover {
+            transition: 0.3s ease;
+            background:  rgb(228, 228, 228);
+        }
+    }
     &.canEdit {
-        max-height: 6rem;
+        max-height: 9rem;
     }
 }
 .BookmarksItem {

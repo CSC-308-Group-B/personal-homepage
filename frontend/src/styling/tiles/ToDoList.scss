@@ -10,6 +10,13 @@
     border-radius: 0;
 }
 
+.addTaskButton {
+    &:hover {
+        transition: 0.3s ease;
+        background: rgb(228, 228, 228);
+    }
+}
+
 .ToDoListCloseButton {
     position: absolute;
     top: 0.75rem;
@@ -26,6 +33,10 @@
     grid-template-columns: calc(100% - 4rem) 4rem;
     & > input {
         padding: 0.25rem 0.25rem;
+        &:hover {
+            transition: 0.3s ease;
+            background: rgb(228, 228, 228);
+        }
     }
 }
 
