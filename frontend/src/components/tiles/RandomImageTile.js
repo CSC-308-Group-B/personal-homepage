@@ -52,10 +52,10 @@ class RandomImageTile extends React.Component {
                 }}
             >
                 <Card.Img
-                        className="RandomImage"
-                        alt="..."
-                        src={this.state.imageURL}>
-                </Card.Img>
+                    className="RandomImage"
+                    alt="..."
+                    src={this.state.imageURL}
+                ></Card.Img>
             </Card>
         );
     }

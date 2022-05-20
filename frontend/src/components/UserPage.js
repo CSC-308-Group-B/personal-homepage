@@ -283,7 +283,9 @@ class UserPage extends React.Component {
                                         deleteTile={this.removeTile}
                                         moveTile={this.moveTile}
                                         moveTileMobile={this.moveTileMobile}
-                                        updateAllTileColors={this.updateAllTileColors}
+                                        updateAllTileColors={
+                                            this.updateAllTileColors
+                                        }
                                         canEdit={this.state.canEdit}
                                         snapToGrid={this.state.snapToGrid}
                                     />
