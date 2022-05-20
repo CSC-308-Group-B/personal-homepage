@@ -1,14 +1,9 @@
-.RandomImageTile {
+.RandomImage {
     aspect-ratio: 16 / 9;
     overflow: hidden;
-    // background: black;
-    & > .img {
-        object-fit: contain;
-        width: 100%;
-        height: 100%;
-    }
-}
-
-.RandomImage {
-    border-radius: 15px;
+    background: black;
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
+    border-radius: $Tile-Border-Radius;
 }
