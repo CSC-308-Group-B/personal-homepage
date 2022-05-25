@@ -46,7 +46,6 @@ $text-header-size: 1.1rem;
 
 .HeaderToggleSnap {
     transform: translate(0, 0.05rem);
-    
 }
 
 .BackgroundPicker {
@@ -67,8 +66,6 @@ $text-header-size: 1.1rem;
     z-index: 100;
     cursor: pointer;
 }
-
-
 
 .EditModeTogglerPointer {
     position: fixed;
@@ -91,20 +88,16 @@ $text-header-size: 1.1rem;
 .btn-OnStyle {
     background-color: $turqoise;
 
-    color: $white; 
-
+    color: $white;
 }
 
 .btn-OffStyle {
     background-color: $blue;
     color: $white;
-
-    & > :hover {
-    }
 }
 
-.outline-white{
-    outline: $white
+.outline-white {
+    outline: $white;
 }
 
 .switch-group {
@@ -131,7 +124,6 @@ $text-header-size: 1.1rem;
     margin-right: 3rem;
     padding: 0.2rem 0.5rem;
     display: auto;
-    
 }
 .logout:hover {
     background-color: white;
