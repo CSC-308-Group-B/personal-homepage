@@ -1,3 +1,5 @@
+$text-header-size: 1.1rem;
+
 .EditHeader {
     transition: max-height 0.3s ease;
     background-color: $black;
@@ -6,11 +8,7 @@
     max-height: 0;
     display: flex;
     justify-content: flex-start;
-    
-    & > * {
-        transition: opacity 0.3s ease;
-        opacity: 0;
-    }
+    align-items: center;
 
     &.canEdit {
         overflow: visible;
@@ -26,7 +24,13 @@
         padding: 0.6rem 1rem;
         color: white;
         width: auto;
-        font-size: 1.25rem;
+        font-size: $text-header-size;
+        transition: opacity 0.3s ease;
+        opacity: 0;
+    }
+
+    & > label {
+        margin-right: -1.1rem;
     }
 }
 
@@ -34,18 +38,15 @@
 .HeaderLabel {
     & > .dropdown > .dropdown-toggle,
     & > .dropdown-toggle {
-        font-size: 1.25rem;
+        font-size: $text-header-size;
         & > :hover {
-            color: black;
         }
     }
 }
 
 .HeaderToggleSnap {
     transform: translate(0, 0.05rem);
-    & > label {
-        margin-right: 0.75rem;
-    }
+    
 }
 
 .BackgroundPicker {
@@ -122,11 +123,15 @@
 }
 
 .logout {
-    background-color: rgb(75, 75, 75);
+    background-color: white;
     border-color: white;
+    color: black;
     float: right;
+    margin-left: auto;
     margin-right: 3rem;
+    padding: 0.2rem 0.5rem;
     display: auto;
+    
 }
 .logout:hover {
     background-color: white;

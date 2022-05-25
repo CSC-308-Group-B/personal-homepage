@@ -2,10 +2,9 @@
     cursor: pointer;
     width: 100%;
     z-index: 100;
-    color: $white;
 
-    & > .dropdown > .dropdown-toggle,
     & > .dropend > .dropdown-toggle,
+    & > .dropdown > .dropdown-toggle,
     & > .dropdown-toggle {
         background: none;
         border: none;
@@ -23,12 +22,9 @@
 
             &:hover {
                 transform: scale(1.1);
+
             }
         }
-    }
-
-    &:hover {
-        color: white;
     }
 
     & > .dropdown-menu {

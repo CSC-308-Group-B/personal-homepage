@@ -139,8 +139,8 @@ class EditHeader extends React.Component {
                         </button>
                     </div>
                 </HoverDropdown>
+                <label>Tile Snapping: </label>
                 <div className="HeaderToggleSnap">
-                    <label>Tile Snapping: </label>
                     <BootstrapSwitchButton
                         checked={this.state.snapping}
                         onChange={() => this.props.toggleSnap()}
