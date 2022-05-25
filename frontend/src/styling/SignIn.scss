@@ -1,12 +1,16 @@
-.SignInDiv {
+.SignInPage {
     margin: auto;
     margin-top: 8rem;
     width: 75vw;
     color: $blue;
     font-style: italic;
-    display: flex;
     justify-content: space-around;
     align-content: center;
+    padding-bottom: 8rem;
+}
+
+.SignInDiv {
+    display: flex;
 }
 
 .SignInLeft {
@@ -39,4 +43,21 @@
     height: auto;
     width: 16rem;
     cursor: pointer;
+}
+
+.SignInDesc {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.SignInTitle {
+    font-size: 2.5rem;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.SignInPreview {
+    width: 100%;
+    height: auto;
+    margin-top: 1.5rem;
 }
