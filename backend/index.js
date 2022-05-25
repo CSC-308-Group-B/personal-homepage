@@ -178,7 +178,7 @@ app.get("/canvas/upcomingassignments", async (req, res) => {
 
 */
 app.get("/googlecf8bbac0c83fafc7.html", async (req, res) => {
-    res.sendFile(path.join(__dirname, '/googlecf8bbac0c83fafc7.html'));
+    res.sendFile(path.join(__dirname, "/googlecf8bbac0c83fafc7.html"));
 });
 
 /*

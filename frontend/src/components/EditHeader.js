@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { HexColorPicker } from "react-colorful";
 import HoverDropdown from "./HoverDropdown";
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
@@ -41,8 +41,9 @@ class EditHeader extends React.Component {
                 }
             >
                 <HoverDropdown
-                    toggleContent={<div>ADD TILE</div>}
+                    toggleContent={<div>Add Tile</div>}
                     className="EditHeaderDropdown"
+                    dropType="Down"
                 >
                     <HoverDropdown.Item
                         onClick={() => this.props.addTile("ToDoListTile")}
@@ -110,8 +111,9 @@ class EditHeader extends React.Component {
                     </HoverDropdown.Item>
                 </HoverDropdown>
                 <HoverDropdown
-                    toggleContent={<div>BACKGROUND</div>}
+                    toggleContent={<div>Background</div>}
                     className="EditHeaderDropdown"
+                    dropType="Down"
                 >
                     <div className="BackgroundPicker">
                         <HexColorPicker
@@ -137,15 +139,15 @@ class EditHeader extends React.Component {
                         </button>
                     </div>
                 </HoverDropdown>
+                <label>Tile Snapping: </label>
                 <div className="HeaderToggleSnap">
-                    <label>TILE SNAPPING: </label>
                     <BootstrapSwitchButton
                         checked={this.state.snapping}
                         onChange={() => this.props.toggleSnap()}
-                        onstyle="secondary"
-                        offstyle="dark"
-                        onlabel="ON"
-                        offlabel="OFF"
+                        onstyle="OnStyle"
+                        offstyle="OffStyle"
+                        onlabel="On"
+                        offlabel="Off"
                         size="sm"
                     />
                 </div>
