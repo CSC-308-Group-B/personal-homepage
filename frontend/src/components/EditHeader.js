@@ -41,7 +41,7 @@ class EditHeader extends React.Component {
                 }
             >
                 <HoverDropdown
-                    toggleContent={<div>Add Tile ►</div>}
+                    toggleContent={<div>Add Tile</div>}
                     className="EditHeaderDropdown"
                     dropType="Down"
                 >
@@ -111,8 +111,9 @@ class EditHeader extends React.Component {
                     </HoverDropdown.Item>
                 </HoverDropdown>
                 <HoverDropdown
-                    toggleContent={<div>Background ►</div>}
+                    toggleContent={<div>Background</div>}
                     className="EditHeaderDropdown"
+                    dropType="Down"
                 >
                     <div className="BackgroundPicker">
                         <HexColorPicker
