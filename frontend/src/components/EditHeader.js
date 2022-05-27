@@ -33,6 +33,9 @@ class EditHeader extends React.Component {
         this.props.toggleSnap();
     };
 
+    getFeedback = () => {
+        window.open("https://forms.gle/4jsRGbgVRo9QAKnH8");    }
+
     render() {
         return (
             <div
@@ -151,9 +154,15 @@ class EditHeader extends React.Component {
                         size="sm"
                     />
                 </div>
-                <Button onClick={this.props.logout} className="logout">
-                    Logout
-                </Button>
+                <div className="rightHeader">
+                    <Button onClick={this.props.logout} className="logout">
+                        Logout
+                    </Button>
+                    <Button onClick={this.getFeedback} className="feedback">
+                        Feedback
+                    </Button>
+                    
+                </div>
             </div>
         );
     }
