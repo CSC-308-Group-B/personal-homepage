@@ -6,7 +6,6 @@ const cors = require("cors");
 const userServices = require("./model/userServices");
 const axios = require("axios");
 const path = require("path");
-const testingEnvironment = require("./model/configureTestingEnvironment");
 
 //External APIs
 const passport = require("passport");
