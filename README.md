@@ -34,6 +34,8 @@ All files        |   93.58 |    78.68 |     100 |   93.28 |
 ## CI/CD
 CI/CD relies on on passing npm run checkFormat, which uses prettier to check all files for proper styling conventions.
 The backend also relies on passing the unit tests, but not the api or e2e tests.
+Current CI/CD Status:
+![example branch parameter](https://github.com/CSC-308-Group-B/personal-homepage/actions/workflows/node.js.yml/badge.svg?branch=main)
 
 ## Story Board
 https://www.figma.com/file/vtQom8y60GYXE9LsMwJg8K/Default-Page?node-id=0%3A1
