@@ -32,12 +32,10 @@ const TileSchema = new mongoose.Schema({
         type: Object,
         required: false,
     },
-
     color: {
         type: Object,
         require: false,
     },
-
     list: {
         type: [ListItemSchema],
         default: undefined,
