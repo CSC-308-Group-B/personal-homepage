@@ -39,7 +39,7 @@ The backend also relies on passing the unit tests, but not the api or e2e tests.
 https://www.figma.com/file/vtQom8y60GYXE9LsMwJg8K/Default-Page?node-id=0%3A1
   
 ## Product Specifications
-https://docs.google.com/document/d/1yQKUnkIy9CcGSOS_j-ECx69nEttfRKPCzT7G81en6xg/edit?usp=sharing
+https://docs.google.com/document/d/1RXcVrdCBQc3pBFIN4pYkueE5jBkdfP_dD6l0F9gVv0s/edit?usp=sharing
 
 ## Code Formatter
 https://prettier.io/
