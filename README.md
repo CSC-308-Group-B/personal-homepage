@@ -31,7 +31,7 @@ All files        |   93.58 |    78.68 |     100 |   93.28 |
  userSchema.js   |     100 |      100 |     100 |     100 |                                   
  userServices.js |   93.37 |    78.68 |     100 |   93.05 | 14-15,28-29,48-49,132-133,344-345 
 
-## CI/CD ![CI/CD Status](https://github.com/CSC-308-Group-B/personal-homepage/actions/workflows/node.js.yml/badge.svg?branch=main)
+## CI/CD:  ![CI/CD Status](https://github.com/CSC-308-Group-B/personal-homepage/actions/workflows/node.js.yml/badge.svg?branch=main)
 CI/CD relies on on passing npm run checkFormat, which uses prettier to check all files for proper styling conventions.
 The backend also relies on passing the unit tests, but not the api or e2e tests.
 
