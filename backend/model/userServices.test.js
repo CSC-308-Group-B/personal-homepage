@@ -53,6 +53,18 @@ beforeEach(async () => {
                 x: 75,
                 y: 600,
             },
+            {
+                tileType: "noTileType",
+                width: 3,
+                x: 0,
+                y: 700,
+            },
+            {
+                tileType: "noTileType",
+                width: 1,
+                x: 25,
+                y: 800,
+            },
         ],
     };
     userBolas = new userModel(dummyUser);
@@ -446,8 +458,39 @@ test("Get tile list item (bad input)", async () => {
 });
 
 //deleteAllTiles()
-test("Delete all tilrs", async () => {
+test("Delete all tiles", async () => {
     await userServices.deleteAllTiles(userRagavan._id);
     const updatedUser = await userServices.getUserById(userRagavan._id);
     expect(updatedUser.tiles.length).toBe(0);
+});
+
+
+//moveTileMobile()
+test("Move tile up", async () => {
+    const updatedUser = await userServices.moveTileMobile(userBolas._id, userBolas.tiles, userBolas.tiles[2]._id, "up");
+    expect(updatedUser.tiles.length).toBe(userBolas.tiles.length);
+    expect(updatedUser.tiles[2]._id.toString()).toBe(userBolas.tiles[1]._id.toString());
+    expect(updatedUser.tiles[1]._id.toString()).toBe(userBolas.tiles[2]._id.toString());
+});
+test("Move tile down", async () => {
+    const updatedUser = await userServices.moveTileMobile(userBolas._id, userBolas.tiles, userBolas.tiles[2]._id, "down");
+    expect(updatedUser.tiles.length).toBe(userBolas.tiles.length);
+    expect(updatedUser.tiles[2]._id.toString()).toBe(userBolas.tiles[3]._id.toString());
+    expect(updatedUser.tiles[3]._id.toString()).toBe(userBolas.tiles[2]._id.toString());
+});
+test("Move tile top", async () => {
+    const updatedUser = await userServices.moveTileMobile(userBolas._id, userBolas.tiles, userBolas.tiles[2]._id, "top");
+    expect(updatedUser.tiles.length).toBe(userBolas.tiles.length);
+    expect(updatedUser.tiles[0]._id.toString()).toBe(userBolas.tiles[2]._id.toString());
+    expect(updatedUser.tiles[1]._id.toString()).toBe(userBolas.tiles[0]._id.toString());
+});
+test("Move tile bottom", async () => {
+    const updatedUser = await userServices.moveTileMobile(userBolas._id, userBolas.tiles, userBolas.tiles[2]._id, "bottom");
+    expect(updatedUser.tiles.length).toBe(userBolas.tiles.length);
+    expect(updatedUser.tiles[4]._id.toString()).toBe(userBolas.tiles[2]._id.toString());
+    expect(updatedUser.tiles[3]._id.toString()).toBe(userBolas.tiles[4]._id.toString());
+});
+test("Move tile impossible", async () => {
+    const updatedUser = await userServices.moveTileMobile(userBolas._id, userBolas.tiles, userBolas.tiles[0]._id, "up");
+    expect(updatedUser).toBeUndefined();
 });

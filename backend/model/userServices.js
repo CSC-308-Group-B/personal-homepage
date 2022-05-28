@@ -300,71 +300,49 @@ async function updateTileListItem(userId, tileId, itemId, updatedFields) {
     }
 }
 
-function swapTiles(tiles, tileIndex1, tileIndex2) {
-    temp = tiles[tileIndex2];
-    tiles[tileIndex2] = tiles[tileIndex1];
-    tiles[tileIndex1] = temp;
-    return tiles;
-}
 async function moveTileMobile(userId, tiles, tileId, direction) {
     const userModel = getDbConnection().model("User", UserSchema);
-
-    var tileIndex = 0;
-
-    for (tile of tiles) {
-        //If we find the tile we want to move up
-        if (tile._id.toString() == tileId.toString()) {
-            //Edge Cases
-            if (direction === "up" && tileIndex == 0) {
-                return undefined;
-            } else if (direction === "down" && tileIndex == tiles.length - 1) {
-                return undefined;
-            } else if (direction === "top" && tileIndex == 0) {
-                return undefined;
-            } else if (
-                direction === "bottom" &&
-                tileIndex == tiles.length - 1
-            ) {
-                return undefined;
-            } else {
-                //Swap previous tile with the identified tile
-                if (direction === "up")
-                    swappedTiles = swapTiles(tiles, tileIndex, tileIndex - 1);
-                else if (direction === "down")
-                    swappedTiles = swapTiles(tiles, tileIndex, tileIndex + 1);
-                else if (direction === "top")
-                    swappedTiles = swapTiles(tiles, tileIndex, 0);
-                else if (direction === "bottom")
-                    swappedTiles = swapTiles(
-                        tiles,
-                        tileIndex,
-                        tiles.length - 1
-                    );
-
-                //Update backend to new tile array
-                try {
-                    return (
-                        (await userModel.findOneAndUpdate(
-                            {
-                                _id: userId,
-                            },
-                            {
-                                $set: { tiles: swappedTiles },
-                            },
-                            {
-                                upsert: true,
-                                new: true,
-                                safe: true,
-                            }
-                        )) || undefined
-                    );
-                } catch (error) {
-                    console.log(error);
-                    return undefined;
+    const tileIndex = tiles.map(tile => tile._id).indexOf(tileId);
+    //Edge Cases
+    if (tileIndex < 0 || (direction === "up" && tileIndex == 0) || (direction === "down" && tileIndex == tiles.length - 1) || (direction === "top" && tileIndex == 0) || (direction === "bottom" && tileIndex == tiles.length - 1)) {
+        return undefined;
+    }
+    let swappedTiles = [...tiles];
+    //Swap previous tile with the identified tile
+    switch(direction) {
+        case "up":
+            [swappedTiles[tileIndex], swappedTiles[tileIndex - 1]] = [swappedTiles[tileIndex - 1], swappedTiles[tileIndex]];
+            break;
+        case "down":
+            [swappedTiles[tileIndex], swappedTiles[tileIndex + 1]] = [swappedTiles[tileIndex + 1], swappedTiles[tileIndex]];
+            break;
+        case "top":
+            swappedTiles.sort((a, b) => { return a._id == tileId ? -1 : b._id == tileId ? 1 : 0; });
+            break;
+        case "bottom":
+            swappedTiles.sort((a, b) => { return a._id == tileId ? 1 : b._id == tileId ? -1 : 0; });
+            break;
+    }
+    //Update backend to new tile array
+    try {
+        return (
+            await (userModel.findOneAndUpdate(
+                {
+                    _id: userId,
+                },
+                {
+                    $set: { "tiles": swappedTiles },
+                },
+                {
+                    upsert: true,
+                    new: true,
+                    safe: true,
                 }
-            }
-        }
-        tileIndex++;
+            ) || undefined)
+        );
+    } catch (error) {
+        console.log(error);
+        return undefined;
     }
 }
 
