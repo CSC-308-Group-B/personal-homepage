@@ -490,7 +490,23 @@ test("Move tile bottom", async () => {
     expect(updatedUser.tiles[4]._id.toString()).toBe(userBolas.tiles[2]._id.toString());
     expect(updatedUser.tiles[3]._id.toString()).toBe(userBolas.tiles[4]._id.toString());
 });
-test("Move tile impossible", async () => {
+test("Move tile impossible 1", async () => {
     const updatedUser = await userServices.moveTileMobile(userBolas._id, userBolas.tiles, userBolas.tiles[0]._id, "up");
+    expect(updatedUser).toBeUndefined();
+});
+test("Move tile impossible 2", async () => {
+    const updatedUser = await userServices.moveTileMobile(userBolas._id, userBolas.tiles, userBolas.tiles[4]._id, "down");
+    expect(updatedUser).toBeUndefined();
+});
+test("Move tile impossible 3", async () => {
+    const updatedUser = await userServices.moveTileMobile(userBolas._id, userBolas.tiles, userBolas.tiles[0]._id, "top");
+    expect(updatedUser).toBeUndefined();
+});
+test("Move tile impossible 4", async () => {
+    const updatedUser = await userServices.moveTileMobile(userBolas._id, userBolas.tiles, userBolas.tiles[4]._id, "bottom");
+    expect(updatedUser).toBeUndefined();
+});
+test("Move tile impossible 5", async () => {
+    const updatedUser = await userServices.moveTileMobile(userBolas._id, userBolas.tiles, fakeId, "up");
     expect(updatedUser).toBeUndefined();
 });
