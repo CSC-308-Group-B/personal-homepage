@@ -39,13 +39,20 @@ class TwitchTile extends React.Component {
             >
                 <Card.Body>
                     <Card.Title style={{ color: "black" }}>
-                        Twitch&ensp;
+                        <img
+                            className="TwitchIcon"
+                            alt="#"
+                            src="https://www.freepnglogos.com/uploads/twitch-app-logo-png-3.png"
+                        />
                         <input
+                            className="TwitchSearch"
                             defaultValue={this.state.streamer}
                             size="15"
                             id="streamer"
                             placeholder="Streamer"
                             onKeyPress={this.handleKeyPress}
+                            onBlur={(e) => this.updateStreamer(e.target.value)}
+                            onFocus={(e) => {e.target.select()}}
                         />
                     </Card.Title>
 

@@ -110,6 +110,14 @@ app.get(
         res.redirect(process.env.FE_URL);
     }
 );
+
+app.get("/logout", function (req, res) {
+    req.session.destroy(function (e) {
+        req.logout();
+        res.redirect("/");
+    });
+});
+
 //If the get request on the frontend sends the session cookie, passport will automatically add a "user" field to "req", via the serialization methods (above)
 app.get("/getUser", async (req, res) => {
     res.send(await getUser(req));
@@ -169,7 +177,7 @@ app.get("/canvas/upcomingassignments", async (req, res) => {
 
 */
 app.get("/googlecf8bbac0c83fafc7.html", async (req, res) => {
-    res.sendFile(path.join(__dirname, '/googlecf8bbac0c83fafc7.html'));
+    res.sendFile(path.join(__dirname, "/googlecf8bbac0c83fafc7.html"));
 });
 
 /*
@@ -246,9 +254,18 @@ app.delete("/u/:id/:tileid", async (req, res) => {
     }
 });
 
+app.delete("/deleteAllTiles", async (req, res) => {
+    const result = await userServices.deleteAllTiles((await getUser(req))._id);
+    if (result) {
+        res.status(204).send();
+    } else {
+        res.status(404).send();
+    }
+});
+
 app.post("/setBackgroundColor", async (req, res) => {
-    const result = await userServices.setUserFields((await getUser(req)._id), {
-        backgroundColor: req.body.color,
+    const result = await userServices.setUserFields((await getUser(req))._id, {
+        backgroundColor: req.body.backgroundColor,
     });
     if (result) {
         res.status(200).send("Updated color.");
@@ -258,7 +275,7 @@ app.post("/setBackgroundColor", async (req, res) => {
 });
 
 app.post("/setBackgroundImage", async (req, res) => {
-    const result = await userServices.setUserFields((await getUser(req)._id), {
+    const result = await userServices.setUserFields((await getUser(req))._id, {
         backgroundImage: req.body.backgroundImage,
     });
     if (result) {
@@ -300,6 +317,21 @@ app.post("/u/moveTile", async (req, res) => {
     }
 });
 
+app.post("/setTileWidth", async (req, res) => {
+    const result = await userServices.updateTileFields(
+        (
+            await getUser(req)
+        )._id,
+        req.body.tileId,
+        {width: req.body.width}
+    );
+    if (result) {
+        res.status(200).send("Updated tile.");
+    } else {
+        res.status(500).send("Unable to update tile.");
+    }
+});
+
 app.post("/u/setTileFields", async (req, res) => {
     const result = await userServices.updateTileFields(
         (
@@ -312,6 +344,26 @@ app.post("/u/setTileFields", async (req, res) => {
         res.status(200).send("Updated tile.");
     } else {
         res.status(500).send("Unable to update tile.");
+    }
+});
+
+app.post("/applyBackgroundColorToAllTiles", async (req, res) => {
+    let result = true;
+    for (let tile of (await getUser(req)).tiles) {
+        result =
+            result &&
+            (await userServices.updateTileFields(
+                (
+                    await getUser(req)
+                )._id,
+                tile._id,
+                req.body
+            ));
+    }
+    if (result) {
+        res.status(200).send("Updated tiles.");
+    } else {
+        res.status(500).send("Unable to update tiles.");
     }
 });
 
@@ -433,6 +485,11 @@ app.post("/moveTileMobile", async (req, res) => {
         res.status(500).send();
     }
 });
+
+//config testing environment
+if (process.env.TESTING) {
+    testingEnvironment.init();
+}
 
 //Begin listening
 app.listen(process.env.PORT, () => {

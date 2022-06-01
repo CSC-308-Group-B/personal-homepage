@@ -7,3 +7,17 @@
 .fontWhite > div > div > div > .ToDoListTitle {
     color: white;
 }
+
+.TwitchIcon {
+    height: 1.62rem;
+    width: 2.88rem;
+    margin-right: 0.5rem;
+}
+
+.TwitchSearch {
+    width: 75%;
+    &:hover {
+        transition: 0.3s ease;
+        background: rgb(228, 228, 228);
+    }
+}

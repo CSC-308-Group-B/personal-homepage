@@ -1,7 +1,8 @@
-import React from "react";
+﻿import React from "react";
 import { HexColorPicker } from "react-colorful";
 import HoverDropdown from "./HoverDropdown";
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
+import Button from "react-bootstrap/Button";
 
 class EditHeader extends React.Component {
     constructor(props) {
@@ -32,6 +33,9 @@ class EditHeader extends React.Component {
         this.props.toggleSnap();
     };
 
+    getFeedback = () => {
+        window.open("https://forms.gle/4jsRGbgVRo9QAKnH8");    }
+
     render() {
         return (
             <div
@@ -40,8 +44,9 @@ class EditHeader extends React.Component {
                 }
             >
                 <HoverDropdown
-                    toggleContent={<div>ADD TILE</div>}
+                    toggleContent={<div>Add Tile</div>}
                     className="EditHeaderDropdown"
+                    dropType="Down"
                 >
                     <HoverDropdown.Item
                         onClick={() => this.props.addTile("ToDoListTile")}
@@ -100,15 +105,18 @@ class EditHeader extends React.Component {
                     >
                         Twitch
                     </HoverDropdown.Item>
+                    <HoverDropdown.Div />
                     <HoverDropdown.Item
-                        onClick={() => this.props.addTile("OtherTileString")}
+                        className="Danger"
+                        onClick={() => this.props.deleteAllTiles()}
                     >
-                        (Other type)
+                        Delete All Tiles
                     </HoverDropdown.Item>
                 </HoverDropdown>
                 <HoverDropdown
-                    toggleContent={<div>BACKGROUND</div>}
+                    toggleContent={<div>Background</div>}
                     className="EditHeaderDropdown"
+                    dropType="Down"
                 >
                     <div className="BackgroundPicker">
                         <HexColorPicker
@@ -119,8 +127,10 @@ class EditHeader extends React.Component {
                         <input
                             className="backgroundPicker"
                             id="inputBackgroundImageURL"
-                            value={this.props.backgroundImage}
+                            placeholder="Image URL"
+                            defaultValue={this.props.backgroundImage}
                             onChange={() => this.updateBackground(this.value)}
+                            onFocus={(e) => {e.target.select()}}
                         />
                         <button
                             onClick={() => {
@@ -134,17 +144,26 @@ class EditHeader extends React.Component {
                         </button>
                     </div>
                 </HoverDropdown>
+                <label>Tile Snapping: </label>
                 <div className="HeaderToggleSnap">
-                    <label>TILE SNAPPING: </label>
                     <BootstrapSwitchButton
                         checked={this.state.snapping}
                         onChange={() => this.props.toggleSnap()}
-                        onstyle="secondary"
-                        offstyle="dark"
+                        onstyle="OnStyle"
+                        offstyle="OffStyle"
                         onlabel="On"
                         offlabel="Off"
                         size="sm"
                     />
+                </div>
+                <div className="rightHeader">
+                    <Button onClick={this.props.logout} className="logout">
+                        Logout
+                    </Button>
+                    <Button onClick={this.getFeedback} className="feedback">
+                        Feedback
+                    </Button>
+                    
                 </div>
             </div>
         );

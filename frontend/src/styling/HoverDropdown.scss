@@ -1,10 +1,10 @@
 .HoverDropdown {
     cursor: pointer;
-    overflow: none;
     width: 100%;
     z-index: 100;
 
     & > .dropend > .dropdown-toggle,
+    & > .dropdown > .dropdown-toggle,
     & > .dropdown-toggle {
         background: none;
         border: none;

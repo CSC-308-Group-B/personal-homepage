@@ -20,7 +20,7 @@ $editModeStatusColor: #00ffff;
         height: calc(100vh - 3rem);
         & > #editModeStatus {
             height: calc(100vh - 3rem);
-            border-color: $editModeStatusColor;
+            /*border-color: $editModeStatusColor;*/
             top: 3rem;
             z-index: 15;
             & > div {

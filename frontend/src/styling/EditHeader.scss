@@ -1,28 +1,36 @@
+$text-header-size: 1.1rem;
+
 .EditHeader {
     transition: max-height 0.3s ease;
-    background-color: rgb(75, 75, 75);
+    background-color: $black;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     overflow: hidden;
-    height: 3rem;
     max-height: 0;
-    & > * {
-        transition: opacity 0.3s ease;
-        opacity: 0;
-    }
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
     &.canEdit {
         overflow: visible;
         max-height: 3rem;
+
         & > * {
             opacity: 1;
         }
     }
+
     & > * {
-        display: inline-block;
-        width: auto;
         height: 100%;
-        margin: auto;
         padding: 0.6rem 1rem;
         color: white;
-        font-size: 1.25rem;
+        width: auto;
+        font-size: $text-header-size;
+        transition: opacity 0.3s ease;
+        opacity: 0;
+    }
+
+    & > label {
+        margin-right: -1.1rem;
     }
 }
 
@@ -30,18 +38,14 @@
 .HeaderLabel {
     & > .dropdown > .dropdown-toggle,
     & > .dropdown-toggle {
-        font-size: 1.25rem;
+        font-size: $text-header-size;
         & > :hover {
-            color: black;
         }
     }
 }
 
 .HeaderToggleSnap {
     transform: translate(0, 0.05rem);
-    & > label {
-        margin-right: 0.75rem;
-    }
 }
 
 .BackgroundPicker {
@@ -63,6 +67,82 @@
     cursor: pointer;
 }
 
-.EditHeaderDropdown > div > button > div {
-    font-size: 1.25rem;
+.EditModeTogglerPointer {
+    position: fixed;
+    height: 6rem;
+    width: auto;
+    top: 2.5rem;
+    right: 3rem;
+    z-index: 99;
+}
+
+.EditModeAddTilesPointer {
+    position: fixed;
+    height: 6rem;
+    width: auto;
+    top: 2.5rem;
+    left: 3rem;
+    z-index: 99;
+}
+
+.btn-OnStyle {
+    background-color: $turqoise;
+
+    color: $white;
+}
+
+.btn-OffStyle {
+    background-color: $blue;
+    color: $white;
+}
+
+.outline-white {
+    outline: $white;
+}
+
+.switch-group {
+    & > .switch-handle {
+        background-color: #fff;
+        color: #fff;
+    }
+
+    & > .switch-on {
+        color: $white;
+    }
+
+    & > .switch-off {
+        color: $white;
+    }
+}
+
+.logout {
+    background-color: white;
+    border-color: white;
+    color: black;
+    float: right;
+    padding: 0.2rem 0.5rem;
+    display: auto;
+}
+.logout:hover {
+    background-color: white;
+    color: black;
+}
+
+.rightHeader {
+    margin-left: auto;
+    margin-right: 3rem;
+}
+
+.feedback {
+    background-color: white;
+    border-color: white;
+    color: black;
+    float: right;
+    margin-right: 1rem;
+    padding: 0.2rem 0.5rem;
+    display: auto;
+}
+.feedback:hover {
+    background-color: white;
+    color: black;
 }

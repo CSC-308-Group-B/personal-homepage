@@ -2,10 +2,16 @@
     display: grid;
     grid-template-columns: 3rem auto;
     & > input {
-        width: 100%;
         transition: 0.2s ease;
+        &:hover {
+            background: rgb(228, 228, 228);
+        }
     }
     & .canEdit {
         width: 95%;
     }
+}
+
+.searchEngineImg {
+    padding-right: 1rem;
 }

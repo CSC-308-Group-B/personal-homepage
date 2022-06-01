@@ -18,10 +18,6 @@ class SearchBarTile extends React.Component {
         this.setState({ searchImage: image });
     };
 
-    highlightText = (event) => {
-        event.target.select();
-    };
-
     eventhandler = (event) => {
         if (event.key === "Enter") {
             var searchTerm = encodeURIComponent(
@@ -79,6 +75,7 @@ class SearchBarTile extends React.Component {
                 <Card.Body>
                     <InputGroup className="SearchBarInputGroup">
                         <HoverDropdown
+                            className="searchEngineImg"
                             toggleContent={
                                 <img alt="#" src={this.state.searchImage} />
                             }
@@ -125,7 +122,7 @@ class SearchBarTile extends React.Component {
                             </HoverDropdown.Item>
                         </HoverDropdown>
                         <input
-                            onFocus={this.highlightText}
+                            onFocus={(e) => {e.target.select()}}
                             onKeyPress={this.eventhandler}
                             id="searchField"
                             type="search"

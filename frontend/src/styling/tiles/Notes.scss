@@ -1,5 +1,6 @@
 .noteTile {
     padding: 0;
+    border-radius: $Tile-Border-Radius;
     & > textarea {
         background: none;
         margin: 0;

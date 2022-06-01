@@ -50,7 +50,7 @@ class NotesTile extends React.Component {
 
     render() {
         return (
-            <div
+            <Card
                 className="noteTile"
                 style={{
                     backgroundColor: `rgba(${this.props.tileColor.r}, ${this.props.tileColor.g}, ${this.props.tileColor.b}, ${this.props.tileColor.a})`,
@@ -77,7 +77,7 @@ class NotesTile extends React.Component {
                     <Card.Text>pulled from array</Card.Text>
                 </Card.Body>
             </Card> */}
-            </div>
+            </Card>
         );
     }
 
