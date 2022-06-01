@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1654120807245" clover="3.2.0">
-  <project timestamp="1654120807245" name="All files">
+<coverage generated="1654122888843" clover="3.2.0">
+  <project timestamp="1654122888843" name="All files">
     <metrics statements="151" coveredstatements="141" conditionals="61" coveredconditionals="48" methods="21" coveredmethods="21" elements="233" coveredelements="210" complexity="0" loc="151" ncloc="151" packages="1" files="2" classes="2"/>
     <file name="userSchema.js" path="/Users/kyleburton/Desktop/csc 308 - personal homepage/Personal-Homepage/backend/model/userSchema.js">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
