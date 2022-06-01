@@ -46,7 +46,6 @@ class BookmarksTile extends React.Component {
         const response = await axios.post(
             `${process.env.REACT_APP_BE_URL}/addBookmark`,
             {
-                userId: this.props.userId,
                 tileId: this.props._id,
                 tile: newBookmark,
             },
@@ -73,7 +72,6 @@ class BookmarksTile extends React.Component {
             `${process.env.REACT_APP_BE_URL}/removeBookmark`,
             {
                 data: {
-                    userId: this.props.userId,
                     tileId: this.props._id,
                     itemId: itemId,
                 },
@@ -99,7 +97,7 @@ class BookmarksTile extends React.Component {
 
         return (
             <Card
-                className="Card"
+                className="Card BookmarksTile"
                 style={{
                     backgroundColor: `rgba(${this.props.tileColor.r}, ${this.props.tileColor.g}, ${this.props.tileColor.b}, ${this.props.tileColor.a})`,
                 }}
@@ -124,11 +122,17 @@ class BookmarksTile extends React.Component {
                             className="input"
                             placeholder="  bookmark text"
                             ref={this.textInputRef}
+                            onFocus={(e) => {
+                                e.target.select();
+                            }}
                         ></input>
                         <input
                             className="input"
                             placeholder="  new url"
                             ref={this.urlInputRef}
+                            onFocus={(e) => {
+                                e.target.select();
+                            }}
                         ></input>
                         <button
                             className="addBookmark"

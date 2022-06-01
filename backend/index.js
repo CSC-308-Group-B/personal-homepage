@@ -6,7 +6,6 @@ const cors = require("cors");
 const userServices = require("./model/userServices");
 const axios = require("axios");
 const path = require("path");
-const testingEnvironment = require("./model/configureTestingEnvironment");
 
 //External APIs
 const passport = require("passport");
@@ -266,7 +265,7 @@ app.delete("/deleteAllTiles", async (req, res) => {
 
 app.post("/setBackgroundColor", async (req, res) => {
     const result = await userServices.setUserFields((await getUser(req))._id, {
-        backgroundColor: req.body.color,
+        backgroundColor: req.body.backgroundColor,
     });
     if (result) {
         res.status(200).send("Updated color.");
@@ -310,6 +309,21 @@ app.post("/u/moveTile", async (req, res) => {
         )._id,
         req.body.tileId,
         { x: req.body.x, y: req.body.y }
+    );
+    if (result) {
+        res.status(200).send("Updated tile.");
+    } else {
+        res.status(500).send("Unable to update tile.");
+    }
+});
+
+app.post("/setTileWidth", async (req, res) => {
+    const result = await userServices.updateTileFields(
+        (
+            await getUser(req)
+        )._id,
+        req.body.tileId,
+        { width: req.body.width }
     );
     if (result) {
         res.status(200).send("Updated tile.");

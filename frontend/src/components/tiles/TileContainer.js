@@ -25,6 +25,7 @@ class TileContainer extends React.Component {
         };
         this.tileColorDebouncer = null;
         this.tileColorThrottler = null;
+        this.fontWhite = false;
     }
 
     componentDidMount() {
@@ -45,10 +46,16 @@ class TileContainer extends React.Component {
     };
 
     setWidth = async (newWidth) => {
+        if (this.props.x / 25 + newWidth > 4) {
+            await this.props.moveTile(
+                this.props._id,
+                100 - newWidth * 25,
+                this.props.y
+            );
+        }
         const res = await axios.post(
-            `${process.env.REACT_APP_BE_URL}/u/setTileFields`,
+            `${process.env.REACT_APP_BE_URL}/setTileWidth`,
             {
-                userId: this.props.userId,
                 tileId: this.props._id,
                 width: newWidth,
             },
@@ -122,22 +129,31 @@ class TileContainer extends React.Component {
 
     render() {
         //Translates the tile to the coordinates specified in the x and y properties of the tile.
-        let transform = {
+        let tileStyle = {
             transform: `translate(${this.props.x}vw, ${this.props.y}rem)`,
             width: `${this.state.width * 25 - 2}vw`,
         };
 
         if (window.innerWidth < 720) {
-            transform = { width: "94vw", position: "static", margin: "3vw" };
+            tileStyle = { width: "94vw", position: "static", margin: "3vw" };
         }
         return (
             //These data parameters are so interact.js knows the initial position of the tiles
             <div
                 className={`TileContainer ${
                     this.props.canEdit ? "draggable" : ""
+                }
+                ${
+                    (this.state.color.r +
+                        this.state.color.g +
+                        this.state.color.b) /
+                        3 <=
+                    128
+                        ? "fontWhite"
+                        : ""
                 }`}
                 id={this.props._id}
-                style={transform}
+                style={tileStyle}
                 data-x={this.props.x}
                 data-y={this.props.y}
                 data-snaptogrid={this.props.snapToGrid}

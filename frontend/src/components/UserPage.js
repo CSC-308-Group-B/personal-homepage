@@ -153,9 +153,6 @@ class UserPage extends React.Component {
         const response = await axios.delete(
             `${process.env.REACT_APP_BE_URL}/deleteAllTiles`,
             {
-                data: {
-                    userId: this.state.user._id,
-                },
                 withCredentials: true,
             }
         );
