@@ -6,7 +6,7 @@
 * Feature Branches - developing features; merge into "dev" once complete
 
 ## local environment
-After cloning the repository, run npm install.
+After cloning the repository, run ```npm install```
 
 Then, create a .env file in the backend folder with the following values:
 * FE_URL = "http://localhost:3000"
@@ -23,9 +23,9 @@ Finally, run "npm run dev" in the backend, and "npm start" in the frontend
 
 ## Testing
 ### How to Configure Your Testing Environment
-Unit Tests: Run npm run test
+Unit Tests: Run ```npm run test```
 
-API & E2E Tests: In the .env file on your backend, change DEV_USER_EMAIL to "test" and run your backend, then use npx cypress open
+API & E2E Tests: In the .env file on your backend, change DEV_USER_EMAIL to "test" and run your backend, then use ```npx cypress open```
 ### Last Unit Test Coverage Report
 File             | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 -----------------|---------|----------|---------|---------|-----------------------------------
@@ -50,4 +50,6 @@ https://www.figma.com/file/vtQom8y60GYXE9LsMwJg8K/Default-Page?node-id=0%3A1
 https://docs.google.com/document/d/1RXcVrdCBQc3pBFIN4pYkueE5jBkdfP_dD6l0F9gVv0s/edit?usp=sharing
 
 ## Code Formatter
+To setup, run ```npm install prettier```
+Before merging any branches, run ```npm run format```
 https://prettier.io/
