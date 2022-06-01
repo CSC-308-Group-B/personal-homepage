@@ -122,11 +122,13 @@ class BookmarksTile extends React.Component {
                             className="input"
                             placeholder="  bookmark text"
                             ref={this.textInputRef}
+                            onFocus={(e) => {e.target.select()}}
                         ></input>
                         <input
                             className="input"
                             placeholder="  new url"
                             ref={this.urlInputRef}
+                            onFocus={(e) => {e.target.select()}}
                         ></input>
                         <button
                             className="addBookmark"

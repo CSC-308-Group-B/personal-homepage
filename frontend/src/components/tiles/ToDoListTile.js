@@ -123,6 +123,7 @@ class ToDoListTile extends React.Component {
                                 className="input"
                                 placeholder="  new task"
                                 ref={this.textInputRef}
+                                onFocus={(e) => {e.target.select()}}
                             ></input>
                             <button
                                 className="addTaskButton"
