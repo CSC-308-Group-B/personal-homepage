@@ -117,7 +117,7 @@ class ToDoListTile extends React.Component {
             >
                 <Card.Body>
                     <div>
-                        <Card.Title>To Do</Card.Title>
+                        <Card.Title className = "ToDoListTitle">To Do</Card.Title>
                         <InputGroup className="ToDoInputGroup">
                             <input
                                 className="input"

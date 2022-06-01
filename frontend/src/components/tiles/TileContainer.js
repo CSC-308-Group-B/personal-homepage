@@ -25,6 +25,7 @@ class TileContainer extends React.Component {
         };
         this.tileColorDebouncer = null;
         this.tileColorThrottler = null;
+        this.fontWhite = false;
     }
 
     componentDidMount() {
@@ -138,7 +139,11 @@ class TileContainer extends React.Component {
             <div
                 className={`TileContainer ${
                     this.props.canEdit ? "draggable" : ""
-                }`}
+                }
+                ${
+                    ((this.state.color.r + this.state.color.g + this.state.color.b) / 3 <= 128) ? "fontWhite" : ""
+                }`
+            }
                 id={this.props._id}
                 style={tileStyle}
                 data-x={this.props.x}
