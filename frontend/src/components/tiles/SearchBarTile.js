@@ -122,7 +122,9 @@ class SearchBarTile extends React.Component {
                             </HoverDropdown.Item>
                         </HoverDropdown>
                         <input
-                            onFocus={(e) => {e.target.select()}}
+                            onFocus={(e) => {
+                                e.target.select();
+                            }}
                             onKeyPress={this.eventhandler}
                             id="searchField"
                             type="search"

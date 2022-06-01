@@ -34,7 +34,8 @@ class EditHeader extends React.Component {
     };
 
     getFeedback = () => {
-        window.open("https://forms.gle/4jsRGbgVRo9QAKnH8");    }
+        window.open("https://forms.gle/4jsRGbgVRo9QAKnH8");
+    };
 
     render() {
         return (
@@ -130,7 +131,9 @@ class EditHeader extends React.Component {
                             placeholder="Image URL"
                             defaultValue={this.props.backgroundImage}
                             onChange={() => this.updateBackground(this.value)}
-                            onFocus={(e) => {e.target.select()}}
+                            onFocus={(e) => {
+                                e.target.select();
+                            }}
                         />
                         <button
                             onClick={() => {
@@ -163,7 +166,6 @@ class EditHeader extends React.Component {
                     <Button onClick={this.getFeedback} className="feedback">
                         Feedback
                     </Button>
-                    
                 </div>
             </div>
         );

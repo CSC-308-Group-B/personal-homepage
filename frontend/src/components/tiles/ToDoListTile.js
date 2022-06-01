@@ -117,13 +117,15 @@ class ToDoListTile extends React.Component {
             >
                 <Card.Body>
                     <div>
-                        <Card.Title className = "ToDoListTitle">To Do</Card.Title>
+                        <Card.Title className="ToDoListTitle">To Do</Card.Title>
                         <InputGroup className="ToDoInputGroup">
                             <input
                                 className="input"
                                 placeholder="  new task"
                                 ref={this.textInputRef}
-                                onFocus={(e) => {e.target.select()}}
+                                onFocus={(e) => {
+                                    e.target.select();
+                                }}
                             ></input>
                             <button
                                 className="addTaskButton"

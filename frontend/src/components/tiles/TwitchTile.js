@@ -52,7 +52,9 @@ class TwitchTile extends React.Component {
                             placeholder="Streamer"
                             onKeyPress={this.handleKeyPress}
                             onBlur={(e) => this.updateStreamer(e.target.value)}
-                            onFocus={(e) => {e.target.select()}}
+                            onFocus={(e) => {
+                                e.target.select();
+                            }}
                         />
                     </Card.Title>
 

@@ -302,44 +302,58 @@ async function updateTileListItem(userId, tileId, itemId, updatedFields) {
 
 async function moveTileMobile(userId, tiles, tileId, direction) {
     const userModel = getDbConnection().model("User", UserSchema);
-    const tileIndex = tiles.map(tile => tile._id).indexOf(tileId);
+    const tileIndex = tiles.map((tile) => tile._id).indexOf(tileId);
     //Edge Cases
-    if (tileIndex < 0 || (direction === "up" && tileIndex == 0) || (direction === "down" && tileIndex == tiles.length - 1) || (direction === "top" && tileIndex == 0) || (direction === "bottom" && tileIndex == tiles.length - 1)) {
+    if (
+        tileIndex < 0 ||
+        (direction === "up" && tileIndex == 0) ||
+        (direction === "down" && tileIndex == tiles.length - 1) ||
+        (direction === "top" && tileIndex == 0) ||
+        (direction === "bottom" && tileIndex == tiles.length - 1)
+    ) {
         return undefined;
     }
     let swappedTiles = [...tiles];
     //Swap previous tile with the identified tile
-    switch(direction) {
+    switch (direction) {
         case "up":
-            [swappedTiles[tileIndex], swappedTiles[tileIndex - 1]] = [swappedTiles[tileIndex - 1], swappedTiles[tileIndex]];
+            [swappedTiles[tileIndex], swappedTiles[tileIndex - 1]] = [
+                swappedTiles[tileIndex - 1],
+                swappedTiles[tileIndex],
+            ];
             break;
         case "down":
-            [swappedTiles[tileIndex], swappedTiles[tileIndex + 1]] = [swappedTiles[tileIndex + 1], swappedTiles[tileIndex]];
+            [swappedTiles[tileIndex], swappedTiles[tileIndex + 1]] = [
+                swappedTiles[tileIndex + 1],
+                swappedTiles[tileIndex],
+            ];
             break;
         case "top":
-            swappedTiles.sort((a, b) => { return a._id == tileId ? -1 : b._id == tileId ? 1 : 0; });
+            swappedTiles.sort((a, b) => {
+                return a._id == tileId ? -1 : b._id == tileId ? 1 : 0;
+            });
             break;
         case "bottom":
-            swappedTiles.sort((a, b) => { return a._id == tileId ? 1 : b._id == tileId ? -1 : 0; });
+            swappedTiles.sort((a, b) => {
+                return a._id == tileId ? 1 : b._id == tileId ? -1 : 0;
+            });
             break;
     }
     //Update backend to new tile array
     try {
-        return (
-            await (userModel.findOneAndUpdate(
-                {
-                    _id: userId,
-                },
-                {
-                    $set: { "tiles": swappedTiles },
-                },
-                {
-                    upsert: true,
-                    new: true,
-                    safe: true,
-                }
-            ) || undefined)
-        );
+        return await (userModel.findOneAndUpdate(
+            {
+                _id: userId,
+            },
+            {
+                $set: { tiles: swappedTiles },
+            },
+            {
+                upsert: true,
+                new: true,
+                safe: true,
+            }
+        ) || undefined);
     } catch (error) {
         console.log(error);
         return undefined;

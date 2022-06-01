@@ -323,7 +323,7 @@ app.post("/setTileWidth", async (req, res) => {
             await getUser(req)
         )._id,
         req.body.tileId,
-        {width: req.body.width}
+        { width: req.body.width }
     );
     if (result) {
         res.status(200).send("Updated tile.");

@@ -47,8 +47,11 @@ class TileContainer extends React.Component {
 
     setWidth = async (newWidth) => {
         if (this.props.x / 25 + newWidth > 4) {
-            await this.props.moveTile(this.props._id, 100 - newWidth * 25, this.props.y);
-
+            await this.props.moveTile(
+                this.props._id,
+                100 - newWidth * 25,
+                this.props.y
+            );
         }
         const res = await axios.post(
             `${process.env.REACT_APP_BE_URL}/setTileWidth`,
@@ -141,9 +144,14 @@ class TileContainer extends React.Component {
                     this.props.canEdit ? "draggable" : ""
                 }
                 ${
-                    ((this.state.color.r + this.state.color.g + this.state.color.b) / 3 <= 128) ? "fontWhite" : ""
-                }`
-            }
+                    (this.state.color.r +
+                        this.state.color.g +
+                        this.state.color.b) /
+                        3 <=
+                    128
+                        ? "fontWhite"
+                        : ""
+                }`}
                 id={this.props._id}
                 style={tileStyle}
                 data-x={this.props.x}
