@@ -99,7 +99,7 @@ class BookmarksTile extends React.Component {
 
         return (
             <Card
-                className="Card"
+                className="Card BookmarksTile"
                 style={{
                     backgroundColor: `rgba(${this.props.tileColor.r}, ${this.props.tileColor.g}, ${this.props.tileColor.b}, ${this.props.tileColor.a})`,
                 }}

@@ -80,10 +80,6 @@ class Tile extends React.Component {
         }, 500);
     };
 
-    fontColorWhite = () => {
-        // if ((this.color.r + this.color.g + this.color.b) / 3 <= 128)
-        //     this.setState({ fontWhite: true });
-    }
 
     getTileType = () => {
         switch (this.props.tileType) {
