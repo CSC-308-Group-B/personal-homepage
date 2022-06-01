@@ -265,7 +265,7 @@ app.delete("/deleteAllTiles", async (req, res) => {
 
 app.post("/setBackgroundColor", async (req, res) => {
     const result = await userServices.setUserFields((await getUser(req))._id, {
-        backgroundColor: req.body.color,
+        backgroundColor: req.body.backgroundColor,
     });
     if (result) {
         res.status(200).send("Updated color.");
