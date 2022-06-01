@@ -317,6 +317,21 @@ app.post("/u/moveTile", async (req, res) => {
     }
 });
 
+app.post("/setTileWidth", async (req, res) => {
+    const result = await userServices.updateTileFields(
+        (
+            await getUser(req)
+        )._id,
+        req.body.tileId,
+        {width: req.body.width}
+    );
+    if (result) {
+        res.status(200).send("Updated tile.");
+    } else {
+        res.status(500).send("Unable to update tile.");
+    }
+});
+
 app.post("/u/setTileFields", async (req, res) => {
     const result = await userServices.updateTileFields(
         (

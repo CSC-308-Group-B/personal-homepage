@@ -38,7 +38,6 @@ class ToDoListTile extends React.Component {
         const response = await axios.post(
             `${process.env.REACT_APP_BE_URL}/addToDoItem`,
             {
-                userId: this.props.userId,
                 tileId: this.props._id,
                 tile: newTask,
             },
@@ -65,7 +64,6 @@ class ToDoListTile extends React.Component {
             `${process.env.REACT_APP_BE_URL}/removeToDoItem`,
             {
                 data: {
-                    userId: this.props.userId,
                     tileId: this.props._id,
                     itemId: itemId,
                 },
@@ -90,7 +88,6 @@ class ToDoListTile extends React.Component {
         const response = await axios.post(
             `${process.env.REACT_APP_BE_URL}/updateToDoItem`,
             {
-                userId: this.props.userId,
                 tileId: this.props._id,
                 itemId: itemId,
                 status: newTaskStatus,

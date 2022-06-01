@@ -46,7 +46,6 @@ class BookmarksTile extends React.Component {
         const response = await axios.post(
             `${process.env.REACT_APP_BE_URL}/addBookmark`,
             {
-                userId: this.props.userId,
                 tileId: this.props._id,
                 tile: newBookmark,
             },
@@ -73,7 +72,6 @@ class BookmarksTile extends React.Component {
             `${process.env.REACT_APP_BE_URL}/removeBookmark`,
             {
                 data: {
-                    userId: this.props.userId,
                     tileId: this.props._id,
                     itemId: itemId,
                 },
