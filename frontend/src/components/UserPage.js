@@ -33,9 +33,9 @@ class UserPage extends React.Component {
         this.setState({
             user: updatedUser,
             backgroundColor:
-                this.state?.backgroundColor || updatedUser?.backgroundColor,
+                this.state.backgroundColor || updatedUser?.backgroundColor,
             backgroundImage:
-                this.state?.backgroundImage || updatedUser?.backgroundImage,
+                this.state.backgroundImage || updatedUser?.backgroundImage,
         });
     };
 
