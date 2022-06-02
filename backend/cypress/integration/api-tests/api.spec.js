@@ -71,7 +71,7 @@ describe('E2E Tests', () => {
         it('THEN assert no tiles exist on the page', () => {
             cy.get('.TileControls').should('not.exist');
         })
-    })
+    })  
 
     context('Logging out of account', () => {
 
@@ -79,15 +79,16 @@ describe('E2E Tests', () => {
             cy.get('.canEdit').should('exist')
         });
 
-        it('AND they click the logout button', () => {
+        it('AND the user is not cached', () => {
+            cy.clearCookies();
+        });
+
+        it('WHEN they click the logout button', () => {
             cy.get('.logout').click();
         })
 
-        it('THEN there should be no user when called', () => {
-            cy.request(`${Cypress.env().BE_URL}/getUser`).then((response) => {
-                cy.log(response.body)
-                assert.isNull(response.body, 'valid repsonse');
-            })
+        it('THEN they should be redirected to the homepage', () => {
+            cy.get('.Logo').contains('Personal Homepage');
         })
     })
 
