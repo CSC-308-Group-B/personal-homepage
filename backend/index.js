@@ -107,6 +107,7 @@ app.get(
     "/api/auth/google/callback",
     passport.authenticate("google", { failureRedirect: "/failure" }),
     (req, res) => {
+        console.log("session initialized");
         res.redirect(process.env.FE_URL);
     }
 );
@@ -120,6 +121,8 @@ app.get("/logout", function (req, res) {
 
 //If the get request on the frontend sends the session cookie, passport will automatically add a "user" field to "req", via the serialization methods (above)
 app.get("/getUser", async (req, res) => {
+    console.log("get User: ");
+    console.log(getUser(req));
     res.send(await getUser(req));
 });
 

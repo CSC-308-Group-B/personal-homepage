@@ -47,6 +47,7 @@ class UserPage extends React.Component {
                 withCredentials: true,
             }
         );
+        console.log(result.data);
         return result.data;
     };
 
