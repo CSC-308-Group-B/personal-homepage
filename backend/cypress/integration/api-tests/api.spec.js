@@ -27,21 +27,21 @@ describe('API Tests', () => {
 
     context('Adding a tile to User\'s Tiles', () => {
         it('GIVEN the backend is running', () => { })
-        it('GIVEN the user is valid', () => { })
-        it('WHEN send a POST request to add a tile', () => {
+        it('AND the user is valid', () => { /*VALIDATED THROUGH PREVIOUS TEST*/ })
+        it('WHEN a POST request is sent to add a tile', () => {
             cy.request("POST", `${Cypress.env().BE_URL}/u/111/tiles`, { tileType: "SearchBarTile", width: 2, x: 50, y: 8, color: { r: 100, b: 120, g: 140, a: 0.81 } }).then((response) => {
                 apiResponse = response;
             });
-        })
+        });
 
         it('THEN the repsonse is not null', () => {
             assert.isNotNull(apiResponse.body, 'THEN it gets a response');
-        })
+        });
 
         it('AND the response code is 201 (object was created)', () => {
             assert.equal(apiResponse.status, 201, 'AND the response code is 201, object was created');
-        })
-    })
+        });
+    });
 
 })
 
@@ -51,8 +51,8 @@ describe('E2E Tests', () => {
             cy.request(`${Cypress.env().BE_URL}/getUser`).then((response) => {
                 assert.isNotNull(apiResponse.body, 'valid repsonse');
                 testUser = response.body;
-            })
-        })
+            });
+        });
         cy.visit(`${Cypress.env().FE_URL}`);
     });
 
@@ -66,11 +66,11 @@ describe('E2E Tests', () => {
 
         it('WHEN they open a tile dropdown AND click \'Delete\'', () => {
             cy.get('.TileControls').invoke('show').click({ multiple: true }).get('.show > .Danger').click();
-        })
+        });
 
-        it('THEN assert no tiles exist on the page', () => {
+        it('THEN no tiles should exist on the page', () => {
             cy.get('.TileControls').should('not.exist');
-        })
+        });
     })  
 
     context('Logging out of account', () => {
@@ -79,17 +79,14 @@ describe('E2E Tests', () => {
             cy.get('.canEdit').should('exist')
         });
 
-        it('AND the user is not cached', () => {
+        it('WHEN they click the logout button', () => {
+            cy.get('.logout').click();
             cy.clearCookies();
         });
 
-        it('WHEN they click the logout button', () => {
-            cy.get('.logout').click();
-        })
-
         it('THEN they should be redirected to the homepage', () => {
             cy.get('.Logo').contains('Personal Homepage');
-        })
-    })
+        });
+    });
 
 })
