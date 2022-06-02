@@ -7,12 +7,13 @@ $text-header-size: 1.1rem;
     overflow: hidden;
     max-height: 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
 
     &.canEdit {
         overflow: visible;
-        max-height: 3rem;
+        max-height: 10rem;
 
         & > * {
             opacity: 1;
@@ -131,6 +132,12 @@ $text-header-size: 1.1rem;
 .rightHeader {
     margin-left: auto;
     margin-right: 3rem;
+}
+
+@media only screen and (max-width: 800px) {
+    .rightHeader{
+        margin-left: unset  ;
+    }
 }
 
 .feedback {
