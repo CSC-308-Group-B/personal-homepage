@@ -56,7 +56,7 @@ describe('E2E Tests', () => {
         cy.visit(`${Cypress.env().FE_URL}`);
     });
 
-    context('Removing a tile to User\'s Tiles', () => {
+    context('Removing  from tile to User\'s Tiles', () => {
 
 
         it('GIVEN a user is in Editmode', () => {
