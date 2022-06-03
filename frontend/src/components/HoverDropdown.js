@@ -42,7 +42,7 @@ class HoverDropdown extends React.Component {
     };
 
     render() {
-        var dropdownType = this.props.dropType == "Down" ? "down" : "end";
+        var dropdownType = this.props.dropType === "Down" ? "down" : "end";
 
         return (
             <div

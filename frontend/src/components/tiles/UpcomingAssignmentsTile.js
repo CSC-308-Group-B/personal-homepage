@@ -81,6 +81,7 @@ class UpcomingAssignmentsTile extends React.Component {
                                     </ListGroup.Item>
                                 );
                             }
+                            return;
                         })}
                     </ListGroup>
                 </Card.Body>
