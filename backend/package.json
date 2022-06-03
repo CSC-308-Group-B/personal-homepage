@@ -12,6 +12,10 @@
   },
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
+  },
   "dependencies": {
     "axios": "^0.26.1",
     "bluebird": "^3.7.2",
