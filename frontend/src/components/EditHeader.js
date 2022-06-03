@@ -160,10 +160,16 @@ class EditHeader extends React.Component {
                     />
                 </div>
                 <div className="rightHeader">
-                    <Button onClick={this.props.logout} className="logout">
+                    <Button
+                        onClick={this.props.logout}
+                        className="editHeaderButton"
+                    >
                         Logout
                     </Button>
-                    <Button onClick={this.getFeedback} className="feedback">
+                    <Button
+                        onClick={this.getFeedback}
+                        className="editHeaderButton feedbackButton"
+                    >
                         Feedback
                     </Button>
                 </div>

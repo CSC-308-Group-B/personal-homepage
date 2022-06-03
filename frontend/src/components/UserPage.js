@@ -236,12 +236,19 @@ class UserPage extends React.Component {
                         canPick={this.state.canPick}
                         logout={this.logout}
                     />
-                    <img
-                        className="EditModeToggler"
+                    <svg
+                        className={
+                            "EditModeToggler" +
+                            (this.state.canEdit ? " canEdit" : "")
+                        }
                         alt="#"
-                        src="https://icon-library.com/images/white-menu-icon-png/white-menu-icon-png-18.jpg"
                         onClick={() => this.toggleEdit()}
-                    ></img>
+                        viewBox="0 0 100 100"
+                    >
+                        <path className="line1" d="M10,20l80,0l-80,60" />
+                        <path className="line2" d="M10,80l80,0l-80,-60" />
+                        <path className="line3" d="M10,50l80,0" />
+                    </svg>
                     {!this.state.canEdit &&
                         this.state.user.tiles.length === 0 && (
                             <img

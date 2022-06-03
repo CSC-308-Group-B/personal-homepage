@@ -60,12 +60,44 @@ $text-header-size: 1.1rem;
 
 .EditModeToggler {
     position: fixed;
-    height: 3rem;
-    width: 3rem;
+    height: 3.25rem;
+    width: 3.75rem;
+    padding: 0.5rem;
     top: 0;
     right: 0;
     z-index: 100;
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+    stroke-linejoin: round;
+    stroke-miterlimit: 1.5;
+    filter: drop-shadow(0.125rem 0.125rem 0.15rem rgba(0, 0, 0, 0.3));
     cursor: pointer;
+    & > path {
+        fill: none;
+        stroke: white;
+        stroke-width: 0.75rem;
+        transition: 0.5s;
+    }
+    & > .line1,
+    > .line2 {
+        stroke-dasharray: 80 183;
+        stroke-dashoffset: 0;
+    }
+    & > .line3 {
+        stroke-dasharray: 80 80;
+        stroke-dashoffset: 0;
+    }
+}
+.EditModeToggler.canEdit {
+    & .line1,
+    .line2 {
+        stroke-dasharray: 103 183;
+        stroke-dashoffset: -80;
+    }
+    & .line3 {
+        stroke-dasharray: 0 60;
+        stroke-dashoffset: -40;
+    }
 }
 
 .EditModeTogglerPointer {
@@ -97,10 +129,6 @@ $text-header-size: 1.1rem;
     color: $white;
 }
 
-.outline-white {
-    outline: $white;
-}
-
 .switch-group {
     & > .switch-handle {
         background-color: #fff;
@@ -116,7 +144,7 @@ $text-header-size: 1.1rem;
     }
 }
 
-.logout {
+.editHeaderButton {
     background-color: white;
     border-color: white;
     color: black;
@@ -124,7 +152,7 @@ $text-header-size: 1.1rem;
     padding: 0.2rem 0.5rem;
     display: auto;
 }
-.logout:hover {
+.editHeaderButton:hover {
     background-color: white;
     color: black;
 }
@@ -140,16 +168,6 @@ $text-header-size: 1.1rem;
     }
 }
 
-.feedback {
-    background-color: white;
-    border-color: white;
-    color: black;
-    float: right;
+.feedbackButton {
     margin-right: 1rem;
-    padding: 0.2rem 0.5rem;
-    display: auto;
-}
-.feedback:hover {
-    background-color: white;
-    color: black;
 }

@@ -46,6 +46,7 @@ $editModeStatusColor: #00ffff;
         font-size: 2rem;
         text-align: right;
         color: $editModeStatusColor;
+        text-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.5);
         font-weight: bold;
         position: fixed;
         left: calc(100vw - 11rem);
