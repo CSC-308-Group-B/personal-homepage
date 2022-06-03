@@ -45,7 +45,7 @@ app.use(
         resave: true,
         saveUninitialized: true,
         cookie: {
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "none", //"lax", // must be 'none' to enable cross-site delivery
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "none" //"lax", // must be 'none' to enable cross-site delivery
             secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
         },
     })
