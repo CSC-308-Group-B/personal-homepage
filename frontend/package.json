@@ -37,8 +37,8 @@
     "dev": "react-scripts start",
     "format": "prettier --write ./src",
     "checkFormat": "prettier --check ./src",
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "start": "react-scripts start --max_old_space_size=2560",
+    "build": "react-scripts build --max_old_space_size=2560"
   },
   "eslintConfig": {
     "extends": [
